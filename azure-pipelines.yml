@@ -11,9 +11,10 @@ pool:
 
 steps:
 - script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  displayName: 'check build'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo "Jestem sobie glupi step"
+  displayName: 'deploy'
+
+
