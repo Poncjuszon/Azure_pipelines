@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+#trigger: none
+trigger: none
+
+pool: 'Azure Pipelines'
+
+stages:
+  - stage: Deploy_ton_environment
+    displayName: 'Deployment to envionment'
+    jobs:
+      - deployment: deployment
+        displayName: "Copy app files to environment"
+        environment: PROD.demoWinEnv
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - powershell: |
+                    pwd
+                    hostname
+                    ls
+
+
