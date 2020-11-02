@@ -48,7 +48,8 @@ stages:
                     buildType: 'current'
                     downloadType: 'single'
                     artifactName: 'Apps'
-                    downloadPath: '$(System.ArtifactsDirectory)'
+                    #downloadPath: '$(System.ArtifactsDirectory)'
+                    downloadPath: 'd:\DigitlHubCM'
                 - powershell: |
                     echo "poczatek"
                     Copy-item -Force -Recurse -Verbose * -Destination d:\DigitlHubCM
