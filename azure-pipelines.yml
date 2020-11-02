@@ -19,7 +19,7 @@ parameters:
 
 stages:
   - stage: Send_files_to_repository
-    displayName: push to art
+    displayName: push to art1
     jobs:
       - job: publish
         steps:
@@ -34,16 +34,17 @@ stages:
               publishLocation: 'pipeline'
 
   - stage: Deploy_to_environment
-    displayName: 'Deployment to envionment'
+    displayName: 'Deployment to envionment2'
     jobs:
       - deployment: deployment
-        displayName: "Copy app files to environment"
+        displayName: "Copy app files to environment2.1"
         environment: ${{ parameters.environment }}.demoWinEnv
         strategy:
           runOnce:
             deploy:
               steps:
                 - task: DownloadBuildArtifacts@0
+                  displayName: "downloading from artifactory2.1.1"
                   inputs:
                     buildType: 'current'
                     downloadType: 'single'
@@ -53,3 +54,4 @@ stages:
                     echo "poczatek"
                     Copy-item -Force -Recurse -Verbose * -Destination d:\DigitlHubCM
                     echo "koniec"
+                  displayName: "copy files2.1.2"
