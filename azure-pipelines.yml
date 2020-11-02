@@ -51,6 +51,6 @@ stages:
                     downloadPath: 'd:\DigitlHubCM'
                 - powershell: |
                     echo "poczatek"
-                    Copy-item -Force -Recurse -Verbose * -Destination d:\DigitlHubCM
+                    Copy-item -Force -Recurse -Verbose $(System.ArtifactsDirectory)\Apps -Destination d:\DigitlHubCM
                     echo "koniec"
                   displayName: "copy files2.1.2"
