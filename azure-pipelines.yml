@@ -54,9 +54,5 @@ stages:
               steps:
                 - powershell: |
                     echo "poczatek"
-                    pwd
-                    echo "hostname"
-                    hostname
-                    echo "dir"
-                    dir
+                    Copy-item -Force -Recurse -Verbose * -Destination d:\DigitlHubCM
                     echo "koniec"
