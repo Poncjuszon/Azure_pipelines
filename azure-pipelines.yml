@@ -26,12 +26,11 @@ stages:
           - script: |
               dir
               hostname
+              echo $(System.DefaultWorkingDirectory)
               echo "koniec"
-          - task: PublishPipelineArtifact@1
-            inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)\src'
-              artifact: 'Apps'
-              publishLocation: 'pipeline'
+          - publish: '$(System.DefaultWorkingDirectory)\src'
+            artifact: 'Apps'
+              #publishLocation: 'pipeline'
 
   - stage: Deploy_to_environment
     displayName: 'Deployment to envionment2'
