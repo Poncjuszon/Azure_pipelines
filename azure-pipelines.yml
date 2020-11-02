@@ -43,7 +43,6 @@ stages:
             deploy:
               steps:
                 - task: DownloadBuildArtifacts@0
-                  displayName: "downloading from artifactory2.1.1"
                   inputs:
                     buildType: 'current'
                     downloadType: 'single'
