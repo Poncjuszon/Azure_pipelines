@@ -4,7 +4,6 @@
 # https://aka.ms/yaml
 
 
-#trigger: none
 trigger: none
 
 pool: 'Azure Pipelines'
@@ -21,8 +20,10 @@ stages:
             deploy:
               steps:
                 - powershell: |
+                    echo "poczatek"
                     pwd
                     hostname
                     ls
+                    echo "koniec"
 
 
