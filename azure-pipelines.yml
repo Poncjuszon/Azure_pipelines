@@ -8,8 +8,6 @@ trigger: none
 
 pool: 'Azure Pipelines'
 
-
-
 parameters:
   - name: environment
     displayName: Environment
@@ -19,11 +17,34 @@ parameters:
       - UAT
       - QA
       - INT
+  - name: roles
+    displayName: Role in environment
+    type: object
 
 stages:
-  - stage: Deploy_ton_environment
+  - stage: Send files to repository
+    displayName: Obtaining files from repository and pushing them to artifactory
+    jobs:
+      - job: pubish
+        steps:
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Pipeline.Workspace)\src'
+              artifact: 'Apps'
+              publishLocation: 'pipeline'
+
+  - stage: Deploy_to_environment
     displayName: 'Deployment to envionment'
     jobs:
+      - job: download_from_artifactory
+        displayName: Downloading Apps from Artifactory
+        steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'Apps'
+              downloadPath: '$(System.ArtifactsDirectory)'
       - deployment: deployment
         displayName: "Copy app files to environment"
         environment: ${{ parameters.environment }}.demoWinEnv
@@ -34,8 +55,8 @@ stages:
                 - powershell: |
                     echo "poczatek"
                     pwd
+                    echo "hostname"
                     hostname
-                    ls
+                    echo "dir"
+                    dir
                     echo "koniec"
-
-
