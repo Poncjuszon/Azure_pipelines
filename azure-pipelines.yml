@@ -29,7 +29,7 @@ stages:
               echo "koniec"
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: '$(Pipeline.Workspace)\src'
+              targetPath: '$(System.DefaultWorkingDirectory)\src'
               artifact: 'Apps'
               publishLocation: 'pipeline'
 
