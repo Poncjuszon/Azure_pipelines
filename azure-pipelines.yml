@@ -23,6 +23,10 @@ stages:
     jobs:
       - job: publish
         steps:
+          - script: |
+              dir
+              hostname
+              echo "koniec"
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: '$(Pipeline.Workspace)\src'
