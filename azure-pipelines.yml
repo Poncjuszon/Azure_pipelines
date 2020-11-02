@@ -31,7 +31,6 @@ stages:
           runOnce:
             deploy:
               steps:
-                - 
                 - powershell: |
                     echo "poczatek"
                     pwd
