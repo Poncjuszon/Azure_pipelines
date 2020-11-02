@@ -8,17 +8,30 @@ trigger: none
 
 pool: 'Azure Pipelines'
 
+
+
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    values:
+      - PROD
+      - UAT
+      - QA
+      - INT
+
 stages:
   - stage: Deploy_ton_environment
     displayName: 'Deployment to envionment'
     jobs:
       - deployment: deployment
         displayName: "Copy app files to environment"
-        environment: PROD.demoWinEnv
+        environment: ${{ parameters.environment }}.demoWinEnv
         strategy:
           runOnce:
             deploy:
               steps:
+                - 
                 - powershell: |
                     echo "poczatek"
                     pwd
