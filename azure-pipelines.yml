@@ -1,7 +1,8 @@
 
 trigger: none
 
-pool: 'Azure Pipelines'
+pool:
+  vmImage: 'windows-latest'
 
 parameters:
   - name: environment
@@ -18,9 +19,9 @@ parameters:
 
 stages:
   - stage: Send_files_to_repository
-    displayName: Obtaining files from repository and pushing them to artifactory
+    displayName: push to art
     jobs:
-      - job: pubish
+      - job: publish
         steps:
           - task: PublishPipelineArtifact@1
             inputs:
