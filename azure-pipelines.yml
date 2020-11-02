@@ -28,7 +28,7 @@ stages:
               hostname
               echo $(System.DefaultWorkingDirectory)
               echo "koniec"
-          - publish: '$(System.DefaultWorkingDirectory)\src'
+          - publish: '$(System.DefaultWorkingDirectory)/src'
             artifact: 'Apps'
               #publishLocation: 'pipeline'
 
