@@ -36,7 +36,9 @@ stages:
     jobs:
       - deployment: deployment
         displayName: "Copy app files to environment2.1"
-        environment: ${{ parameters.environment }}.demoWinEnv
+        environment: 
+          name: ${{ parameters.environment }}
+          tags: SITECORE
         strategy:
           runOnce:
             deploy:
