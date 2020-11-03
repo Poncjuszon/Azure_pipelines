@@ -24,7 +24,7 @@ stages:
     jobs:
       - job: publish
         steps:
-          - publish: '${{ System.DefaultWorkingDirectory }}/src'
+          - publish: '$(System.DefaultWorkingDirectory)/src'
             artifact: 'Apps'
 
   - stage: Deploy_to_environment
@@ -42,7 +42,7 @@ stages:
               steps:
                 - task: CopyFiles@2
                   inputs:
-                    SourceFolder: '${{ System.DefaultWorkingDirectory }}\..\Apps\'
+                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
                     Contents: '**'
                     TargetFolder: '${{ variables.web_rootCM }}\Website\Apps'
                     OverWrite: true
