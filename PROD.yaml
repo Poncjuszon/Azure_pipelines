@@ -1,0 +1,3 @@
+variables:
+  web_rootCM: "D:\DigitalHubCM"
+  web_rootCD: "D:\DigitalHubCD"
