@@ -43,6 +43,7 @@ stages:
             deploy:
               steps:
                 - task: DownloadBuildArtifacts@0
+                  displayName: 'duuupa123'
                   inputs:
                     buildType: 'current'
                     downloadType: 'single'
