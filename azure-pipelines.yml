@@ -16,7 +16,7 @@ parameters:
 
 
 variables:
-  - template: envs/${{ parameters.environment }}.yaml
+  - template: DevOps/envs/${{ parameters.environment }}.yaml
 
 stages:
   - stage: Publish
@@ -24,22 +24,12 @@ stages:
     jobs:
       - job: publish
         steps:
-          - script: |
-              dir
-              hostname
-              echo $(System.DefaultWorkingDirectory)
-              echo "koniec"
           - publish: '$(System.DefaultWorkingDirectory)/src'
             artifact: 'Apps'
 
   - stage: Deploy_to_environment
     displayName: 'Copy files to Apps directory'
     jobs:
-#      - job: test_variable
-#        steps:
-#          - script: echo dupa 
-#          # ${{ variables }}
-#          - script: echo dupa2 ${{ variables.web_rootCM }}
       - deployment: deployment
         displayName: "Deployment"
         environment: 
