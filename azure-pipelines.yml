@@ -17,9 +17,12 @@ parameters:
     displayName: Role in environment
     type: object
 
+variables:
+  - template: ${{ parameters.environment }}.yaml
+
 stages:
-  - stage: Send_files_to_repository
-    displayName: push to art1
+  - stage: Publish
+    displayName: Publish content of src directory to Artifactory
     jobs:
       - job: publish
         steps:
@@ -32,10 +35,15 @@ stages:
             artifact: 'Apps'
 
   - stage: Deploy_to_environment
-    displayName: 'Deployment to envionment2'
+    displayName: 'Copy files to Apps directory'
     jobs:
+      - job: test variable
+        steps:
+          - script: |
+              echo ${{ variables }}
+              echo ${{ variables.web_rootCM }}
       - deployment: deployment
-        displayName: "Copy app files to environment2.1"
+        displayName: "Deployment"
         environment: 
           name: ${{ parameters.environment }}
           tags: SITECORE
