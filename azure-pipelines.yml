@@ -39,8 +39,10 @@ stages:
     jobs:
       - job: test_variable
         steps:
-          - script: echo ${{ variables }}
-          - script: echo ${{ variables.web_rootCM }}
+          - script: echo dupa 
+          # ${{ variables }}
+          - script: echo dupa2 
+          # ${{ variables.web_rootCM }}
       - deployment: deployment
         displayName: "Deployment"
         environment: 
