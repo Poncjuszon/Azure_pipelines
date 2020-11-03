@@ -18,7 +18,7 @@ parameters:
     type: object
 
 variables:
-  - template: ${{ parameters.environment }}.yaml
+  - template: envs/${{ parameters.environment }}.yaml
 
 stages:
   - stage: Publish
