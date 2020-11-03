@@ -48,9 +48,10 @@ stages:
                     downloadType: 'single'
                     artifactName: 'Apps'
                     #downloadPath: '$(System.ArtifactsDirectory)'
-                    downloadPath: 'D:/DigitlHubCM'
-#                - powershell: |
-#                    echo "poczatek"
-#                    Copy-item -Force -Recurse -Verbose $(System.DefaultWorkingDirectory)/Apps -Destination d:\DigitlHubCM
-#                    echo "koniec"
-#                  displayName: "copy files2.1.2"
+                    downloadPath: 'D:\DigitlHubCM'
+                - powershell: |
+                    echo "poczatek"
+                    ls $(System.DefaultWorkingDirectory)
+                    Copy-item -Force -Recurse -Verbose $(System.DefaultWorkingDirectory)\Apps -Destination d:\DigitlHubCM
+                    echo "koniec"
+                  displayName: "copy files2.1.2"
