@@ -42,14 +42,14 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: DownloadBuildArtifacts@0
-                  displayName: 'duuupa123'
-                  inputs:
-                    buildType: 'current'
-                    downloadType: 'single'
-                    artifactName: 'Apps'
+#                - task: DownloadBuildArtifacts@0
+#                  displayName: 'duuupa123'
+#                  inputs:
+#                    buildType: 'current'
+#                    downloadType: 'single'
+#                    artifactName: 'Apps'
                     #downloadPath: '$(System.ArtifactsDirectory)'
-                    downloadPath: 'D:\DigitlHubCM'
+#                    downloadPath: 'D:\DigitlHubCM'
                 - powershell: |
                     echo "poczatek"
                     ls $(System.DefaultWorkingDirectory)
