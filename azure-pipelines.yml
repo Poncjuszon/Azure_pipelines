@@ -56,5 +56,5 @@ stages:
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
                     Contents: '**'
-                    TargetFolder: 'd:\DigitlHubCM'
+                    TargetFolder: '${{ variables.web_rootCM }}'
                     OverWrite: true
