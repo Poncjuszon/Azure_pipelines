@@ -30,7 +30,6 @@ stages:
               echo "koniec"
           - publish: '$(System.DefaultWorkingDirectory)/src'
             artifact: 'Apps'
-              #publishLocation: 'pipeline'
 
   - stage: Deploy_to_environment
     displayName: 'Deployment to envionment2'
@@ -42,16 +41,9 @@ stages:
           runOnce:
             deploy:
               steps:
-#                - task: DownloadBuildArtifacts@0
-#                  displayName: 'duuupa123'
-#                  inputs:
-#                    buildType: 'current'
-#                    downloadType: 'single'
-#                    artifactName: 'Apps'
-                    #downloadPath: '$(System.ArtifactsDirectory)'
-#                    downloadPath: 'D:\DigitlHubCM'
-                - powershell: |
-                    echo "poczatek"
-                    ls $(System.DefaultWorkingDirectory)
-                    Copy-item -Force -Recurse -Verbose $(System.DefaultWorkingDirectory)\..\Apps -Destination d:\DigitlHubCM
-                  displayName: "copy files2.1.2"
+                - task: CopyFiles@2
+                  inputs:
+                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
+                    Contents: '**'
+                    TargetFolder: 'd:\DigitlHubCM'
+                    OverWrite: true
