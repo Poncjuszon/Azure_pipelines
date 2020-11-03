@@ -37,11 +37,11 @@ stages:
   - stage: Deploy_to_environment
     displayName: 'Copy files to Apps directory'
     jobs:
-      - job: test_variable
-        steps:
-          - script: echo dupa 
-          # ${{ variables }}
-          - script: echo dupa2 ${{ variables.web_rootCM }}
+#      - job: test_variable
+#        steps:
+#          - script: echo dupa 
+#          # ${{ variables }}
+#          - script: echo dupa2 ${{ variables.web_rootCM }}
       - deployment: deployment
         displayName: "Deployment"
         environment: 
