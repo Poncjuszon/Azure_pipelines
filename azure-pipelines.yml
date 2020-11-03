@@ -53,6 +53,6 @@ stages:
                 - powershell: |
                     echo "poczatek"
                     ls $(System.DefaultWorkingDirectory)
-                    Copy-item -Force -Recurse -Verbose $(System.DefaultWorkingDirectory)\Apps -Destination d:\DigitlHubCM
+                    Copy-item -Force -Recurse -Verbose $(System.DefaultWorkingDirectory)\..\Apps -Destination d:\DigitlHubCM
                     echo "koniec"
                   displayName: "copy files2.1.2"
