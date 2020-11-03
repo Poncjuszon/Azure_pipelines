@@ -34,7 +34,7 @@ stages:
         displayName: "Deployment"
         environment: 
           name: ${{ parameters.environment }}
-          tags: SITECORE
+          tags: CM | CD
           resourceType: virtualMachine
         strategy:
           runOnce:
