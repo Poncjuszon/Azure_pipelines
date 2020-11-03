@@ -41,8 +41,7 @@ stages:
         steps:
           - script: echo dupa 
           # ${{ variables }}
-          - script: echo dupa2 
-          # ${{ variables.web_rootCM }}
+          - script: echo dupa2 ${{ variables.web_rootCM }}
       - deployment: deployment
         displayName: "Deployment"
         environment: 
