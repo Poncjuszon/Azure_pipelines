@@ -39,6 +39,7 @@ stages:
         environment: 
           name: ${{ parameters.environment }}
           tags: SITECORE
+          resourceType: virtualMachine
         strategy:
           runOnce:
             deploy:
