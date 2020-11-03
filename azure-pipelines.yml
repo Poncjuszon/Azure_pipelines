@@ -37,7 +37,7 @@ stages:
   - stage: Deploy_to_environment
     displayName: 'Copy files to Apps directory'
     jobs:
-      - job: test variable
+      - job: test_variable
         steps:
           - script: |
               echo ${{ variables }}
