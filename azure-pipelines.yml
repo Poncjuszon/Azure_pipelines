@@ -13,9 +13,7 @@ parameters:
       - UAT
       - QA
       - INT
-  - name: roles
-    displayName: Role in environment
-    type: object
+
 
 variables:
   - template: envs/${{ parameters.environment }}.yaml
@@ -56,5 +54,5 @@ stages:
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
                     Contents: '**'
-                    TargetFolder: '${{ variables.web_rootCM }}'
+                    TargetFolder: '${{ variables.web_rootCM }}\Apps'
                     OverWrite: true
