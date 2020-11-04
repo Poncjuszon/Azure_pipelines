@@ -42,15 +42,15 @@ stages:
               steps:
                 - task: CopyFiles@2
                   inputs:
-                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
+                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
-                    TargetFolder: '${{ variables.web_rootCM }}\Website\Apps'
+                    TargetFolder: '${{ variables.web_rootCM }}\Website\apps'
                     OverWrite: true
       - deployment: deployment
         displayName: "Deployment to CD"
         environment: 
           name: ${{ parameters.environment }}
-          tags: CM | CD
+          tags: CD
           resourceType: virtualMachine
         strategy:
           runOnce:
@@ -58,7 +58,7 @@ stages:
               steps:
                 - task: CopyFiles@2
                   inputs:
-                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
+                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
-                    TargetFolder: '${{ variables.web_rootCD }}\Website\Apps'
+                    TargetFolder: '${{ variables.web_rootCD }}\Website\apps'
                     OverWrite: true
