@@ -31,7 +31,23 @@ stages:
     displayName: 'Copy files to Apps directory'
     jobs:
       - deployment: deployment
-        displayName: "Deployment"
+        displayName: "Deployment to CM"
+        environment: 
+          name: ${{ parameters.environment }}
+          tags: CM 
+          resourceType: virtualMachine
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: CopyFiles@2
+                  inputs:
+                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
+                    Contents: '**'
+                    TargetFolder: '${{ variables.web_rootCM }}\Website\Apps'
+                    OverWrite: true
+      - deployment: deployment
+        displayName: "Deployment to CD"
         environment: 
           name: ${{ parameters.environment }}
           tags: CM | CD
@@ -44,5 +60,5 @@ stages:
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\Apps\'
                     Contents: '**'
-                    TargetFolder: '${{ variables.web_rootCM }}\Website\Apps'
+                    TargetFolder: '${{ variables.web_rootCD }}\Website\Apps'
                     OverWrite: true
