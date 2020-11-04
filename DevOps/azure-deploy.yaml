@@ -30,7 +30,7 @@ stages:
   - stage: Deploy_to_environment
     displayName: 'Copy files to Apps directory'
     jobs:
-      - deployment: deployment
+      - deployment: deploymentCM
         displayName: "Deployment to CM"
         environment: 
           name: ${{ parameters.environment }}
@@ -46,7 +46,7 @@ stages:
                     Contents: '**'
                     TargetFolder: '${{ variables.web_rootCM }}\Website\apps'
                     OverWrite: true
-      - deployment: deployment
+      - deployment: deploymentCD
         displayName: "Deployment to CD"
         environment: 
           name: ${{ parameters.environment }}
