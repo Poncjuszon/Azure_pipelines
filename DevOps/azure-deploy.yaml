@@ -26,6 +26,12 @@ stages:
         steps:
           - publish: '$(System.DefaultWorkingDirectory)/src'
             artifact: 'Apps'
+          - task: AzureKeyVault@1
+            inputs:
+              azureSubscription: 'Private subscription(2)(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
+              KeyVaultName: '${{ parameters.environment }}-DH'
+              SecretsFilter: '*'
+              RunAsPreJob: false
 
   - stage: Deploy_to_environment
     displayName: 'Copy files to Apps directory'
