@@ -33,12 +33,12 @@ stages:
     jobs:
       - job:
         strategy:
-         matrix:
-          CM:
-            rootweb : "rootwebCM"
-          CD:
-            rootweb : "rootwebCD"
-         maxParallel: 2
+          matrix: ${variables.matrix}
+        #  CM:
+        #    rootweb : "rootwebCM"
+        #  CD:
+        #    rootweb : "rootwebCD"
+          maxParallel: 2
         steps:
           - script: echo $(rootweb)
           - task: PowerShell@2
