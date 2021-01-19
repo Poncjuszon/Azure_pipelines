@@ -1,5 +1,3 @@
 variables:
   web_rootCM: "D:\\DigitalHubCM"
-  Sitecore_Roles: 
-    - "CM"
-    - "CD" 
+  Sitecore_Roles: "CM, CD" 
