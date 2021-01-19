@@ -5,30 +5,30 @@ trigger: none
 pool:
   vmImage: 'windows-latest'
 
-parameters:
-  - name: environment
-    displayName: Environment
-    type: string
-    values:
-      - DigitalHub-INT
-      - PROD
-      - UAT
-      - QA
+#parameters:
+#  - name: environment
+#    displayName: Environment
+#    type: string
+#    values:
+#      - DigitalHub-INT
+#      - PROD
+#      - UAT
+#      - QA
 
-variables:
-  - template: envs/${{ parameters.environment }}.yaml
+#variables:
+#  - template: envs/${{ parameters.environment }}.yaml
 
 stages:
   - stage: Matrix
     displayName: Test Publish Matrix
-    condition: True
     jobs:
       - job: generator
         steps:
           - bash: echo "##vso[task.setVariable variable=legs;isOutput=true]{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-            name: mtrx 
+            name: mtrx #                                                     {'a':{'myvar':'A'}, 'b':{'myvar':'B'}}
           - script: echo $(mtrx.legs)
-      - job:
+      - job: deployer
+        dependsOn: generator
         strategy:
           matrix: $[ dependencies.generator.outputs['mtrx.legs'] ]
         #  CM:
@@ -43,3 +43,5 @@ stages:
               targetType: inline
               script: |
                 gci env:* | sort-object name
+
+ 
