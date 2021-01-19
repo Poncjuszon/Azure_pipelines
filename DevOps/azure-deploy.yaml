@@ -32,7 +32,7 @@ stages:
       - job: deployer
         dependsOn: generator
         strategy:
-          matrix: $(mtrx2) #$[ dependencies.generator.outputs['mtrx.legs'] ]
+          matrix: ${{ mtrx2 }} #$[ dependencies.generator.outputs['mtrx.legs'] ]
         #  CM:
         #    rootweb : "rootwebCM"
         #  CD:
