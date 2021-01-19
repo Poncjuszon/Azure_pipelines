@@ -15,7 +15,9 @@ pool:
 #      - UAT
 #      - QA
 
-#variables:
+variables:
+  - name: mtrx2
+    value: "'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}"
 #  - template: envs/${{ parameters.environment }}.yaml
 
 stages:
@@ -30,7 +32,7 @@ stages:
       - job: deployer
         dependsOn: generator
         strategy:
-          matrix: $[ dependencies.generator.outputs['mtrx.legs'] ]
+          matrix: $(mtrx2) #$[ dependencies.generator.outputs['mtrx.legs'] ]
         #  CM:
         #    rootweb : "rootwebCM"
         #  CD:
