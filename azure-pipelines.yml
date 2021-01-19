@@ -34,7 +34,7 @@ stages:
         displayName: "Deployment"
         environment: 
           name: ${{ parameters.environment }}
-          tags: CM
+          tags: ${{variables.Sitecore_Roles}}
           resourceType: virtualMachine
         strategy:
           runOnce:
