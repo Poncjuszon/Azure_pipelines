@@ -10,10 +10,10 @@ parameters:
     displayName: Environment
     type: string
     values:
+      - DigitalHub-INT
       - PROD
       - UAT
       - QA
-      - DigitalHub-INT
 
 variables:
   - template: envs/${{ parameters.environment }}.yaml
