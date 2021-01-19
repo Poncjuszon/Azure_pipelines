@@ -17,7 +17,7 @@ pool:
 
 variables:
   - name: mtrx2
-    value: "'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}"
+    value: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
 #  - template: envs/${{ parameters.environment }}.yaml
 
 stages:
