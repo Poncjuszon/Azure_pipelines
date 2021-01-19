@@ -27,29 +27,17 @@ stages:
           - publish: '$(System.DefaultWorkingDirectory)/src'
             artifact: 'Apps'
 
-  - stage: Deploy_to_environment
-    displayName: 'Copy files to Apps directory'
+  - stage: Matrix
+    displayName: Test Publish Matrix
+    condition: True
     jobs:
-      - deployment: deploymentCM
-        displayName: "Deployment to CM"
-        environment: 
-          name: ${{ parameters.environment }}
-          tags: CM 
-          resourceType: virtualMachine
+      - job:
         strategy:
-          runOnce:
-            deploy:
-              steps:
-                - task: CopyFiles@2
-                  inputs:
-                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
-                    Contents: '**'
-                    TargetFolder: '${{ variables.web_rootCM }}\Website\apps'
-                    OverWrite: true
-                - task: PowerShell@2
-                  inputs:
-                    targetType: 'inline'
-                    script: |
-                      # Write your PowerShell commands here.
-                      
-                      gci env:* | sort-object name
+         matrix:
+          CM:
+            rootweb : "rootwebCM"
+          CD:
+            rootweb : "rootwebCD"
+         maxParallel: 2
+        steps:
+          - script: echo $(rootweb)
