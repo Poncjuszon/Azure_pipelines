@@ -13,7 +13,7 @@ parameters:
       - PROD
       - UAT
       - QA
-      - INT
+      - DigitalHub-INT
 
 variables:
   - template: envs/${{ parameters.environment }}.yaml
@@ -45,20 +45,4 @@ stages:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
                     TargetFolder: '${{ variables.web_rootCM }}\Website\apps'
-                    OverWrite: true
-      - deployment: deploymentCD
-        displayName: "Deployment to CD"
-        environment: 
-          name: ${{ parameters.environment }}
-          tags: CD
-          resourceType: virtualMachine
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - task: CopyFiles@2
-                  inputs:
-                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
-                    Contents: '**'
-                    TargetFolder: '${{ variables.web_rootCD }}\Website\apps'
                     OverWrite: true
