@@ -33,7 +33,7 @@ stages:
     jobs:
       - job:
         strategy:
-          matrix: ${variables.matrix}
+          matrix: ${{ variables.matrix }}
         #  CM:
         #    rootweb : "rootwebCM"
         #  CD:
