@@ -19,21 +19,18 @@ variables:
   - template: envs/${{ parameters.environment }}.yaml
 
 stages:
-  - stage: Publish
-    displayName: Publish content of src directory to Artifactory
-    jobs:
-      - job: publish
-        steps:
-          - publish: '$(System.DefaultWorkingDirectory)/src'
-            artifact: 'Apps'
-
   - stage: Matrix
     displayName: Test Publish Matrix
     condition: True
     jobs:
+      - job: generator
+        steps:
+          - bash: echo "##vso[task.setVariable variable=legs;isOutput=true]{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
+            name: mtrx 
+          - script: echo $(mtrx.legs)
       - job:
         strategy:
-          matrix: ${{ variables.matrix }}
+          matrix: $[ dependencies.generator.outputs['mtrx.legs'] ]
         #  CM:
         #    rootweb : "rootwebCM"
         #  CD:
