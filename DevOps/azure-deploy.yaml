@@ -16,9 +16,14 @@ pool:
 #      - QA
 
 variables:
-  - name: mtrx2
-    value: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-
+#  - name: mtrx2
+#    value: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
+   - name: DeploymentMatrix
+     value: |
+       CD:
+         rootweb: rootwebCD
+       CM:
+         rootweb: rootwebCM
 
 stages:
   - stage: Matrix
@@ -26,7 +31,7 @@ stages:
     jobs:
       - job: deployer
         strategy:
-          matrix: $[ variables.mtrx2 ] 
+          matrix: $[ variables.DeploymentMatrix ] 
           maxParallel: 2
         steps:
           - script: echo $(rootweb)
