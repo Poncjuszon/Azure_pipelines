@@ -18,33 +18,23 @@ pool:
 variables:
   - name: mtrx2
     value: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-#  - template: envs/${{ parameters.environment }}.yaml
+
 
 stages:
   - stage: Matrix
     displayName: Test Publish Matrix
     jobs:
-      - job: generator
-        steps:
-          - bash: echo "##vso[task.setVariable variable=legs;isOutput=true]{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-            name: mtrx #                                                     {'a':{'myvar':'A'}, 'b':{'myvar':'B'}}
-          - script: echo $(mtrx.legs)
       - job: deployer
         dependsOn: generator
         strategy:
           matrix: $[ variables.mtrx2 ] 
-        # $[ dependencies.generator.outputs['mtrx.legs'] ]
-        #  CM:
-        #    rootweb : "rootwebCM"
-        #  CD:
-        #    rootweb : "rootwebCD"
           maxParallel: 2
         steps:
           - script: echo $(rootweb)
-          - task: PowerShell@2
-            inputs:
-              targetType: inline
-              script: |
-                gci env:* | sort-object name
+#          - task: PowerShell@2
+#            inputs:
+#              targetType: inline
+#              script: |
+#                gci env:* | sort-object name
 
  
