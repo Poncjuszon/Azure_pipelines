@@ -5,25 +5,23 @@ trigger: none
 pool:
   vmImage: 'windows-latest'
 
-#parameters:
-#  - name: environment
-#    displayName: Environment
-#    type: string
-#    values:
-#      - DigitalHub-INT
-#      - PROD
-#      - UAT
-#      - QA
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: QA
+    values:
+      - DigitalHub-INT
+      - PROD
+      - UAT
+      - QA
+
 
 variables:
-#  - name: mtrx2
-#    value: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-   - name: DeploymentMatrix
-     value: |
-       CD:
-         rootweb: rootwebCD
-       CM:
-         rootweb: rootwebCM
+  ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
+    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}"
+  ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
+    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
 
 stages:
   - stage: Matrix
