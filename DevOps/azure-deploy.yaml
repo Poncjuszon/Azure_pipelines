@@ -19,9 +19,10 @@ parameters:
 
 variables:
   ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
-    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}"
+    DeploymentMatrix: "{'CMint':{'rootweb':'rootwebCM'}, 'CDint':{'rootweb':'rootwebCD'}}"
   ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
     DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
+  someComplexVariable: ['asdsad','adasdasd','asdsd','123123']
 
 stages:
   - stage: Matrix
