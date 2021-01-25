@@ -15,6 +15,13 @@ parameters:
       - PROD
       - UAT
       - QA
+  - name: deploymentMatrix
+    type: object
+    default: 
+      CM:
+        rootweb : 'rootCM'
+      CD:
+        rootweb: 'rootCD'
 
 
 variables:
@@ -29,7 +36,7 @@ stages:
     jobs:
       - job: deployer
         strategy:
-          matrix: $[ variables.DeploymentMatrix ] 
+          matrix: ${{ parameters.deploymentMatrix }}
           maxParallel: 2
         steps:
           - script: echo $(rootweb)
