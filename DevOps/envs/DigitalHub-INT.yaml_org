@@ -1,0 +1,4 @@
+variables:
+  web_rootCM: "D:\\DigitalHubCM"
+  Sitecore_Roles: "CM | CD" 
+  matrix: "{'CM': {'rootweb' : 'rootwebCM'},'CD':{'rootweb' : 'rootwebCD'}}"
