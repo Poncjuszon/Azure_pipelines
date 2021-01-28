@@ -9,42 +9,34 @@ parameters:
   - name: environment
     displayName: Environment
     type: string
-    default: QA
+    default: DigitalHub-INT
     values:
       - DigitalHub-INT
-      - PROD
-      - UAT
-      - QA
-  - name: deploymentMatrix
-    type: object
-    default: 
-      CM:
-        rootweb : 'rootCM'
-      CD:
-        rootweb: 'rootCD'
+      - DigitalHub-QA
+      - DigitalHub-UAT
+      - DigitalHub-PROD
 
 
-variables:
-  ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
-    DeploymentMatrix: "{'CMint':{'rootweb':'rootwebCM'}, 'CDint':{'rootweb':'rootwebCD'}}"
-  ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
-    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
+
+#variables:
+#  ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
+#    DeploymentMatrix: "{'CMint':{'rootweb':'rootwebCM'}, 'CDint':{'rootweb':'rootwebCD'}}"
+#  ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
+#    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
 
 stages:
   - stage: Matrix
     displayName: Test Publish Matrix
     jobs:
-      - job: deployer
+#      - template: envs/${{ parameters.environment }}-deployment.yaml
+      - job: DeployWithMatrix
+        displayName: Test Job to see if deploy matrix works
         strategy:
-          matrix: ${{ parameters.deploymentMatrix }}
-          maxParallel: 2
+          matrix:
+            CM: 
+              webroot: "rootCM"
+            CD:
+              webroot: "rootCD"
         steps:
-          - script: echo $(rootweb)
+          - script: echo "$(parameters.webroot)"
 
-#          - task: PowerShell@2
-#            inputs:
-#              targetType: inline
-#              script: |
-#                gci env:* | sort-object name
-
- 
