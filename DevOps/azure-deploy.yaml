@@ -15,28 +15,28 @@ parameters:
       - DigitalHub-QA
       - DigitalHub-UAT
       - DigitalHub-PROD
+  - name: lista
+    type: object
+    default: 
+      - a
+      - b
 
-
+variables:
+  - name: nodes
+    value: CM,CD
+    readonly: true
 
 #variables:
 #  ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
 #    DeploymentMatrix: "{'CMint':{'rootweb':'rootwebCM'}, 'CDint':{'rootweb':'rootwebCD'}}"
 #  ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
 #    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-
+#      - template: envs/${{ parameters.environment }}-deployment.yaml
 stages:
-  - stage: Matrix
-    displayName: Test Publish Matrix
+  - stage: seeifiteratinonworks
     jobs:
-      - template: envs/${{ parameters.environment }}-deployment.yaml
-#      - job: DeployWithMatrix
-#        displayName: Test Job to see if deploy matrix works
-#        strategy:
-#          matrix:
-#            CM: 
-#              webroot: "rootCM"
-#            CD:
-#              webroot: "rootCD"
-#        steps:
-#          - script: echo "$(parameters.webroot)"
-
+      - job: sdad
+        displayName: sadsd
+        steps:
+        - ${{ each value in parameters.lista }}:
+          - script: echo $(value)
