@@ -19,11 +19,12 @@ parameters:
   - name: Nodes
     type: object
     default: 
-      - cm
-      - cd1
-      - cd2
-      - cd3
-      - cd4
+      - CM
+#      - cd1
+#      - cd2
+#      - cd3
+#      - cd4
+
 
 #steps:
 #- ${{ each value in parameters.Nodes }}:
@@ -39,6 +40,9 @@ stages:
     - ${{ each node in parameters.Nodes }}:
       - deployment: deploy_apps_${{node}}
         displayName: jakis tam deploy
+        variables:
+          - template: envs/${{ parameters.environment }}/Common.yaml
+          - template: envs/${{ parameters.environment }}/${{ node }}.yaml
         environment:
           name: ${{ parameters.environment }}
           tags: ${{ node }}
@@ -47,7 +51,8 @@ stages:
           runOnce:
             deploy:
               steps:
-                - script: echo "Deploy to ${{ node }}"
+                - script: echo "Common variable is to ${{ variables.company }}"
+                - script: echo "CM variable is to ${{ variables.web_root }}"
 
 
 #    - ${{ each node in parameters.Nodes }}:
