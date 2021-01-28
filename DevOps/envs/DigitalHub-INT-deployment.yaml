@@ -1,0 +1,10 @@
+job: DeployWithMatrix
+displayName: Test Job to see if deploy matrix works
+strategy:
+  matrix:
+    CM: 
+      webroot: "rootCM"
+    CD:
+      webroot: "rootCD"
+  steps:
+    - script: echo "$(parameters.webroot)"
