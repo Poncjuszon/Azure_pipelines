@@ -39,4 +39,5 @@ stages:
         displayName: sadsd
         steps:
         - ${{ each value in parameters.lista }}:
-          - script: echo $(value)
+          - script: echo ${{value}}
+        - script: echo "done!"
