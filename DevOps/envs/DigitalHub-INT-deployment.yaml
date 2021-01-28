@@ -7,5 +7,5 @@ jobs:
           webroot: "rootCM"
         CD:
           webroot: "rootCD"
-     steps:
-       - script: echo "$(parameters.webroot)"
+    steps:
+      - script: echo "$(parameters.webroot)"
