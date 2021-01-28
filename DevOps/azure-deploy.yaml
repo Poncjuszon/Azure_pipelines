@@ -54,12 +54,9 @@ variables:
 #  ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
 #    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
 #      - template: envs/${{ parameters.environment }}-deployment.yaml
-stages:
-  - stage: seeifiteratinonworks
-    jobs:
-      - job: sdad
-        displayName: sadsd
-        steps:
+
+
+steps:
 #        - ${{ each value in $[ variables.nodes ] }}:
 #          - script: echo ${{value}}
-        - script: echo "done!"
+  - script: echo "done!"
