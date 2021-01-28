@@ -36,10 +36,10 @@ parameters:
 stages:
   - stage: a
     jobs:
-    - job: kurwa
-      displayName: sdsdsd
-      steps:
-      - ${{ each node in parameters.Nodes }}:
+    - ${{ each node in parameters.Nodes }}:
+      - job: kurwa_${{node}}
+        displayName: sdsdsd
+        steps:
         - script: echo ${{ node }}
 
 
