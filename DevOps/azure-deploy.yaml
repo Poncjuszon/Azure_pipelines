@@ -25,33 +25,21 @@ parameters:
       - cd3
       - cd4
 
-steps:
-- ${{ each value in parameters.Nodes }}:
-  - script: echo ${{ value }}
+#steps:
+#- ${{ each value in parameters.Nodes }}:
+#  - script: echo ${{ value }}
 
 #steps:
 #- ${{ each node in parameters.Nodes }}:
 #  - script: echo ${{ node }}
 
-#stages:
-#  - stage: a
-#    jobs:
-#    - job: kurwa
-#      displayName: sdsdsd
-#      steps:
-#      - ${{ each node in parameters.Nodes }}:
-#        - script: echo ${{ node }}
+stages:
+  - stage: a
+    jobs:
+    - job: kurwa
+      displayName: sdsdsd
+      steps:
+      - ${{ each node in parameters.Nodes }}:
+        - script: echo ${{ node }}
 
 
-#variables:
-#  ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
-#    DeploymentMatrix: "{'CMint':{'rootweb':'rootwebCM'}, 'CDint':{'rootweb':'rootwebCD'}}"
-#  ${{ if ne(parameters['environment'], 'DigitalHub-INT') }}:
-#    DeploymentMatrix: "{'CM':{'rootweb':'rootwebCM'}, 'CD':{'rootweb':'rootwebCD'}}"
-#      - template: envs/${{ parameters.environment }}-deployment.yaml
-
-
-#steps:
-#        - ${{ each value in $[ variables.nodes ] }}:
-#          - script: echo ${{value}}
-#  - script: echo "done!"
