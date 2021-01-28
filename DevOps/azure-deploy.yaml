@@ -30,9 +30,10 @@ variables:
 stages:
   - stage: a
     jobs:
-      - job: kurwas
+      - job: kurwa
+        displayName: sdsdsd
         steps:
-          - script: echo "azure pipelines jest zjebany"
+          - script: echo "kurwas no!"
 
 
 #variables:
