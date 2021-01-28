@@ -37,9 +37,23 @@ stages:
   - stage: a
     jobs:
     - ${{ each node in parameters.Nodes }}:
-      - job: kurwa_${{node}}
-        displayName: sdsdsd
-        steps:
-        - script: echo ${{ node }}
+      - deployment: deploy_apps_${{node}}
+        displayName: jakis tam deploy
+        environment:
+          name: ${{ parameters.environment }}
+          tags: ${{ node }}
+          resourceType: virtualMachine
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Deploy to ${{ node }}"
+
+
+#    - ${{ each node in parameters.Nodes }}:
+#      - job: kurwa_${{node}}
+#        displayName: sdsdsd_${{node}}
+#        steps:
+#        - script: echo ${{ node }}
 
 
