@@ -2,27 +2,6 @@ name: Deploy Apps to Environment
 
 trigger: none
 
-strategy:
-  matrix:
-    'Ubuntu 16.04':
-      image: 'ubuntu-16.04'
-      dotnetcore: '2.2.x'
-    'Ubuntu 18.04':
-      image: 'ubuntu-18.04'
-      dotnetcore: '3.1.x'
-    'MacOS X High Sierra':
-      image: 'macos-10.13'
-      dotnetcore: '2.2.x'
-    'MacOS X Mojave':
-      image: 'macos-10.14'
-      dotnetcore: '3.1.x'
-    'Windows Server 2016':
-      image: 'vs2017-win2016'
-      dotnetcore: '2.2.x'
-    'Windows Server 2019':
-      image: 'windows-2019'
-      dotnetcore: '3.1.x'
-
 pool:
   vmImage: 'windows-latest'
 
@@ -37,7 +16,7 @@ parameters:
       - DigitalHub-QA
       - DigitalHub-UAT
       - DigitalHub-PROD
-  - name: lista
+  - name: Nodes
     type: object
     default: 
       - a
@@ -47,6 +26,9 @@ variables:
   - name: nodes
     value: CM,CD
     readonly: true
+
+
+
 
 #variables:
 #  ${{ if eq(parameters['environment'], 'DigitalHub-INT') }}:
@@ -59,4 +41,4 @@ variables:
 steps:
 #        - ${{ each value in $[ variables.nodes ] }}:
 #          - script: echo ${{value}}
-  - script: echo "done!"
+#  - script: echo "done!"
