@@ -19,21 +19,28 @@ parameters:
   - name: Nodes
     type: object
     default: 
-      - a
-      - b
+      - cm
+      - cd1
+      - cd2
+      - cd3
+      - cd4
 
-variables:
-  - name: nodes
-    value: CM,CD
-    readonly: true
+steps:
+- ${{ each value in parameters.Nodes }}:
+  - script: echo ${{ value }}
 
-stages:
-  - stage: a
-    jobs:
-      - job: kurwa
-        displayName: sdsdsd
-        steps:
-          - script: echo "kurwas no!"
+#steps:
+#- ${{ each node in parameters.Nodes }}:
+#  - script: echo ${{ node }}
+
+#stages:
+#  - stage: a
+#    jobs:
+#    - job: kurwa
+#      displayName: sdsdsd
+#      steps:
+#      - ${{ each node in parameters.Nodes }}:
+#        - script: echo ${{ node }}
 
 
 #variables:
@@ -44,7 +51,7 @@ stages:
 #      - template: envs/${{ parameters.environment }}-deployment.yaml
 
 
-steps:
+#steps:
 #        - ${{ each value in $[ variables.nodes ] }}:
 #          - script: echo ${{value}}
 #  - script: echo "done!"
