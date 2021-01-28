@@ -27,7 +27,12 @@ variables:
     value: CM,CD
     readonly: true
 
-
+stages:
+  - stage: a
+    jobs:
+      - job: kurwas
+        steps:
+          - script: echo "azure pipelines jest zjebany"
 
 
 #variables:
