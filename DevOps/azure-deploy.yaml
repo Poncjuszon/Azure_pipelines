@@ -46,3 +46,4 @@ stages:
                 - script: echo "Common variable is to ${{ variables.company }}"
                 - script: echo "CM variable is to ${{ variables.web_root }}"
                 - script: echo "$(Build.Reason)"
+                - script: echo "$(Agent.Name)"
