@@ -45,4 +45,4 @@ stages:
               steps:
                 - script: echo "Common variable is to ${{ variables.company }}"
                 - script: echo "CM variable is to ${{ variables.web_root }}"
-                - script: set
+                - script: echo "$(Build.Reason)"
