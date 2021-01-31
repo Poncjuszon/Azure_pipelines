@@ -41,11 +41,11 @@ stages:
         displayName: 'Deploy Apps to role ${{node}}'
         dependsOn: Publish
         variables:
-          - template: envs/${{ parameters.environment }}/Common.yaml
-          - template: envs/${{ parameters.environment }}/${{ node }}.yaml
+          - template: envs/${{parameters.environment}}/Common.yaml
+          - template: envs/${{parameters.environment}}/${{node}}.yaml
         environment:
-          name: ${{ parameters.environment }}
-          tags: ${{ node }}
+          name: ${{parameters.environment}}
+          tags: ${{node}}
           resourceType: virtualMachine
         strategy:
           runOnce:
@@ -54,15 +54,25 @@ stages:
                 - task: ArchiveFiles@2
                   displayName: Archive current Apps directory
                   inputs:
-                    rootFolderOrFile: '${{ variables.deploy_path }}\apps'
+                    rootFolderOrFile: '${{variables.deploy_path}}\apps'
                     includeRootFolder: true
                     archiveType: 'zip'
-                    archiveFile: '${{ variables.backup_path}}\${{node}}\apps\$(Build.BuildId).zip'
+                    archiveFile: '${{variables.backup_path}}\${{node}}\apps\$(Build.BuildId).zip'
                 - task: CopyFiles@2
                   displayName: Copy new Apps content
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
-                    TargetFolder: '${{ variables.deploy_path }}\apps'
+                    TargetFolder: '${{variables.deploy_path}}\apps'
                     OverWrite: true
+                - task: PowerShell@2
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      $path = "${{variables.backup_path}}\${{node}}\apps\"
+                      $backupLimit = 2
+                      $backupFiles = @(Get-ChildItem -Path $path)
+                      if ($backupFiles.Count -gt $backupLimit) {
+                         $backupFiles | Sort-Object CreationTime -Descending | Select-Object -Last ($backupFiles.Count - $backupLimit) | Remove-Item
+                      }
 
