@@ -16,7 +16,7 @@ parameters:
       - DigitalHub-UAT
       - DigitalHub-PROD
   - name: Nodes
-    displayName: |
+    displayName: |+
        Target Roles for Deployment (INT:CM, QA: CM,CD1, UAT/PROD:CD,CD1,CD2,CD3,CD4) ...
        Must be prefixe with - ...
        exapmle for INT: "..."
