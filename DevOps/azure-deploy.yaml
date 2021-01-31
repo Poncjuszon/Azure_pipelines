@@ -18,7 +18,7 @@ parameters:
   - name: Nodes
     displayName: |
        Target Roles for the deployment (INT:CM, QA: CM,CD1, UAT/PROD:CD,CD1,CD2,CD3,CD4) 
-       Must be prefixe with - like yaml list
+       Must be listed each in a new line and prefixed with "-"" like a yaml list
     type: object
     default: 
       - CM
@@ -32,7 +32,7 @@ stages:
   - stage: Deploy_Apps
     jobs:
     - job: Publish
-      displayName: Publish Content of src directory to Artifactory
+      displayName: Publish Content of src directory to Pipeline Artifactory
       steps:
         - publish: '$(System.DefaultWorkingDirectory)/src'
           artifact: 'Apps'
