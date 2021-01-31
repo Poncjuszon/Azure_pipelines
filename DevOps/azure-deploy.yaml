@@ -38,7 +38,7 @@ stages:
           artifact: 'Apps'
     - ${{ each node in parameters.Nodes }}:
       - deployment: deploy_apps_${{node}}
-        displayName: 'Copy files to Apps directory for node ${{node}}'
+        displayName: 'Deploy Apps to role ${{node}}'
         dependsOn: Publish
         variables:
           - template: envs/${{ parameters.environment }}/Common.yaml
@@ -59,13 +59,10 @@ stages:
                     archiveType: 'zip'
                     archiveFile: '${{ variables.backup_path}}\${{node}}\apps\$(Build.BuildId).zip'
                 - task: CopyFiles@2
-                  displayName: Copy new apps content
+                  displayName: Copy new Apps content
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
                     TargetFolder: '${{ variables.deploy_path }}\apps'
-
                     OverWrite: true
-#                - script: echo "Common variable is to ${{ variables.company }}"
-#                - script: echo "CM variable is to ${{ variables.web_root }}"
-#                - script: echo "$(Build.Reason)"
+
