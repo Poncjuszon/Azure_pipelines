@@ -23,9 +23,9 @@ parameters:
     default: 
       - CM
       - CD1
-      - CD2
-      - CD3
-      - CD4
+#      - CD2
+#      - CD3
+#      - CD4
 
 
 stages:
@@ -51,11 +51,18 @@ stages:
           runOnce:
             deploy:
               steps:
+                - task: ArchiveFiles@2 
+                  inputs:
+                    rootFolderOrFile: '${{ variables.deploy_path }}\apps'
+                    includeRootFolder: true
+                    archiveType: 'zip'
+                    archiveFile: '${{ variables.backup_path}}\${{node}}\apps\$(Build.BuildId).zip'
                 - task: CopyFiles@2
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
                     TargetFolder: '${{ variables.deploy_path }}\apps'
+
                     OverWrite: true
 #                - script: echo "Common variable is to ${{ variables.company }}"
 #                - script: echo "CM variable is to ${{ variables.web_root }}"
