@@ -38,7 +38,7 @@ stages:
           artifact: 'Apps'
     - ${{ each node in parameters.Nodes }}:
       - deployment: ${{node}}
-        displayName: 'Deploy Apps to role ${{node}}'
+        displayName: 'Deployment Apps to ${{node}}'
         dependsOn: Publish
         variables:
           - template: envs/${{parameters.environment}}/Common.yaml
