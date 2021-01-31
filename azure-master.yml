@@ -17,3 +17,7 @@ resources:
  pipelines:
    - pipeline: Scenariusz_Pierwszy
      source: Scenario1
+     trigger:
+       branches:
+        include:
+          - main
