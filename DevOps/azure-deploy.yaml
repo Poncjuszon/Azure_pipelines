@@ -16,7 +16,9 @@ parameters:
       - DigitalHub-UAT
       - DigitalHub-PROD
   - name: Nodes
-    displayName: "Target Nodes (INT:CM, QA: CM,CD1, UAT/PROD:CD,CD1,CD2,CD3,CD4)"
+    displayName: |
+       Target Roles (INT:CM, QA: CM,CD1, UAT/PROD:CD,CD1,CD2,CD3,CD4)
+       Must be prefixe with -
     type: object
     default: 
       - CM
