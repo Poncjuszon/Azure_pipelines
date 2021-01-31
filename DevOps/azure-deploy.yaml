@@ -51,13 +51,15 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: ArchiveFiles@2 
+                - task: ArchiveFiles@2
+                  displayName: Archive current Apps directory
                   inputs:
                     rootFolderOrFile: '${{ variables.deploy_path }}\apps'
                     includeRootFolder: true
                     archiveType: 'zip'
                     archiveFile: '${{ variables.backup_path}}\${{node}}\apps\$(Build.BuildId).zip'
                 - task: CopyFiles@2
+                  displayName: Copy new apps content
                   inputs:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
