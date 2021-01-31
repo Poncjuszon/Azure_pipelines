@@ -71,7 +71,7 @@ stages:
                     targetType: 'inline'
                     script: |
                       $path = "${{variables.backup_path}}\${{node}}\apps\"
-                      $backupLimit = 10
+                      $backupLimit = 5
                       $backupFiles = @(Get-ChildItem -Path $path)
                       if ($backupFiles.Count -gt $backupLimit) {
                          $backupFiles | Sort-Object CreationTime -Descending | Select-Object -Last ($backupFiles.Count - $backupLimit) | Remove-Item
