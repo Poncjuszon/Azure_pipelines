@@ -5,7 +5,6 @@ trigger: none
 pool:
   vmImage: 'windows-latest'
 
-
 parameters:
   - name: environment
     displayName: Environment
@@ -17,21 +16,27 @@ parameters:
       - DigitalHub-UAT
       - DigitalHub-PROD
   - name: Nodes
+    displayName: "Target Nodes (INT:CM, QA: CM,CD1, UAT/PROD:CD,CD1,CD2,CD3,CD4)"
     type: object
     default: 
       - CM
-#      - cd1
-#      - cd2
-#      - cd3
-#      - cd4
+      - CD1
+      - CD2
+      - CD3
+      - CD4
 
 
 stages:
-  - stage: a
+  - stage: Deploy_Apps
     jobs:
+    - job: Publish
+      displayName: Publish Content of src directory to Artifactory
+      steps:
+        - publish: '$(System.DefaultWorkingDirectory)/src'
+          artifact: 'Apps'
     - ${{ each node in parameters.Nodes }}:
       - deployment: deploy_apps_${{node}}
-        displayName: jakis tam deploy
+        displayName: 'Copy files to Apps directory for node ${{node}}'
         variables:
           - template: envs/${{ parameters.environment }}/Common.yaml
           - template: envs/${{ parameters.environment }}/${{ node }}.yaml
@@ -43,7 +48,12 @@ stages:
           runOnce:
             deploy:
               steps:
-                - script: echo "Common variable is to ${{ variables.company }}"
-                - script: echo "CM variable is to ${{ variables.web_root }}"
-                - script: echo "$(Build.Reason)"
-                - script: echo "$(Agent.Name)"
+                - task: CopyFiles@2
+                  inputs:
+                    SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
+                    Contents: '**'
+                    TargetFolder: '${{ variables.web_root }}\Website\apps'
+                    OverWrite: true
+#                - script: echo "Common variable is to ${{ variables.company }}"
+#                - script: echo "CM variable is to ${{ variables.web_root }}"
+#                - script: echo "$(Build.Reason)"
