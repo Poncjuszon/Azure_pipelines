@@ -66,11 +66,12 @@ stages:
                     TargetFolder: '${{variables.deploy_path}}\apps'
                     OverWrite: true
                 - task: PowerShell@2
+                  displayName: Backup Retention
                   inputs:
                     targetType: 'inline'
                     script: |
                       $path = "${{variables.backup_path}}\${{node}}\apps\"
-                      $backupLimit = 2
+                      $backupLimit = 10
                       $backupFiles = @(Get-ChildItem -Path $path)
                       if ($backupFiles.Count -gt $backupLimit) {
                          $backupFiles | Sort-Object CreationTime -Descending | Select-Object -Last ($backupFiles.Count - $backupLimit) | Remove-Item
