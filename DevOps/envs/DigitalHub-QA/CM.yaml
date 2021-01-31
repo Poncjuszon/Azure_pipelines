@@ -1,3 +1,3 @@
 #Stores variables for this Role
 variables:
-  web_root: "D:\\DigitalHubCM"
+  deploy_path: "D:\\LsDigitalHubCM\\Website"
