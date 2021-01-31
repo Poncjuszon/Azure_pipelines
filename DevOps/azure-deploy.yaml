@@ -37,7 +37,7 @@ stages:
         - publish: '$(System.DefaultWorkingDirectory)/src'
           artifact: 'Apps'
     - ${{ each node in parameters.Nodes }}:
-      - deployment: deploy_apps_${{node}}
+      - deployment: ${{node}}
         displayName: 'Deploy Apps to role ${{node}}'
         dependsOn: Publish
         variables:
