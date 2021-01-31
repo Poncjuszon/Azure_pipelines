@@ -1,2 +1,3 @@
+#Stores variables for this Role
 variables:
   web_root: "D:\\DigitalHubCD"
