@@ -37,6 +37,7 @@ stages:
     - ${{ each node in parameters.Nodes }}:
       - deployment: deploy_apps_${{node}}
         displayName: 'Copy files to Apps directory for node ${{node}}'
+        dependsOn: Publish
         variables:
           - template: envs/${{ parameters.environment }}/Common.yaml
           - template: envs/${{ parameters.environment }}/${{ node }}.yaml
