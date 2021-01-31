@@ -19,6 +19,8 @@ parameters:
     displayName: |
        Target Roles (INT:CM, QA: CM,CD1, UAT/PROD:CD,CD1,CD2,CD3,CD4)
        Must be prefixe with -
+       exapmle for INT:
+        - CM
     type: object
     default: 
       - CM
