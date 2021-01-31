@@ -56,6 +56,7 @@ stages:
                     SourceFolder: '$(System.DefaultWorkingDirectory)\..\apps\'
                     Contents: '**'
                     TargetFolder: '${{ variables.deploy_path }}\apps'
+                    CleanTargetFolder: true
                     OverWrite: true
 #                - script: echo "Common variable is to ${{ variables.company }}"
 #                - script: echo "CM variable is to ${{ variables.web_root }}"
