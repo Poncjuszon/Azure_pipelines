@@ -1,8 +1,0 @@
-parameters:
-  - name: deploymentMatrix
-    type: object
-    default:
-      CM:
-        rootweb : 'rootCM'
-      CD:
-        rootweb: 'rootCD'
