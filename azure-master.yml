@@ -2,7 +2,6 @@
 
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - none
@@ -23,6 +22,8 @@ jobs:
           useSameSourceVersion: false
           useCustomSourceVersion: false
           useSameBranch: true
+          authenticationMethod: 'Personal Access Token'
+          password: 'dd24zp7y5nhateu5yqf2nrtelldgvlw4i3egzd432zrzscplnjsa'
           waitForQueuedBuildsToFinish: true
           waitForQueuedBuildsToFinishRefreshTime: '60'
           failTaskIfBuildsNotSuccessful: true
@@ -30,7 +31,6 @@ jobs:
           treatPartiallySucceededBuildAsSuccessful: false
           downloadBuildArtifacts: false
           storeInEnvironmentVariable: false
-          authenticationMethod: 'Personal Access Token'
           enableBuildInQueueCondition: false
           dependentOnSuccessfulBuildCondition: false
           dependentOnFailedBuildCondition: false
@@ -47,6 +47,7 @@ jobs:
           useSameSourceVersion: false
           useCustomSourceVersion: false
           useSameBranch: true
+          password: 'dd24zp7y5nhateu5yqf2nrtelldgvlw4i3egzd432zrzscplnjsa'
           waitForQueuedBuildsToFinish: true
           waitForQueuedBuildsToFinishRefreshTime: '60'
           failTaskIfBuildsNotSuccessful: true
