@@ -22,7 +22,7 @@ parameters:
     type: object
     default: 
       - CM
-      - CD1
+#      - CD1
 #      - CD2
 #      - CD3
 #      - CD4
