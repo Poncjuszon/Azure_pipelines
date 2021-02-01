@@ -1,4 +1,5 @@
 # Starter pipeline
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -9,12 +10,53 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-resources:
- pipelines:
-   - pipeline: Scenariusz_Pierwszy
-     source: Scenario1
-#     trigger: manual
+jobs:
+  - job: run_scenario1
+    steps:
+      - task: TriggerBuild@3
+        inputs:
+          definitionIsInCurrentTeamProject: true
+          buildDefinition: 'Scenario1'
+          queueBuildForUserThatTriggeredBuild: true
+          ignoreSslCertificateErrors: false
+          useSameSourceVersion: false
+          useCustomSourceVersion: false
+          useSameBranch: true
+          waitForQueuedBuildsToFinish: true
+          waitForQueuedBuildsToFinishRefreshTime: '60'
+          failTaskIfBuildsNotSuccessful: true
+          cancelBuildsIfAnyFails: false
+          treatPartiallySucceededBuildAsSuccessful: false
+          downloadBuildArtifacts: false
+          storeInEnvironmentVariable: false
+          authenticationMethod: 'Personal Access Token'
+          enableBuildInQueueCondition: false
+          dependentOnSuccessfulBuildCondition: false
+          dependentOnFailedBuildCondition: false
+          checkbuildsoncurrentbranch: false
+          failTaskIfConditionsAreNotFulfilled: false
+  - job: run_scenario2
+    steps:
+      - task: TriggerBuild@3
+        inputs:
+          definitionIsInCurrentTeamProject: true
+          buildDefinition: 'Scenario2'
+          queueBuildForUserThatTriggeredBuild: true
+          ignoreSslCertificateErrors: false
+          useSameSourceVersion: false
+          useCustomSourceVersion: false
+          useSameBranch: true
+          waitForQueuedBuildsToFinish: true
+          waitForQueuedBuildsToFinishRefreshTime: '60'
+          failTaskIfBuildsNotSuccessful: true
+          cancelBuildsIfAnyFails: false
+          treatPartiallySucceededBuildAsSuccessful: false
+          downloadBuildArtifacts: false
+          storeInEnvironmentVariable: false
+          authenticationMethod: 'Personal Access Token'
+          enableBuildInQueueCondition: false
+          dependentOnSuccessfulBuildCondition: false
+          dependentOnFailedBuildCondition: false
+          checkbuildsoncurrentbranch: false
+          failTaskIfConditionsAreNotFulfilled: false          
