@@ -12,5 +12,6 @@ pool:
 steps:
 - script: echo Hello, from Master!
   displayName: 'Run a one-line script'
+- template: azure-scenario1.yml
 
 
