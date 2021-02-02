@@ -19,4 +19,3 @@ steps:
 - script: echo ${{ parameters.dupa }}
   displayName: 'print param'
 
-#somthing
