@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Scenario1
+- script: echo Scenario2
   displayName: 'Run a one-line script'
 
 
