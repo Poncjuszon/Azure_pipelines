@@ -8,6 +8,10 @@
 
 #pool:
 #  vmImage: 'ubuntu-latest'
+parameters:
+  - name: dupa
+    type: boolean
+    default: false
 
 steps:
 - script: echo Scenario 1
