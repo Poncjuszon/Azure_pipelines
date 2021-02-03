@@ -17,14 +17,25 @@ parameters:
     default: true
     type: boolean
 
-strategy:
- maxParallel: 2
-steps:
-- script: echo Hello, from Master!
-  displayName: 'Running MASTER'
-- ${{ if eq(parameters.scenario1, true) }}:
-  - template: azure-scenario1.yml
-    parameters:
-      dupa: true
-- ${{ if eq(parameters.scenario2, true) }}:
-  - template: azure-scenario2.yml
+jobs:
+  - job: Master
+    displayName: 'Running MASTER'
+    steps: 
+      - script: echo Hello from Master!
+  - ${{ if eq(parameters.scenario1, true) }}:
+    - template: azure-scenario1.yml
+  - ${{ if eq(parameters.scenario2, true) }}:
+    - template: azure-scenario2.yml
+
+#strategy:
+# maxParallel: 2
+#steps:
+#- script: echo Hello, from Master!
+#  displayName: 'Running MASTER'
+#- ${{ if eq(parameters.scenario1, true) }}:
+#  - template: azure-scenario1.yml
+#    parameters:
+#      dupa: true
+#- ${{ if eq(parameters.scenario2, true) }}:
+#  - template: azure-scenario2.yml
+
