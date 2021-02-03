@@ -15,5 +15,6 @@ steps:
 - template: azure-scenario1.yml
   parameters:
     dupa: true
+- template: azure-scenario2.yml
 
 
