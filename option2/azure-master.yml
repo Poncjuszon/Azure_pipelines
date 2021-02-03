@@ -47,6 +47,7 @@ stages:
           - script: echo "Some preparations for ${{ parameters.environment }}"
           - script: echo "Some general preparations"
       - job: TestMainSite
+        dependsOn: PrepareEnvironment
         displayName: "Validate if site is accessible"
         steps:
           - script: echo "pinging site urls "
