@@ -9,8 +9,10 @@
 #pool:
 #  vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Scenario2
-  displayName: 'Running scenario2'
-
+jobs:
+  - job: scenario2
+    displayName: 'Running scenario2'
+    steps:
+      - script: echo Scenario 2
+        displayName: 'Running scenario2'
 
