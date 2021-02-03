@@ -26,10 +26,13 @@ parameters:
       - DigitalHub-UAT
       - DigitalHub-PROD
 
+
+
 jobs:
   - job: Master
     displayName: 'Running MASTER'
-    dependsOn: 
+    strategy:
+     parallel: 2
     steps: 
       - script: echo Hello from Master!
   - ${{ if eq(parameters.scenario1, true) }}:
