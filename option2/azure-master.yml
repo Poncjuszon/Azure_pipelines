@@ -9,12 +9,22 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+parameters:
+  - name: scenario1
+    default: true
+    type: boolean
+  - name: scenario2
+    default: true
+    type: boolean
+
 steps:
 - script: echo Hello, from Master!
   displayName: 'Run a one-line script'
-- template: azure-scenario1.yml
-  parameters:
-    dupa: true
-- template: azure-scenario2.yml
+- ${{ if eq(parameters.scenario1, true) }}:
+  - template: azure-scenario1.yml
+    parameters:
+      dupa: true
+- ${{ if eq(parameters.scenario2, true) }}:
+  - template: azure-scenario2.yml
 
 
