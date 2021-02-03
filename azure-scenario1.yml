@@ -11,5 +11,5 @@ pool:
 
 steps:
 - script: echo Scenario 1
-  displayName: 'Run a one-line script'
+  displayName: 'Running scenario1'
 
