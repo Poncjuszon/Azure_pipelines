@@ -26,19 +26,53 @@ parameters:
       - DigitalHub-UAT
       - DigitalHub-PROD
 
+#you may predefine variables in yml file (DigitalHub-INT.yml):
+#variables:
+#  cm_url: "https://cm-int-digitalhub.cytivalifesciences.io"
+#  cd_url: "https://int-digitalhub.cytivalifesciences.io"
+#  cd_china: "https://int-cn-digitalhub.cytivalifesciences.io
+#And import them once pipeline starts
+#variables:
+#  - template: ${{ parameters.environment }}
+
+stages:
+  - stage: MasterTest
+    displayName: "RunningPreTestSteps"
+    jobs:
+      - job: PrepareEnvironment
+        displayName: "Preparing for tests on ${{ parameters.environment }}"
+        strategy:
+         maxParallel: 2
+        steps:
+          - script: echo "Some preparations for ${{ parameters.environment }}"
+          - script: echo "Some general preparations"
+      - job: TestMainSite
+        displayName: "Validate if site is accessible"
+        steps:
+          - script: echo "pinging site urls "
+  - stage: TestScenarios
+    displayName: "Running selected Scenarios"
+    dependsOn: MasterTest
+    jobs:
+      - job: scenario1
+        displayName: "Running scenario1"
+        condition: ${{ eq(parameters.scenario1, true)}}
+        steps:
+          - script: echo "running step1"
+        
+
+        
 
 
-jobs:
-  - job: Master
-    displayName: 'Running MASTER'
-    strategy:
-     parallel: 2
-    steps: 
-      - script: echo Hello from Master!
-  - ${{ if eq(parameters.scenario1, true) }}:
-    - template: azure-scenario1.yml
-  - ${{ if eq(parameters.scenario2, true) }}:
-    - template: azure-scenario2.yml
+#jobs:
+#  - job: Master
+#    displayName: 'Running MASTER'
+#    steps: 
+#      - script: echo Hello from Master!
+#  - ${{ if eq(parameters.scenario1, true) }}:
+#    - template: azure-scenario1.yml
+#  - ${{ if eq(parameters.scenario2, true) }}:
+#    - template: azure-scenario2.yml
 
 #strategy:
 # maxParallel: 2
