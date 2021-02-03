@@ -13,9 +13,12 @@ parameters:
     type: boolean
     default: false
 
-steps:
-- script: echo Scenario 1
-  displayName: 'Running scenario1'
-- script: echo ${{ parameters.dupa }}
-  displayName: 'print param'
+jobs:
+  - job: scenario1
+    displayName: 'Running scenario1'
+    steps:
+      - script: echo Scenario 1
+        displayName: 'Running scenario1'
+      - script: echo ${{ parameters.dupa }}
+        displayName: 'print param'
 
