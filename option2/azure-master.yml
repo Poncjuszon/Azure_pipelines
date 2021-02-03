@@ -42,7 +42,7 @@ stages:
       - job: PrepareEnvironment
         displayName: "Preparing for tests on ${{ parameters.environment }}"
         strategy:
-         parallel: 2
+         maxParallel: 2
         steps:
           - script: echo "Some preparations for ${{ parameters.environment }}"
           - script: echo "Some general preparations"
