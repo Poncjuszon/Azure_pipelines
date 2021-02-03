@@ -17,14 +17,14 @@ parameters:
     default: true
     type: boolean
 
+strategy:
+ maxParallel: 2
 steps:
 - script: echo Hello, from Master!
-  displayName: 'Run a one-line script'
+  displayName: 'Running MASTER'
 - ${{ if eq(parameters.scenario1, true) }}:
   - template: azure-scenario1.yml
     parameters:
       dupa: true
 - ${{ if eq(parameters.scenario2, true) }}:
   - template: azure-scenario2.yml
-
-
