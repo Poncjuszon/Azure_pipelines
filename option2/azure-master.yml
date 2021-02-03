@@ -29,6 +29,7 @@ parameters:
 jobs:
   - job: Master
     displayName: 'Running MASTER'
+    dependsOn: 
     steps: 
       - script: echo Hello from Master!
   - ${{ if eq(parameters.scenario1, true) }}:
