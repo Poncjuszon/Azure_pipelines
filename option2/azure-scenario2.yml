@@ -11,6 +11,6 @@
 
 steps:
 - script: echo Scenario2
-  displayName: 'Run a one-line script'
+  displayName: 'Running scenario2'
 
 
