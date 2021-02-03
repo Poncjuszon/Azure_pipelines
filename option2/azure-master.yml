@@ -16,6 +16,15 @@ parameters:
   - name: scenario2
     default: true
     type: boolean
+  - name: environment
+    displayName: Environment
+    type: string
+    default: DigitalHub-INT
+    values:
+      - DigitalHub-INT
+      - DigitalHub-QA
+      - DigitalHub-UAT
+      - DigitalHub-PROD
 
 jobs:
   - job: Master
