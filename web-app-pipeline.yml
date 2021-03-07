@@ -52,6 +52,13 @@ steps:
     SlotName: 'Standby'
     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
 
+#TODO perform HC on new endpoint
 
 
-
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'Private subscription(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
+    Action: 'Swap Slots'
+    WebAppName: 'testApp12377'
+    ResourceGroupName: 'AppService'
+    SourceSlot: 'Standby'
