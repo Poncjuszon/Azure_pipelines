@@ -50,7 +50,7 @@ steps:
     deployToSlotOrASE: true
     #ResourceGroupName: 'AppService'
     SlotName: 'Standby'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
 
 
 
