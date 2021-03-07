@@ -17,10 +17,10 @@ steps:
   displayName: 'Use .NET Core sdk'
   inputs:
     packageType: sdk
-    version: 5.0.200
+    version: 5.0.102
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- task: NuGetToolInstaller@1
+#- task: NuGetToolInstaller@1
 
 
 - task: DotNetCoreCLI@2
