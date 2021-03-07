@@ -41,6 +41,15 @@ steps:
     artifactName: drop
     downloadPath: '$(System.ArtifactsDirectory)'
 
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Private subscription(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
+    appType: 'webApp'
+    WebAppName: 'testApp12377'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    DeploymentType: 'zipDeploy'
+
 
 
 
