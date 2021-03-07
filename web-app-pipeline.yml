@@ -48,7 +48,7 @@ steps:
     appType: 'webApp'
     WebAppName: 'testApp12377'
     deployToSlotOrASE: true
-    #ResourceGroupName: 'AppService'
+    ResourceGroupName: 'AppService'
     SlotName: 'Standby'
     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
 
