@@ -47,8 +47,10 @@ steps:
     azureSubscription: 'Private subscription(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
     appType: 'webApp'
     WebAppName: 'testApp12377'
-    package: '$(System.ArtifactsDirectory)/**/*.zip'
-    DeploymentType: 'zipDeploy'
+    deployToSlotOrASE: true
+    #ResourceGroupName: 'AppService'
+    SlotName: 'Standby'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 
 
