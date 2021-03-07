@@ -52,7 +52,7 @@ steps:
     SlotName: 'Standby'
     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
 
-#TODO perform HC on new endpoint
+#TODO perform HC on new endpoint before swithing - that would require to pas here api key that is as of now in octopus, we are not there yet
 
 
 - task: AzureAppServiceManage@0
@@ -62,3 +62,6 @@ steps:
     WebAppName: 'testApp12377'
     ResourceGroupName: 'AppService'
     SourceSlot: 'Standby'
+
+
+
