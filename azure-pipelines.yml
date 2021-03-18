@@ -1,0 +1,107 @@
+# GB Depoyment for UAT & PROD
+#CM plus CDs with odd number are Green
+#CDs with even numbers are Blue
+
+#Trigger must be none (default is main and it would trigger CI jobs)
+trigger:
+- none
+
+#TODO not sure if generic agents will suffice
+pool: digitalhub-agents
+
+
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: DigitalHub-UAT
+    values:
+      - DigitalHub-UAT
+      - DigitalHub-PROD
+
+#you may predefine variables in yml file ( e.g DigitalHub-INT.yml)
+#variables:
+#  cm_url: "https://cm-int-digitalhub.cytivalifesciences.io"
+#  cd_url: "https://int-digitalhub.cytivalifesciences.io"
+#  cd_china: "https://int-cn-digitalhub.cytivalifesciences.io
+#And import them once pipeline starts depending on env selected
+#variables:
+#  - template: ${{ parameters.environment }}
+
+stages:
+  - stage: UpscaleNodesAndDb
+    displayName: "Upscalling nodes and Databases"
+    jobs:
+      - job: IncreaseDbPerformance
+        displayName: "Increasing Databases Performance for Web Master Core"
+        steps:
+          - script: echo "increasing DB performance from 200 to 400"
+      - job: IncreaseNodesSize
+        displayName: "Increasing Nodes size form <normal size> to <upscalled size>"
+        steps:
+          - script: echo "Scale CM node"
+          - script: echo "Deatach CD1 Node from AGW"
+          - script: echo "Scale CD1 Node"
+          - script: echo "Attach CD1 deatach CD2 to/from AGW"
+          - script: echo "Scale CD2 Node"
+          - script: echo "Attach CD2 node to AGW"
+  - stage: PrepareBlueLegacy
+    displayName: "Prepare Blue nodes to continue serving legacy code"
+#    dependsOn: MasterTest # we do not really scalled nodes to do that
+    jobs:
+      - job: ExcludeSolarSlaves
+        displayName: "RemoveSolarSlaves"
+        steps:
+          - script: echo "Deatach all Solr slaves from LB on all loactions"
+          - script: echo "Disable Solr Replication by applying ACL to SOLR replication"
+      - job: CopyWebDatabases
+        displayName: "Prepare copy of Web_Databases"
+        steps:
+            - script: echo "Copy Web DB on all locations"
+      - job: SwitchBlueToLegacy
+        displayName: "Swith Blue Nodes to legacy code"
+        steps:
+            - script: echo "Set Blue Nodes to Legacy resources"
+            - script: echo "Deatach Green Nodes from AGW"
+  - stage: SwitchNodesOnAgw
+    displayName: "Attach Green and Deatach Blue Nodes"
+    jobs:
+      - job: SwitchNodes
+        displayName: "SwitchingNodesOnAgw"
+        steps:
+          - script: echo "Attach Green deatach Blue"        
+  - stage: PrepareBlueNew
+    displayName: "Prepare Blue nodes to serve new code"
+    jobs:
+      - job: AddSolarSlaves
+        displayName: "Restore Solr replication"
+        steps:
+          - script: echo "Enable Solr Replication"
+          - script: echo "Attach solr slaves to LB"
+      - job: SwitchBlueToNew
+        displayName: "Switch Blue to new Code"
+        steps:
+          - script: echo "Set Blue to New resources"
+  - stage: AttachBlueToAGW
+    displayName: "Expose Blue to AGW"
+    jobs:
+      - job: AttachBlueToAGW
+        displayName: "Setting up Blue to serve traffic"
+        steps:
+          - script: echo "Attach Blue to LB"
+  - stage: CleanUP
+    displayName: "Clean up after deployemnt"
+    jobs:
+      - job: DecreaseNodesSize
+        displayName: "Decreasing Nodes size form <upscalled size> to <normal size>"
+        steps:
+          - script: echo "Scale CM node"
+          - script: echo "Deatach CD1 Node from AGW"
+          - script: echo "Scale CD1 Node"
+          - script: echo "Attach CD1 deatach CD2 to/from AGW"
+          - script: echo "Scale CD2 Node"
+          - script: echo "Attach CD2 node to AGW"
+      - job: RemoveCopyWebDatabases
+        displayName: "Remove copy of Web_Databases"
+        steps:
+            - script: echo "Remove copy Web DB on all locations"
