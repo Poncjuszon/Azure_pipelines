@@ -7,8 +7,7 @@ trigger:
 - none
 
 #TODO not sure if generic agents will suffice
-pool:
-  vmImage: 'ubuntu-latest'
+pool: 'ematpil'
 
 
 parameters:
@@ -19,6 +18,10 @@ parameters:
     values:
       - DigitalHub-UAT
       - DigitalHub-PROD
+  - name: branch
+    displayName: LSSitecoreBranch
+    type: string
+    default: develop
 
 variables:
   - name: dupa
@@ -35,14 +38,15 @@ variables:
       value: 'BIO-DCX-Prod-01-azure-connection - Define me first!'
 
 stages:
-  - stage: one
-    displayName: "Upscalling nodes and Databases"
+  - stage: clone
+    displayName: "clone repo"
     jobs:
-      - job: IncreaseNodesSize
-        displayName: "Increasing Nodes size form <normal size> to <upscalled size>"
+      - job: cloneMainRepo
+        displayName: "just clone and see where we are"
         steps:
-          - script: echo ${{parameters.environment}}
+          - script: echo ${{parameters.branch}}
           - script: echo ${{variables.environmentShort}}
           - script: echo ${{variables.azureConnection}}
           - script: echo ${{variables.dupa}}
+          - script: pwd
           
