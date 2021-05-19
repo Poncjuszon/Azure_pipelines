@@ -9,6 +9,14 @@ trigger:
 #TODO not sure if generic agents will suffice
 pool: 'ematpil'
 
+resources:
+ repositories:
+   - repository: dupa2
+     type: github
+     endpoint: Poncjuszon
+     name: Poncjuszon/Azure_pipelines
+     ref: dupa
+
 
 parameters:
   - name: environment
@@ -49,4 +57,6 @@ stages:
           - script: echo ${{variables.azureConnection}}
           - script: echo ${{variables.dupa}}
           - powershell: pwd
+          - checkout: dupa2
+            
           
