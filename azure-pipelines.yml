@@ -48,5 +48,5 @@ stages:
           - script: echo ${{variables.environmentShort}}
           - script: echo ${{variables.azureConnection}}
           - script: echo ${{variables.dupa}}
-          - script: pwd
+          - powershell: pwd
           
