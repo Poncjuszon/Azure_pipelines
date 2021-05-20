@@ -58,6 +58,6 @@ stages:
           - script: echo ${{variables.dupa}}
           - powershell: pwd
           - checkout: dupa2
-            path: $(Agent.BuildDirectory)\LS-Sitecore\
+            path: .\LS-Sitecore\
             
           
