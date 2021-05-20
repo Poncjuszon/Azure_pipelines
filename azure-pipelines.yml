@@ -58,7 +58,7 @@ stages:
           - powershell: pwd
           - checkout: dupa2
             path: .\LS-Sitecore\
-            #fetchDepth: 1
+            fetchDepth: 1
             clean: true
             
             
