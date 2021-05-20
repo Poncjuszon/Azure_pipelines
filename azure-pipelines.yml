@@ -9,15 +9,6 @@ trigger:
 #TODO not sure if generic agents will suffice
 pool: 'ematpil'
 
-resources:
- repositories:
-   - repository: dupa2
-     type: github
-     endpoint: Poncjuszon
-     name: Poncjuszon/Azure_pipelines
-     ref: dupa
-
-
 parameters:
   - name: environment
     displayName: Environment
@@ -29,7 +20,15 @@ parameters:
   - name: branch
     displayName: LSSitecoreBranch
     type: string
-    default: develop
+    default: master
+
+resources:
+ repositories:
+   - repository: dupa2
+     type: github
+     endpoint: Poncjuszon
+     name: Poncjuszon/Azure_pipelines
+     ref: dupa
 
 variables:
   - name: dupa
@@ -59,5 +58,6 @@ stages:
           - powershell: pwd
           - checkout: dupa2
             path: .\LS-Sitecore\
+            fetchDepth: 1
             
           
