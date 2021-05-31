@@ -1,4 +1,12 @@
 
+resources:
+ repositories:
+   - repository: dupa2
+     type: github
+     endpoint: Poncjuszon
+     name: Poncjuszon/Azure_pipelines
+     ref: dupa
+
 parameters:
   - name: inerparam
     displayName: inerparam
