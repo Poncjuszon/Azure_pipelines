@@ -16,7 +16,7 @@ parameters:
 
 
 steps:
-- script: Running Inerpipe
+- script: echo Running Inerpipe
 
 - script: |
     echo Start parameter
