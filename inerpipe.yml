@@ -1,11 +1,3 @@
-# Internal pipeline that is also independent
-
-#Trigger must be none (default is main and it would trigger CI jobs)
-trigger:
-- none
-
-#TODO not sure if generic agents will suffice
-pool: 'ematpil'
 
 parameters:
   - name: inerparam
@@ -14,11 +6,13 @@ parameters:
     default: inerparam-default
 
 
-
-steps:
-- script: echo Running Inerpipe
-
-- script: |
-    echo Start parameter
-    echo ${{parameters.inerparam}}
-    echo End parameter
+stages:
+  - stage: InerStage
+    jobs:
+      - job: InerJob
+        steps:
+          - script: echo Running Inerpipe
+          - script: |
+              echo Start parameter
+              echo ${{parameters.inerparam}}
+              echo End parameter
