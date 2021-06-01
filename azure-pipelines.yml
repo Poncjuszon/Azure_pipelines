@@ -56,10 +56,10 @@ stages:
           - script: echo ${{variables.azureConnection}}
           - script: echo ${{variables.dupa}}
           - powershell: pwd
-          - checkout: dupa2
-            path: .\LS-Sitecore\
-            fetchDepth: 1
-            clean: true
+#          - checkout: dupa2
+#            path: .\LS-Sitecore\
+#            fetchDepth: 1
+#            clean: true
   - template: inerpipe.yml
     parameters: 
       inerparam: "externalinterparam"
