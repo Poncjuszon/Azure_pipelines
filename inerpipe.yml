@@ -5,6 +5,9 @@ parameters:
     type: string
     default: inerparam-default
 
+variables:
+  - name: inervar
+    value: 'inervarvalue'
 
 stages:
   - stage: InerStage
@@ -17,3 +20,4 @@ stages:
               echo Start parameter
               echo ${{parameters.inerparam}}
               echo End parameter
+          - script: echo ${{variables.inervar}}
