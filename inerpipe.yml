@@ -5,14 +5,14 @@ parameters:
     type: string
     default: inerparam-default
 
-variables:
-  - name: inervar
-    value: 'inervarvalue'
 
 stages:
   - stage: InerStage
     jobs:
       - job: InerJob
+        variables:
+          - name: inervar
+            value: 'inervarvalue'
         steps:
           - checkout: dupa2
           - script: echo Running Inerpipe
