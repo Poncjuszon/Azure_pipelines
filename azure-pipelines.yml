@@ -65,7 +65,7 @@ stages:
               Inline: |
                 $vm = get-azvm -Name INT
                 $resourceG = $vm.ResourceGroupName
-                echo '##vso[task.setvariable variable=resourceGroupName]$resourceG'
+                echo '##vso[task.setvariable resourceGroupName=$resourceG]'
               azurePowerShellVersion: 'LatestVersion'
           - script: |
               echo $(resourceGroupName) # outputs secondValue
