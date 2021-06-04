@@ -54,8 +54,22 @@ stages:
           - script: echo ${{parameters.branch}}
           - script: echo ${{variables.environmentShort}}
           - script: echo ${{variables.azureConnection}}
+            displayName: "asdadsad"
+
           - script: echo ${{variables.dupa}}
           - powershell: pwd
+          - task: AzurePowerShell@5
+            inputs:
+              azureSubscription: ${{variables.azureConnection}}
+              azurePowerShellVersion: 'LatestVersion'
+              ScriptType: 'InlineScript'
+              Inline: |
+                $vm = get-vm -ComputerName INT
+                $resourceG = $vm.ResourceGroupName
+                echo '##vso[task.setvariable variable=resourceGroupName]$resourceG'
+          - script: |
+              echo $(resourceGroupName) # outputs secondValue
+              echo "end of script generated variable"
 #          - checkout: dupa2
 #            path: .\LS-Sitecore\
 #            fetchDepth: 1
