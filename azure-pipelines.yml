@@ -60,13 +60,13 @@ stages:
           - powershell: pwd
           - task: AzurePowerShell@5
             inputs:
-              azureSubscription: ${{variables.azureConnection}}
-              azurePowerShellVersion: 'LatestVersion'
+              azureSubscription: 'Private subscription(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
               ScriptType: 'InlineScript'
               Inline: |
                 $vm = get-vm -ComputerName INT
                 $resourceG = $vm.ResourceGroupName
                 echo '##vso[task.setvariable variable=resourceGroupName]$resourceG'
+              azurePowerShellVersion: 'LatestVersion'
           - script: |
               echo $(resourceGroupName) # outputs secondValue
               echo "end of script generated variable"
