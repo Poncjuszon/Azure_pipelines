@@ -63,7 +63,7 @@ stages:
               azureSubscription: 'Private subscription(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
               ScriptType: 'InlineScript'
               Inline: |
-                $vm = get-vm -ComputerName INT
+                $vm = get-azvm -ComputerName INT
                 $resourceG = $vm.ResourceGroupName
                 echo '##vso[task.setvariable variable=resourceGroupName]$resourceG'
               azurePowerShellVersion: 'LatestVersion'
