@@ -68,7 +68,7 @@ stages:
                 echo "##vso[task.setvariable variable=resourceGroupName]$resourceG"
               azurePowerShellVersion: 'LatestVersion'
           - script: |
-              echo $(resourceGroupName) # 
+              echo $(resourceGroupName
               echo "end of script generated variable"
 #          - checkout: dupa2
 #            path: .\LS-Sitecore\
