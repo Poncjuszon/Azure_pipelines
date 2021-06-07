@@ -65,10 +65,10 @@ stages:
               Inline: |
                 $vm = get-azvm -Name INT
                 $resourceG = $vm.ResourceGroupName
-                echo '##vso[task.setvariable resourceGroupName=$resourceG]'
+                echo "##vso[task.setvariable variable=resourceGroupName]$resourceG"
               azurePowerShellVersion: 'LatestVersion'
           - script: |
-              echo $(resourceGroupName) # outputs secondValue
+              echo $(resourceGroupName) # 
               echo "end of script generated variable"
 #          - checkout: dupa2
 #            path: .\LS-Sitecore\
