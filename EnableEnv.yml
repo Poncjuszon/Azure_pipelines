@@ -11,6 +11,7 @@ pool:
 
 parameters:
   - name: environment
+    default: DigitalHub-QA
     values: 
       - DigitalHub-QA
       - DigitalHub-QA3
