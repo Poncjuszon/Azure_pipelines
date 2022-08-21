@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+parameters:
+  - name: environment
+    values: 
+      - DigitalHub-QA
+      - DigitalHub-QA3
+      - DigitalHub-QA4
+
+steps:
+- script: echo This is the enabling environment pipeline
+  displayName: 'Enable Environment ${{ parameters.environment }}'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    sleep 10
+  displayName: 'Run a multi-line script'
