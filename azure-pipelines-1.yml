@@ -10,8 +10,8 @@ pool:
   vmImage: windows-2019
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: echo This is the mian job for QA day cycle
+  displayName: 'Begin Chronos'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
