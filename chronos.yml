@@ -41,6 +41,7 @@ jobs:
       - group: Hermes
   #  dependsOn: ${{ parameters.dependsOn }}
     steps:
+      - checkout: none
       - task: PowerShell@2
         name: CallPipeline
         displayName: "Call pipeline"
@@ -98,6 +99,7 @@ jobs:
         value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
     dependsOn: WaitForPipeline
     steps:
+      - checkout: none
       - task: PowerShell@2
         displayName: "Check pipeline"
         inputs:
@@ -113,7 +115,7 @@ jobs:
             do {
               sleep 10
               Write-Host "checking"
-              $TriggerPipelineStatus = Invoke-RestMethod -Uri $TriggerPipelineResponse.url -Verbose -Method Get -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+              $TriggerPipelineStatus = Invoke-RestMethod -Uri $PipelineRunUrl -Verbose -Method Get -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
             } while ($TriggerPipelineStatus.state -ne "completed")
             if ($TriggerPipelineStatus.result -eq "succeeded") {write-host "Pipe finished good" } else {Write-Error "something went bad"}
           showWarnings: true
