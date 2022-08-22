@@ -110,7 +110,7 @@ jobs:
             $Azure_Pipelines_Token = "$(Azure_Pipelines_Token)"
             $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
             $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
-            $PipelineRunUrl = $(PipelineRunUrl)
+            $PipelineRunUrl = "$(PipelineRunUrl)"
             Write-host "---------------------------------"
             $PipelineRunUrl
             Write-host "---------------------------------"
