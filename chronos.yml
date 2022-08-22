@@ -39,7 +39,6 @@ jobs:
     displayName: "Calling Pipeline"
     variables:
       - group: Hermes
-  #  dependsOn: ${{ parameters.dependsOn }}
     steps:
       - checkout: none
       - task: PowerShell@2
@@ -94,11 +93,10 @@ jobs:
   - job: CheckPipelineStatus
     displayName: "Checking Pipeline status"
     variables:
-      PipelineRunUrl: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
-  #    - group: Hermes
-  #    - name: PipelineRunUrl
-  #      value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
-    dependsOn: WaitForPipeline
+      - group: Hermes
+      - name: PipelineRunUrl
+        value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
+    dependsOn: [ WaitForPipeline, TriggerPipeline ] 
     steps:
       - checkout: none
       - task: PowerShell@2
