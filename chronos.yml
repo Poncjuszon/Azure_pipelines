@@ -108,7 +108,7 @@ jobs:
             $ErrorActionPreference = "Stop"
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             $Azure_Pipelines_User = '$(Azure_Pipelines_User)'
-            $Azure_Pipelines_Token = ""$(Azure_Pipelines_Token)"
+            $Azure_Pipelines_Token = "$(Azure_Pipelines_Token)"
             $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
             $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
             $PipelineRunUrl = $(PipelineRunUrl)
