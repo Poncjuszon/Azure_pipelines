@@ -58,18 +58,24 @@ jobs:
             $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
             $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
             $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Azure_Pipelines_User,$Azure_Pipelines_Token)))
-
+            
             $restApiPipelineList = "https://dev.azure.com/$Azure_Pipelines_Org/$Azure_Pipelines_Proj/_apis/pipelines?api-version=7.1-preview.1"
             $allPipelines = (Invoke-RestMethod -Uri $restApiPipelineList -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -ContentType "application/json").value  
             $Pipeline = $allPipelines | where name -eq $PipelineName
             if ( ($Pipeline -eq $null) -or ($Pipeline.gettype().name -ne "PSCustomObject") ) {write-error "there are no pipelines with that name or there are more than one"} 
             $Azure_PipeId = $Pipeline.id
-
             $restApiPipelineRun = "https://dev.azure.com/$Azure_Pipelines_Org/$Azure_Pipelines_Proj/_apis/pipelines/$Azure_PipeId/runs?api-version=6.0-preview.1"
+            Write-host "---------------------------------"
+            $restApiPipelineRun
+            Write-host "---------------------------------"
+            $Configuration
+            Write-host "---------------------------------"
+            $Azure_PipeId
+            Write-host "---------------------------------"
             $TriggerPipelineResponse = Invoke-RestMethod -Uri $restApiPipelineRun -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $PipelineConfiguration
             $PipelineRunUrl = $TriggerPipelineResponse.url
             Write-Host "##vso[task.setvariable variable=PipelineRunUrl;isoutput=true]"$PipelineRunUrl
-
+            
             #Write-Host "##vso[task.complete result=Failed;]"
             #Write-Host "##vso[task.logissue type=error;] $ErrorMessage"
             #Write-Host "##[debug]Looking for version: "$VersionToDeployCandidate
