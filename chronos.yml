@@ -54,9 +54,9 @@ jobs:
             $Configuration = "${{parameters.Configuration}}"
             
             $Azure_Pipelines_User = '$(Azure_Pipelines_User)'
-            $Azure_Pipelines_Token = $(Azure_Pipelines_Token)
-            $Azure_Pipelines_Org = $(Azure_Pipelines_Org)
-            $Azure_Pipelines_Proj = $(Azure_Pipelines_Proj)
+            $Azure_Pipelines_Token = "$(Azure_Pipelines_Token)"
+            $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
+            $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
             $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Azure_Pipelines_User,$Azure_Pipelines_Token)))
 
             $restApiPipelineList = "https://dev.azure.com/$Azure_Pipelines_Org/$Azure_Pipelines_Proj/_apis/pipelines?api-version=7.1-preview.1"
@@ -100,9 +100,9 @@ jobs:
             $ErrorActionPreference = "Stop"
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             $Azure_Pipelines_User = '$(Azure_Pipelines_User)'
-            $Azure_Pipelines_Token = $(Azure_Pipelines_Token)
-            $Azure_Pipelines_Org = $(Azure_Pipelines_Org)
-            $Azure_Pipelines_Proj = $(Azure_Pipelines_Proj)
+            $Azure_Pipelines_Token = ""$(Azure_Pipelines_Token)"
+            $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
+            $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
             $PipelineRunUrl = $(PipelineRunUrl)
             do {
               sleep 10
