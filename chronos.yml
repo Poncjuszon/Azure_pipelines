@@ -94,9 +94,10 @@ jobs:
   - job: CheckPipelineStatus
     displayName: "Checking Pipeline status"
     variables:
-      - group: Hermes
-      - name: PipelineRunUrl
-        value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
+      PipelineRunUrl: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
+  #    - group: Hermes
+  #    - name: PipelineRunUrl
+  #      value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
     dependsOn: WaitForPipeline
     steps:
       - checkout: none
