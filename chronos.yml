@@ -75,7 +75,7 @@ jobs:
             Write-host "---------------------------------"
             $TriggerPipelineResponse = Invoke-RestMethod -Uri $restApiPipelineRun -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $Configuration
             $PipelineRunUrl = $TriggerPipelineResponse.url
-            Write-Host "##vso[task.setvariable variable=PipelineRunUrl;isoutput=true]"$PipelineRunUrl
+            Write-Host "##vso[task.setvariable variable=PipelineRunUrl;isoutput=true]$PipelineRunUrl"
             $PipelineRunUrl
             #Write-Host "##vso[task.complete result=Failed;]"
             #Write-Host "##vso[task.logissue type=error;] $ErrorMessage"
