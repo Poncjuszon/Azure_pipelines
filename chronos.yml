@@ -57,7 +57,7 @@ jobs:
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             $PipelineName = '${{parameters.PipelineName}}'
             $TimeToWait = '${{parameters.TimeToWait}}'
-            $Configuration = '${{parameters.Configuration}}'
+            $Configuration = "${{parameters.Configuration}}"
             $Azure_Pipelines_User = '$(Azure_Pipelines_User)'
             $Azure_Pipelines_User
             write-host "============================================"
