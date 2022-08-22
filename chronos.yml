@@ -1,7 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - none
@@ -16,11 +12,11 @@ parameters:
   - name: PipelineName
     displayName: Name of the pipeline to call
     type: string
-    default: false
+    default: Deployment
   - name: TimeToWait
     displayName: Time to wait before checking status of run
     type: string
-    default: false
+    default: 1
   - name: Configuration
     displayName: configuration of a called pipeline
     type: string
@@ -28,10 +24,7 @@ parameters:
                  'resources': {
                      'repositories': {
                          'self': {
-                             'refName': 'refs/heads/dupaa'
-                         },
-                         'LS-DigitalHub-Sitecore': {
-                             'refName': 'develop'
+                             'refName': 'refs/heads/main'
                          }
                      }
                  },
@@ -49,6 +42,7 @@ jobs:
   #  dependsOn: ${{ parameters.dependsOn }}
     steps:
       - task: PowerShell@2
+        name: CallPipeline
         displayName: "Call pipeline"
         inputs:
           targetType: 'inline'
@@ -58,14 +52,62 @@ jobs:
             $PipelineName = '${{parameters.PipelineName}}'
             $TimeToWait = '${{parameters.TimeToWait}}'
             $Configuration = "${{parameters.Configuration}}"
+            
             $Azure_Pipelines_User = '$(Azure_Pipelines_User)'
-            $Azure_Pipelines_User
-            write-host "============================================"
-            $Configuration
-            write-host "============================================"
+            $Azure_Pipelines_Token = $(Azure_Pipelines_Token)
+            $Azure_Pipelines_Org = $(Azure_Pipelines_Org)
+            $Azure_Pipelines_Proj = $(Azure_Pipelines_Proj)
+            $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Azure_Pipelines_User,$Azure_Pipelines_Token)))
+
+            $restApiPipelineList = "https://dev.azure.com/$Azure_Pipelines_Org/$Azure_Pipelines_Proj/_apis/pipelines?api-version=7.1-preview.1"
+            $allPipelines = (Invoke-RestMethod -Uri $restApiPipelineList -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -ContentType "application/json").value  
+            $Pipeline = $allPipelines | where name -eq $PipelineName
+            if ( ($Pipeline -eq $null) -or ($Pipeline.gettype().name -ne "PSCustomObject") ) {write-error "there are no pipelines with that name or there are more than one"} 
+            $Azure_PipeId = $Pipeline.id
+
+            $restApiPipelineRun = "https://dev.azure.com/$Azure_Pipelines_Org/$Azure_Pipelines_Proj/_apis/pipelines/$Azure_PipeId/runs?api-version=6.0-preview.1"
+            $TriggerPipelineResponse = Invoke-RestMethod -Uri $restApiPipelineRun -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $PipelineConfiguration
+            $PipelineRunUrl = $TriggerPipelineResponse.url
+            Write-Host "##vso[task.setvariable variable=PipelineRunUrl;isoutput=true]"$PipelineRunUrl
+
             #Write-Host "##vso[task.complete result=Failed;]"
             #Write-Host "##vso[task.logissue type=error;] $ErrorMessage"
             #Write-Host "##[debug]Looking for version: "$VersionToDeployCandidate
             #Write-Host "##vso[task.setvariable variable=VersionToDeploy;]$VersionToDeploy"
             #Write-Host "##[debug]Will deploy: $VersionToDeploy"
+          showWarnings: true
+  - job: WaitForPipeline
+    dependsOn: TriggerPipeline
+    timeoutInMinutes: 300
+    pool: Server
+    steps:
+      - task: Delay@1
+        inputs:
+          delayForMinutes: ${{parameters.TimeToWait}} #$(WaitTime)
+  - job: CheckPipelineStatus
+    displayName: "Checking Pipeline status"
+    variables:
+      - group: Hermes
+      - name: PipelineRunUrl
+        value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
+    dependsOn: WaitForPipeline
+    steps:
+      - task: PowerShell@2
+        displayName: "Check pipeline"
+        inputs:
+          targetType: 'inline'
+          script: |
+            $ErrorActionPreference = "Stop"
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            $Azure_Pipelines_User = '$(Azure_Pipelines_User)'
+            $Azure_Pipelines_Token = $(Azure_Pipelines_Token)
+            $Azure_Pipelines_Org = $(Azure_Pipelines_Org)
+            $Azure_Pipelines_Proj = $(Azure_Pipelines_Proj)
+            $PipelineRunUrl = $(PipelineRunUrl)
+            do {
+              sleep 10
+              Write-Host "checking"
+              $TriggerPipelineStatus = Invoke-RestMethod -Uri $TriggerPipelineResponse.url -Verbose -Method Get -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+            } while ($TriggerPipelineStatus.state -ne "completed")
+            if ($TriggerPipelineStatus.result -eq "succeeded") {write-host "Pipe finished good" } else {Write-Error "something went bad"}
           showWarnings: true
