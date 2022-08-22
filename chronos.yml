@@ -12,11 +12,60 @@ pr:
 pool:
   vmImage: windows-2019
 
-steps:
-- script: echo This is the mian job for QA day cycle
-  displayName: 'Begin Chronos'
+parameters:
+  - name: PipelineName
+    displayName: Name of the pipeline to call
+    type: string
+    default: false
+  - name: TimeToWait
+    displayName: Time to wait before checking status of run
+    type: string
+    default: false
+  - name: Configuration
+    displayName: configuration of a called pipeline
+    type: string
+    default: "{
+                 'resources': {
+                     'repositories': {
+                         'self': {
+                             'refName': 'refs/heads/dupaa'
+                         },
+                         'LS-DigitalHub-Sitecore': {
+                             'refName': 'develop'
+                         }
+                     }
+                 },
+                 'templateParameters': {
+                     'environment': 'DigitalHub-QA3'
+                 }
+             }"
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+
+jobs:
+  - job: TriggerPipeline
+    displayName: "Calling Pipeline"
+    variables:
+      - group: Hermes
+  #  dependsOn: ${{ parameters.dependsOn }}
+    steps:
+      - task: PowerShell@2
+        displayName: "Call pipeline"
+        inputs:
+          targetType: 'inline'
+          script: |
+            $ErrorActionPreference = "Stop"
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            $PipelineName = ${{parameters.PipelineName}}
+            $TimeToWait = ${{parameters.TimeToWait}}
+            $Configuration = ${{parameters.Configuration}}
+            $Azure_Pipelines_User = $(Azure_Pipelines_User)
+            $Azure_Pipelines_User
+            write-host "============================================"
+            $Configuration
+            write-host "============================================"
+            #Write-Host "##vso[task.complete result=Failed;]"
+            #Write-Host "##vso[task.logissue type=error;] $ErrorMessage"
+            #Write-Host "##[debug]Looking for version: "$VersionToDeployCandidate
+            #Write-Host "##vso[task.setvariable variable=VersionToDeploy;]$VersionToDeploy"
+            #Write-Host "##[debug]Will deploy: $VersionToDeploy"
+          showWarnings: true
