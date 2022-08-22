@@ -76,11 +76,11 @@ jobs:
             $TriggerPipelineResponse = Invoke-RestMethod -Uri $restApiPipelineRun -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $Configuration
             $PipelineRunUrl = $TriggerPipelineResponse.url
             Write-Host "##vso[task.setvariable variable=PipelineRunUrl;isoutput=true]"$PipelineRunUrl
-            
+            $PipelineRunUrl
             #Write-Host "##vso[task.complete result=Failed;]"
             #Write-Host "##vso[task.logissue type=error;] $ErrorMessage"
             #Write-Host "##[debug]Looking for version: "$VersionToDeployCandidate
-            #Write-Host "##vso[task.setvariable variable=VersionToDeploy;]$VersionToDeploy"
+            #Write-Host "##vso[task.setvariable variable=VersionToDeploy;isoutput=true]$VersionToDeploy"
             #Write-Host "##[debug]Will deploy: $VersionToDeploy"
           showWarnings: true
   - job: WaitForPipeline
@@ -112,6 +112,11 @@ jobs:
             $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
             $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
             $PipelineRunUrl = $(PipelineRunUrl)
+            Write-host "---------------------------------"
+            $PipelineRunUrl
+            Write-host "---------------------------------"
+            Get-ChildItem env:
+            Write-host "---------------------------------"
             do {
               sleep 10
               Write-Host "checking"
