@@ -120,6 +120,8 @@ jobs:
               sleep 10
               Write-Host "checking"
               $TriggerPipelineStatus = Invoke-RestMethod -Uri $PipelineRunUrl -Verbose -Method Get -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+              $TriggerPipelineStatus.state
+              $TriggerPipelineStatus.result
             } while ($TriggerPipelineStatus.state -ne "completed")
             if ($TriggerPipelineStatus.result -eq "succeeded") {write-host "Pipe finished good" } else {Write-Error "something went bad"}
           showWarnings: true
