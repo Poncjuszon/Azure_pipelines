@@ -120,6 +120,7 @@ jobs:
               sleep 10
               Write-Host "checking"
               $TriggerPipelineStatus = Invoke-RestMethod -Uri $PipelineRunUrl -Verbose -Method Get -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+              $TriggerPipelineStatus
               $TriggerPipelineStatus.state
               $TriggerPipelineStatus.result
             } while ($TriggerPipelineStatus.state -ne "completed")
