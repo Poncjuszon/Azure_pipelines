@@ -11,6 +11,10 @@ parameters:
     displayName: Time to wait before checking status of run
     type: string
     default: 1
+  - name: Environment
+    displayName: Environment Name
+    type: string
+    default: DigitalHub-QAXX
   - name: Configuration
     displayName: configuration of a called pipeline
     type: string
@@ -28,7 +32,7 @@ parameters:
              }"
 
 jobs:
-  - job: TriggerPipeline
+  - job: TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
     displayName: "Calling pipeline '${{parameters.PipelineName}}' "
     variables:
       - group: Hermes
@@ -75,22 +79,22 @@ jobs:
             #Write-Host "##vso[task.setvariable variable=VersionToDeploy;isoutput=true]$VersionToDeploy"
             #Write-Host "##[debug]Will deploy: $VersionToDeploy"
           showWarnings: true
-  - job: WaitForPipeline
+  - job: WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
     displayName: "Waiting for '${{parameters.PipelineName}}' to finish"
-    dependsOn: TriggerPipeline
+    dependsOn: TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
     timeoutInMinutes: 300
     pool: Server
     steps:
       - task: Delay@1
         inputs:
           delayForMinutes: ${{parameters.TimeToWait}} #$(WaitTime)
-  - job: CheckPipelineStatus
+  - job: CheckPipelineStatus${{parameters.PipelineName}}For${{parameters.Environment}}
     displayName: "Checking '${{parameters.PipelineName}}' pipeline status"
     variables:
       - group: Hermes
       - name: PipelineRunUrl
         value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
-    dependsOn: [ WaitForPipeline, TriggerPipeline ] 
+    dependsOn: [ WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}, TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}} ] 
     steps:
       - checkout: none
       - task: PowerShell@2
