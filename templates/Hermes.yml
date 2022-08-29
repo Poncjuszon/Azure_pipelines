@@ -94,7 +94,9 @@ jobs:
       - group: Hermes
       - name: PipelineRunUrl
         value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
-    dependsOn: [ WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}, TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}} ] 
+    dependsOn: 
+      - WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
+      - TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
     steps:
       - checkout: none
       - task: PowerShell@2
