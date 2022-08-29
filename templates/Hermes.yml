@@ -29,7 +29,7 @@ parameters:
 
 jobs:
   - job: TriggerPipeline
-    displayName: "Calling Pipeline"
+    displayName: "Calling pipeline '${{parameters.PipelineName}}' "
     variables:
       - group: Hermes
     steps:
