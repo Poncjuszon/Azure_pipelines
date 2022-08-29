@@ -30,54 +30,56 @@ stages:
     displayName: Run cycle for QA3
     lockBehavior: sequential
     jobs:
-#      - job: dupa
-#        displayName: sdsdsd
+      - job: dupa
+        displayName: sdsdsd
+        steps:
+          
 
-      - template: templates/Hermes.yml
-        parameters:
-          PipelineName: EnableEnv
-          TimeToWait: 1
-          Configuration: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
+#      - template: templates/Hermes.yml
+#        parameters:
+#          PipelineName: EnableEnv
+#          TimeToWait: 1
+#          Configuration: "{
+#                 'resources': {
+#                     'repositories': {
+#                         'self': {
                              'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
-      - template: templates/Hermes.yml
-        parameters:
-          PipelineName: Deployment
-          TimeToWait: 1
-          Configuration: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
-                             'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
-      - template: templates/Hermes.yml
-        parameters:
-          PipelineName: Regresion
-          TimeToWait: 1
-          Configuration: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
-                             'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
+#                         }
+#                     }
+#                 },
+#                 'templateParameters': {
+#                     'environment': 'DigitalHub-QA3'
+#                 }
+#             }"
+#      - template: templates/Hermes.yml
+#        parameters:
+#          PipelineName: Deployment
+#          TimeToWait: 1
+#          Configuration: "{
+#                 'resources': {
+#                     'repositories': {
+#                         'self': {
+#                             'refName': 'refs/heads/main'
+#                         }
+#                     }
+#                 },
+#                 'templateParameters': {
+#                     'environment': 'DigitalHub-QA3'
+#                 }
+#             }"
+#      - template: templates/Hermes.yml
+#        parameters:
+#          PipelineName: Regresion
+#          TimeToWait: 1
+#          Configuration: "{
+#                 'resources': {
+#                     'repositories': {
+#                         'self': {
+#                             'refName': 'refs/heads/main'
+#                         }
+#                     }
+#                 },
+#                 'templateParameters': {
+#                     'environment': 'DigitalHub-QA3'
+#                 }
+#             }"
