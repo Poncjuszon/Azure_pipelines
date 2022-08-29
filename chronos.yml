@@ -30,10 +30,6 @@ stages:
     displayName: Run cycle for QA3
     lockBehavior: sequential
     jobs:
-      - job: dupa
-        displayName: sdsdsd
-        steps:
-          - checkout: none
       - template: templates/Hermes.yml
         parameters:
           PipelineName: EnableEnv
