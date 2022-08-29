@@ -81,7 +81,7 @@ jobs:
           showWarnings: true
   - job: WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
     displayName: "Waiting for '${{parameters.PipelineName}}' to finish"
- #   dependsOn: TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
+    dependsOn: TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
     timeoutInMinutes: 300
     pool: Server
     steps:
@@ -94,7 +94,7 @@ jobs:
       - group: Hermes
       - name: PipelineRunUrl
         value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
-  #  dependsOn: [ WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}, TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}} ] 
+    dependsOn: [ WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}, TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}} ] 
     steps:
       - checkout: none
       - task: PowerShell@2
