@@ -21,7 +21,7 @@ pool:
 #                     }
 #                 },
 #                 'templateParameters': {
-#                     'environment': 'DigitalHub-QA3'
+#                     
 #                 }
 #             }"
 
@@ -33,8 +33,19 @@ stages:
       - job: dupa
         displayName: sdsdsd
         steps:
+          - task: RunPipelines@2
+            inputs:
+              serviceConnection: 'ematpil'
+              project: 'ematpil'
+              folderPath: '\'
+              buildDefinition: 'EnableEnv'
+              targetType: 'inline'
+              buildParameters: '{''environment'': ''DigitalHub-QA3''}'
+              waitForQueuedBuildsToFinish: true
+              waitRefreshTime: '30'
+              waitTimeOut: '120'
+              storeInOutputVariable: false
           
-
 #      - template: templates/Hermes.yml
 #        parameters:
 #          PipelineName: EnableEnv
@@ -43,7 +54,7 @@ stages:
 #                 'resources': {
 #                     'repositories': {
 #                         'self': {
-                             'refName': 'refs/heads/main'
+#                             'refName': 'refs/heads/main'
 #                         }
 #                     }
 #                 },
