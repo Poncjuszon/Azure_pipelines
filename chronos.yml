@@ -111,6 +111,7 @@ jobs:
             $Azure_Pipelines_Org = "$(Azure_Pipelines_Org)"
             $Azure_Pipelines_Proj = "$(Azure_Pipelines_Proj)"
             $PipelineRunUrl = "$(PipelineRunUrl)"
+            $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Azure_Pipelines_User,$Azure_Pipelines_Token)))
             Write-host "---------------------------------"
             $PipelineRunUrl
             Write-host "---------------------------------"
