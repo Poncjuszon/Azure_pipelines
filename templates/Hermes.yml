@@ -93,7 +93,7 @@ jobs:
     variables:
       - group: Hermes
       - name: PipelineRunUrl
-        value: $[ dependencies.TriggerPipeline.outputs['CallPipeline.PipelineRunUrl'] ]
+        value: $[ dependencies.TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}.outputs['CallPipeline.PipelineRunUrl'] ]
     dependsOn: 
       - WaitForPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
       - TriggerPipeline${{parameters.PipelineName}}For${{parameters.Environment}}
