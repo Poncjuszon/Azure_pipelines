@@ -28,7 +28,11 @@ pool:
 stages:
   - stage: QA3
     displayName: Run cycle for QA3
+    lockBehavior: sequential
     jobs:
+#      - job: dupa
+#        displayName: sdsdsd
+
       - template: templates/Hermes.yml
         parameters:
           PipelineName: EnableEnv
@@ -63,7 +67,7 @@ stages:
              }"
       - template: templates/Hermes.yml
         parameters:
-          PipelineName: Regression
+          PipelineName: Regresion
           TimeToWait: 1
           Configuration: "{
                  'resources': {
