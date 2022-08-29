@@ -40,7 +40,7 @@ stages:
               folderPath: '\'
               buildDefinition: 'EnableEnv'
               targetType: 'inline'
-              buildParameters: '{''environment'': ''DigitalHub-QA3''}'
+              buildParameters: '[{"environment": "DigitalHub-QA3"}]'
               customPrefix: '11'
               waitForQueuedBuildsToFinish: true
               waitRefreshTime: '30'
