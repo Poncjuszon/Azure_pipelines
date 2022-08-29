@@ -33,6 +33,7 @@ stages:
       - job: dupa
         displayName: sdsdsd
         steps:
+          - checkout: none
           - task: RunPipelines@2
             inputs:
               serviceConnection: 'ematpil'
@@ -40,7 +41,7 @@ stages:
               folderPath: '\'
               buildDefinition: 'EnableEnv'
               targetType: 'inline'
-              buildParameters: ''''''
+              buildParameters: '{}'
               customPrefix: '11'
               waitForQueuedBuildsToFinish: true
               waitRefreshTime: '30'
