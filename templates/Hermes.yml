@@ -14,7 +14,7 @@ parameters:
   - name: Environment
     displayName: Environment Name
     type: string
-    default: DigitalHub-QAXX
+    default: DigitalHubQAXX
   - name: Configuration
     displayName: configuration of a called pipeline
     type: string
