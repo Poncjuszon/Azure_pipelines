@@ -36,7 +36,7 @@ jobs:
       - checkout: none
       - task: PowerShell@2
         name: CallPipeline
-        displayName: "Call pipeline"
+        displayName: "Call pipeline '${{parameters.PipelineName}}'"
         inputs:
           targetType: 'inline'
           script: |
@@ -76,6 +76,7 @@ jobs:
             #Write-Host "##[debug]Will deploy: $VersionToDeploy"
           showWarnings: true
   - job: WaitForPipeline
+    displayName: "Waiting for '${{parameters.PipelineName}}' to finish"
     dependsOn: TriggerPipeline
     timeoutInMinutes: 300
     pool: Server
@@ -84,7 +85,7 @@ jobs:
         inputs:
           delayForMinutes: ${{parameters.TimeToWait}} #$(WaitTime)
   - job: CheckPipelineStatus
-    displayName: "Checking Pipeline status"
+    displayName: "Checking '${{parameters.PipelineName}}' pipeline status"
     variables:
       - group: Hermes
       - name: PipelineRunUrl
