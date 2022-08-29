@@ -8,30 +8,22 @@ pr:
 pool:
   vmImage: windows-2019
 
-parameters:
-  - name: PipelineName
-    displayName: Name of the pipeline to call
-    type: string
-    default: Deployment
-  - name: TimeToWait
-    displayName: Time to wait before checking status of run
-    type: string
-    default: 1
-  - name: Configuration
-    displayName: configuration of a called pipeline
-    type: string
-    default: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
-                             'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
+#parameters:
+#  - name: Configuration
+#    displayName: configuration of a called pipeline
+#    type: string
+#    default: "{
+#                 'resources': {
+#                     'repositories': {
+#                         'self': {
+#                             'refName': 'refs/heads/main'
+#                         }
+#                     }
+#                 },
+#                 'templateParameters': {
+#                     'environment': 'DigitalHub-QA3'
+#                 }
+#             }"
 
 stages:
   - stage: QA3
