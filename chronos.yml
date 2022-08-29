@@ -45,3 +45,35 @@ stages:
                      'environment': 'DigitalHub-QA3'
                  }
              }"
+      - template: templates/Hermes.yml
+        parameters:
+          PipelineName: Deployment
+          TimeToWait: 1
+          Configuration: "{
+                 'resources': {
+                     'repositories': {
+                         'self': {
+                             'refName': 'refs/heads/main'
+                         }
+                     }
+                 },
+                 'templateParameters': {
+                     'environment': 'DigitalHub-QA3'
+                 }
+             }"
+      - template: templates/Hermes.yml
+        parameters:
+          PipelineName: Regression
+          TimeToWait: 1
+          Configuration: "{
+                 'resources': {
+                     'repositories': {
+                         'self': {
+                             'refName': 'refs/heads/main'
+                         }
+                     }
+                 },
+                 'templateParameters': {
+                     'environment': 'DigitalHub-QA3'
+                 }
+             }"
