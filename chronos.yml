@@ -54,7 +54,8 @@ stages:
                         }
                     },
                     'templateParameters': {
-                        'environment': 'DigitalHub-QA3'
+                        'environment': 'DigitalHub-QA3',
+                        "PlanId": "$(system.PlanId)"
                     }
                 }
               urlSuffix: '/23/runs?api-version=6.0-preview.1'
