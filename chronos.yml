@@ -31,7 +31,7 @@ stages:
     lockBehavior: sequential
     jobs:
       - job: InvokeAPI
-        displayName: invoking api
+        displayName: invoke enable env
         pool: Server
         steps:
           - task: InvokeRESTAPI@1
@@ -66,6 +66,82 @@ stages:
                 }
               urlSuffix: '/23/runs?api-version=6.0-preview.1'
               waitForCompletion: 'true'
+      - job: InvokeAPI2
+        displayName: run deployment
+        pool: Server
+        steps:
+          - task: InvokeRESTAPI@1
+            inputs:
+              connectionType: 'connectedServiceName'
+              serviceConnection: 'Pipelines_caller'
+              method: 'POST'
+              headers: |
+                {
+                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
+                "Content-Type":"application/json"
+                }
+              body: |
+                {
+                    'resources': {
+                        'repositories': {
+                            'self': {
+                                'refName': 'refs/heads/main'
+                            }
+                        }
+                    },
+                    'templateParameters': {
+                        'environment': 'DigitalHub-QA3',
+                        "PlanUrl": "$(system.CollectionUri)", 
+                        "ProjectId": "$(system.TeamProjectId)", 
+                        "HubName": "$(system.HostType)", 
+                        "PlanId": "$(system.PlanId)", 
+                        "JobId": "$(system.JobId)", 
+                        "TimelineId": "$(system.TimelineId)", 
+                        "TaskInstanceId": "$(system.TaskInstanceId)"
+                    }
+                }
+              urlSuffix: '/24/runs?api-version=6.0-preview.1'
+              waitForCompletion: 'true'
+      - job: InvokeAPI3
+        displayName: call regression
+        pool: Server
+        steps:
+          - task: InvokeRESTAPI@1
+            inputs:
+              connectionType: 'connectedServiceName'
+              serviceConnection: 'Pipelines_caller'
+              method: 'POST'
+              headers: |
+                {
+                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
+                "Content-Type":"application/json"
+                }
+              body: |
+                {
+                    'resources': {
+                        'repositories': {
+                            'self': {
+                                'refName': 'refs/heads/main'
+                            }
+                        }
+                    },
+                    'templateParameters': {
+                        'environment': 'DigitalHub-QA3',
+                        "PlanUrl": "$(system.CollectionUri)", 
+                        "ProjectId": "$(system.TeamProjectId)", 
+                        "HubName": "$(system.HostType)", 
+                        "PlanId": "$(system.PlanId)", 
+                        "JobId": "$(system.JobId)", 
+                        "TimelineId": "$(system.TimelineId)", 
+                        "TaskInstanceId": "$(system.TaskInstanceId)"
+                    }
+                }
+              urlSuffix: '/25/runs?api-version=6.0-preview.1'
+              waitForCompletion: 'true'
+
+
+
+
 #     - template: templates/Hermes.yml
 #       parameters:
 #         PipelineName: EnableEnv
