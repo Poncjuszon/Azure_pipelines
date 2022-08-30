@@ -18,7 +18,21 @@ parameters:
       - DigitalHub-QA
       - DigitalHub-QA3
       - DigitalHub-QA4
-
+  - name: PlanUrl
+    default: none
+  - name: ProjectId
+    default: none
+  - name: HubName
+    default: none
+  - name: PlanId
+    default: none
+  - name: JobId
+    default: none
+  - name: TimelineId
+    default: none
+  - name: TaskInstanceId
+    default: none
+    
 steps:
 - script: echo Hello, world!
   displayName: 'This is the deployment pipeline for ${{parameters.environment}}'
