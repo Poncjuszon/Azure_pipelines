@@ -30,52 +30,89 @@ stages:
     displayName: Run cycle for QA3
     lockBehavior: sequential
     jobs:
-      - template: templates/Hermes.yml
-        parameters:
-          PipelineName: EnableEnv
-          TimeToWait: 1
-          Configuration: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
-                             'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
-      - template: templates/Hermes.yml
-        parameters:
-          PipelineName: Deployment
-          TimeToWait: 1
-          Configuration: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
-                             'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
-      - template: templates/Hermes.yml
-        parameters:
-          PipelineName: Regresion
-          TimeToWait: 1
-          Configuration: "{
-                 'resources': {
-                     'repositories': {
-                         'self': {
-                             'refName': 'refs/heads/main'
-                         }
-                     }
-                 },
-                 'templateParameters': {
-                     'environment': 'DigitalHub-QA3'
-                 }
-             }"
+      - job: InvokeAPI
+        displayName: invoking api
+        pool: Server
+        steps:
+          - task: InvokeRESTAPI@1
+            inputs:
+              connectionType: 'connectedServiceName'
+              serviceConnection: 'Pipelines_caller'
+              method: 'POST'
+              headers: |
+                {
+                "Content-Type":"application/json", 
+                "PlanUrl": "$(system.CollectionUri)", 
+                "ProjectId": "$(system.TeamProjectId)", 
+                "HubName": "$(system.HostType)", 
+                "PlanId": "$(system.PlanId)", 
+                "JobId": "$(system.JobId)", 
+                "TimelineId": "$(system.TimelineId)", 
+                "TaskInstanceId": "$(system.TaskInstanceId)", 
+                "AuthToken": "$(system.AccessToken)",
+                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh"
+                }
+              body: |
+                "{
+                    'resources': {
+                        'repositories': {
+                            'self': {
+                                'refName': 'refs/heads/main'
+                            }
+                        }
+                    },
+                    'templateParameters': {
+                        'environment': 'DigitalHub-QA3'
+                    }
+                }"
+              urlSuffix: '23/runs?api-version=6.0-preview.1'
+              waitForCompletion: 'false'
+#     - template: templates/Hermes.yml
+#       parameters:
+#         PipelineName: EnableEnv
+#         TimeToWait: 1
+#         Configuration: "{
+#                'resources': {
+#                    'repositories': {
+#                        'self': {
+#                            'refName': 'refs/heads/main'
+#                        }
+#                    }
+#                },
+#                'templateParameters': {
+#                    'environment': 'DigitalHub-QA3'
+#                }
+#            }"
+#     - template: templates/Hermes.yml
+#       parameters:
+#         PipelineName: Deployment
+#         TimeToWait: 1
+#         Configuration: "{
+#                'resources': {
+#                    'repositories': {
+#                        'self': {
+#                            'refName': 'refs/heads/main'
+#                        }
+#                    }
+#                },
+#                'templateParameters': {
+#                    'environment': 'DigitalHub-QA3'
+#                }
+#            }"
+#     - template: templates/Hermes.yml
+#       parameters:
+#         PipelineName: Regresion
+#         TimeToWait: 1
+#         Configuration: "{
+#                'resources': {
+#                    'repositories': {
+#                        'self': {
+#                            'refName': 'refs/heads/main'
+#                        }
+#                    }
+#                },
+#                'templateParameters': {
+#                    'environment': 'DigitalHub-QA3'
+#                }
+#            }"
 
