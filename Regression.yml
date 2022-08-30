@@ -54,5 +54,5 @@ steps:
     $responsebodyCallback = "{ 'name': 'TaskCompleted', 'taskId': '$taskId', 'jobId': '$jobId', 'result': $result }"
     Invoke-RestMethod -Uri $restApiPipelineCallback -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $responsebodyCallback
   displayName: 'Return Pipe result'
-  condition: ne($parameters.PlanId, 'none')
+  condition: ne('${{ parameters.PlanId }}', 'none')
 
