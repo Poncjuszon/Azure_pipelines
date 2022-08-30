@@ -55,7 +55,13 @@ stages:
                     },
                     'templateParameters': {
                         'environment': 'DigitalHub-QA3',
-                        "PlanId": "$(system.PlanId)"
+                        "PlanUrl": "$(system.CollectionUri)", 
+                        "ProjectId": "$(system.TeamProjectId)", 
+                        "HubName": "$(system.HostType)", 
+                        "PlanId": "$(system.PlanId)", 
+                        "JobId": "$(system.JobId)", 
+                        "TimelineId": "$(system.TimelineId)", 
+                        "TaskInstanceId": "$(system.TaskInstanceId)"
                     }
                 }
               urlSuffix: '/23/runs?api-version=6.0-preview.1'
