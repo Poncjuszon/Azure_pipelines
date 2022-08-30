@@ -19,6 +19,8 @@ parameters:
       - DigitalHub-QA
       - DigitalHub-QA3
       - DigitalHub-QA4
+  - name: PlanId
+    default: 00000-0000-000-00
 
 steps:
 - script: echo This is the enabling environment pipeline
