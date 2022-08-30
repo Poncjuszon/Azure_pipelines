@@ -65,7 +65,7 @@ stages:
                         'environment': 'DigitalHub-QA3'
                     }
                 }"
-              urlSuffix: '23/runs?api-version=6.0-preview.1'
+              urlSuffix: '/23/runs?api-version=6.0-preview.1'
               waitForCompletion: 'false'
 #     - template: templates/Hermes.yml
 #       parameters:
