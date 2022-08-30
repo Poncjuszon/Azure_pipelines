@@ -58,7 +58,7 @@ stages:
                     }
                 }
               urlSuffix: '/23/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'false'
+              waitForCompletion: 'true'
 #     - template: templates/Hermes.yml
 #       parameters:
 #         PipelineName: EnableEnv
