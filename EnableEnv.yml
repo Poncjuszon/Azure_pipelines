@@ -20,19 +20,19 @@ parameters:
       - DigitalHub-QA3
       - DigitalHub-QA4
   - name: PlanUrl
-    default: 00000-0000-000-00
+    default: none
   - name: ProjectId
-    default: 00000-0000-000-00
+    default: none
   - name: HubName
-    default: 00000-0000-000-00
+    default: none
   - name: PlanId
-    default: 00000-0000-000-00
+    default: none
   - name: JobId
-    default: 00000-0000-000-00
+    default: none
   - name: TimelineId
-    default: 00000-0000-000-00
+    default: none
   - name: TaskInstanceId
-    default: 00000-0000-000-00
+    default: none
 
 
 steps:
