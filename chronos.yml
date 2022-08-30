@@ -45,7 +45,7 @@ stages:
                 "Content-Type":"application/json"
                 }
               body: |
-                "{
+                {
                     'resources': {
                         'repositories': {
                             'self': {
@@ -56,7 +56,7 @@ stages:
                     'templateParameters': {
                         'environment': 'DigitalHub-QA3'
                     }
-                }"
+                }
               urlSuffix: '/23/runs?api-version=6.0-preview.1'
               waitForCompletion: 'false'
 #     - template: templates/Hermes.yml
