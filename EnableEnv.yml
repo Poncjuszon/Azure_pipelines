@@ -42,7 +42,7 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo $(dummy)
     echo $(dummy2)
-    echo $(dummy3)
+    echo ${{variables.dummy3}}
     sleep 10
   displayName: 'Run a multi-line script'
 
