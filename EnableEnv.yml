@@ -38,13 +38,16 @@ steps:
 - script: echo This is the enabling environment pipeline
   displayName: 'Enable Environment ${{ parameters.environment }}'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo $(dummy)
-    echo $(dummy2)
-    echo ${{variables.dummy3}}
-    sleep 10
-  displayName: 'Run a multi-line script'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-host $(dummy)
+      Write-host $(dummy2)
+      Write-host $dummy3)
+      Write-host ${{variables.dummy3}}
+  displayName: 'multiline powershell'
+  condition: ne('${{ parameters.PlanId }}', 'none')
 
 - task: PowerShell@2
   inputs:
