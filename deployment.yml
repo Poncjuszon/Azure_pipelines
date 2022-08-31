@@ -13,18 +13,18 @@ pool:
 
 parameters:
   - name: environment
-    default: DigitalHubQA
+    default: DigitalHub-QA
     values: 
-      - DigitalHubQA
-      - DigitalHubQA2
-      - DigitalHubQA3
-      - DigitalHubQA4
-      - DigitalHubQA5
-      - DigitalHubQA6
-      - DigitalHubQA7
-      - DigitalHubQA8
-      - DigitalHubQA9
-      - DigitalHubQA10
+      - DigitalHub-QA
+      - DigitalHub-QA2
+      - DigitalHub-QA3
+      - DigitalHub-QA4
+      - DigitalHub-QA5
+      - DigitalHub-QA6
+      - DigitalHub-QA7
+      - DigitalHub-QA8
+      - DigitalHub-QA9
+      - DigitalHub-QA10
 
 steps:
 - script: echo Hello, world!
