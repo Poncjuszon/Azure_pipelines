@@ -10,7 +10,7 @@ parameters:
   - name: Environment
     displayName: Environment Name
     type: string
-    default: DigitalHubQAXX
+    default: DigitalHub-QAXX
   - name: LSDigitalHubSiteCoreGitReference
     displayName: Name of the repository that should be used for deployment
     type: string
