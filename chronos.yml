@@ -12,70 +12,70 @@ pool:
 stages:
   - stage: QA
     displayName: Run cycle for QA
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA"
   - stage: QA2
     displayName: Run cycle for QA2
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA2"
   - stage: QA3
     displayName: Run cycle for QA3
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA3"
   - stage: QA4
     displayName: Run cycle for QA4
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA4"
   - stage: QA5
     displayName: Run cycle for QA5
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA5"
   - stage: QA6
     displayName: Run cycle for QA6
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA6"
   - stage: QA7
     displayName: Run cycle for QA7
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA7"
   - stage: QA8
     displayName: Run cycle for QA8
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA8"
   - stage: QA9
     displayName: Run cycle for QA9
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA9"
   - stage: QA10
     displayName: Run cycle for QA10
-    lockBehavior: sequential
+    dependsOn: []
     jobs:
       - template: templates/Hermes.yml
         parameters:
