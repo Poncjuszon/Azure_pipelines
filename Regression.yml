@@ -54,7 +54,7 @@ steps:
       $result = "$(Agent.JobStatus)"
       $base64AuthInfo = "ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh"
       $restApiPipelineCallback = "$planUri/$projectId/_apis/distributedtask/hubs/$hubName/plans/$planId/events?api-version=2.0-preview.1"
-      $responsebodyCallback = "{ 'name': 'TaskCompleted', 'taskId': '$taskId', 'jobId': '$jobId', 'result': $result }"
+      $responsebodyCallback = "{ 'name': 'TaskCompleted', 'taskId': '$taskId', 'jobId': '$jobId', 'result': '$result' }"
       $responsebodyCallback
       $result
       Invoke-RestMethod -Uri $restApiPipelineCallback -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $responsebodyCallback
