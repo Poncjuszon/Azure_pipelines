@@ -103,7 +103,7 @@ stages:
 #              urlSuffix: '/24/runs?api-version=6.0-preview.1'
 #              waitForCompletion: 'true'
       - job: InvokeAPI3
-        displayName: call process
+        displayName: Nightly process
         pool: Server
         steps:
           - task: InvokeRESTAPI@1
