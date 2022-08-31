@@ -34,6 +34,11 @@ parameters:
   - name: TaskInstanceId
     default: none
 
+variables:
+  - name: dummy
+    value: defaultdummy
+  - name: dummy2
+    value: defaultdummy2
 
 steps:
 - script: echo This is the enabling environment pipeline
@@ -41,6 +46,7 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
+    echo ${{ variables.dummy }}
     sleep 10
   displayName: 'Run a multi-line script'
 
