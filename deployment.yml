@@ -32,6 +32,7 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
+    echo "##vso[task.complete result=Failed;]"
     sleep 10
   displayName: 'Run a multi-line script'
 - task: PowerShell@2
