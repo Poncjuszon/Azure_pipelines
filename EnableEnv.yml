@@ -37,8 +37,10 @@ parameters:
 variables:
   - name: dummy
     value: defaultdummy
+    readonly: false
   - name: dummy2
     value: defaultdummy2
+    readonly: false
 
 steps:
 - script: echo This is the enabling environment pipeline
