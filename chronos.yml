@@ -41,7 +41,7 @@ stages:
                     },
                     'templateParameters': {
                         'environment': 'DigitalHub-QA3'
-                    }
+                    },
                     "variables": {
                       "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
                       "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
@@ -76,7 +76,7 @@ stages:
                     },
                     'templateParameters': {
                         'environment': 'DigitalHub-QA3'
-                    }
+                    },
                     "variables": {
                       "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
                       "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
@@ -111,7 +111,7 @@ stages:
                     },
                     'templateParameters': {
                         'environment': 'DigitalHub-QA3'
-                    }
+                    },
                     "variables": {
                       "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
                       "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
