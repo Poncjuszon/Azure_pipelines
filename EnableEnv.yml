@@ -44,7 +44,7 @@ steps:
     script: |
       Write-host $(dummy)
       Write-host $(dummy2)
-      Write-host $dummy3)
+      Write-host $(dummy3)
       Write-host ${{variables.dummy3}}
   displayName: 'multiline powershell'
   condition: ne('${{ parameters.PlanId }}', 'none')
