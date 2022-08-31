@@ -13,8 +13,15 @@ parameters:
     default: DigitalHub-QA
     values: 
       - DigitalHub-QA
+      - DigitalHub-QA2
       - DigitalHub-QA3
       - DigitalHub-QA4
+      - DigitalHub-QA5
+      - DigitalHub-QA6
+      - DigitalHub-QA7
+      - DigitalHub-QA8
+      - DigitalHub-QA9
+      - DigitalHub-QA10
 
 pool:
   vmImage: windows-latest
