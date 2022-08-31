@@ -10,347 +10,73 @@ pool:
 
 
 stages:
+  - stage: QA
+    displayName: Run cycle for QA
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA"
+  - stage: QA2
+    displayName: Run cycle for QA2
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA2"
   - stage: QA3
     displayName: Run cycle for QA3
     lockBehavior: sequential
     jobs:
-
-      - job: InvokeAPI3
-        displayName: Nightly process for QA3
-        pool: Server
-        steps:
-          - task: InvokeRESTAPI@1
-            displayName: Enable Environment
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA3'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/23/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-          - task: InvokeRESTAPI@1
-            displayName: Run Deployment
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA3'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/24/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-          - task: InvokeRESTAPI@1
-            displayName: Run Regression
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA3'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/25/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA3"
   - stage: QA4
     displayName: Run cycle for QA4
-    dependsOn: []
     lockBehavior: sequential
     jobs:
-      - job: InvokeAPI3
-        displayName: Nightly process for QA4
-        pool: Server
-        steps:
-          - task: InvokeRESTAPI@1
-            displayName: Enable Environment
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA4'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/23/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-          - task: InvokeRESTAPI@1
-            displayName: Run Deployment
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA4'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/24/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-          - task: InvokeRESTAPI@1
-            displayName: Run Regression
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA4'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/25/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-  - stage: QA
-    displayName: Run cycle for QA
-    dependsOn: []
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA4"
+  - stage: QA5
+    displayName: Run cycle for QA5
     lockBehavior: sequential
     jobs:
-
-      - job: InvokeAPI3
-        displayName: Nightly process for QA
-        pool: Server
-        steps:
-          - task: InvokeRESTAPI@1
-            displayName: Enable Environment
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/23/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-          - task: InvokeRESTAPI@1
-            displayName: Run Deployment
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/24/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
-          - task: InvokeRESTAPI@1
-            displayName: Run Regression
-            inputs:
-              connectionType: 'connectedServiceName'
-              serviceConnection: 'Pipelines_caller'
-              method: 'POST'
-              headers: |
-                {
-                "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-                "Content-Type":"application/json"
-                }
-              body: |
-                {
-                    'resources': {
-                        'repositories': {
-                            'self': {
-                                'refName': 'refs/heads/main'
-                            }
-                        }
-                    },
-                    'templateParameters': {
-                        'environment': 'DigitalHub-QA'
-                    },
-                    "variables": {
-                      "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                      "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                      "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                      "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                      "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                      "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                      "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                    }
-                }
-              urlSuffix: '/25/runs?api-version=6.0-preview.1'
-              waitForCompletion: 'true'
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA5"
+  - stage: QA6
+    displayName: Run cycle for QA6
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA6"
+  - stage: QA7
+    displayName: Run cycle for QA7
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA7"
+  - stage: QA8
+    displayName: Run cycle for QA8
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA8"
+  - stage: QA9
+    displayName: Run cycle for QA9
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA9"
+  - stage: QA10
+    displayName: Run cycle for QA10
+    lockBehavior: sequential
+    jobs:
+      - template: templates/hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA10"
