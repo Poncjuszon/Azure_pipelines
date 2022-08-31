@@ -19,20 +19,7 @@ parameters:
       - DigitalHub-QA
       - DigitalHub-QA3
       - DigitalHub-QA4
-#  - name: PlanUrl
-#    default: none
-#  - name: ProjectId
-#    default: none
-#  - name: HubName
-#    default: none
-#  - name: PlanId
-#    default: none
-#  - name: JobId
-#    default: none
-#  - name: TimelineId
-#    default: none
-#  - name: TaskInstanceId
-#    default: none
+
 
 steps:
 - script: echo This is the enabling environment pipeline
@@ -65,22 +52,3 @@ steps:
   displayName: 'Return Pipe result'
   condition: ne(variables['planId'], '')
 
-#- task: PowerShell@2
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      $planUri = "${{parameters.PlanUrl}}"
-#      $projectId = "${{parameters.ProjectId}}"
-#      $hubName = "${{parameters.HubName}}"
-#      $planId = "${{parameters.PlanId}}"
-#      $taskId = "${{parameters.TaskInstanceId}}"
-#      $jobId = "${{parameters.JobId}}"
-#      $result = "$(Agent.JobStatus)"
-#      $base64AuthInfo = "ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh"
-#      $restApiPipelineCallback = "$planUri/$projectId/_apis/distributedtask/hubs/$hubName/plans/$planId/events?api-version=2.0-preview.1"
-#      $responsebodyCallback = "{ 'name': 'TaskCompleted', 'taskId': '$taskId', 'jobId': '$jobId', 'result': '$result' }"
-#      $responsebodyCallback
-#      $result
-#      Invoke-RestMethod -Uri $restApiPipelineCallback -Verbose -Method Post -ContentType "application/json" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}  -Body $responsebodyCallback
-#  displayName: 'Return Pipe result'
-#  condition: ne('${{ parameters.PlanId }}', 'none')
