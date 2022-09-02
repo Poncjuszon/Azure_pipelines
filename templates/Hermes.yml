@@ -3,14 +3,18 @@
 #
 #
 parameters:
-  - name: Delay
-    displayName: Time to wait before starting nightly
-    type: string
-    default: 0
   - name: Environment
     displayName: Environment Name
     type: string
     default: DigitalHub-QAXX
+  - name: NightlyDeployment
+    displayName: Run Deployment
+    type: boolean
+    default: false
+  - name: NightlyRegression
+    displayName: Run Regression
+    type: boolean
+    default: false
   - name: LSDigitalHubSiteCoreGitReference
     displayName: Name of the repository that should be used for deployment
     type: string
