@@ -42,7 +42,7 @@ stages:
           NightlyDeployment:  $(QA_NightlyDeployment)
           NightlyRegression: $(QA_NightlyRegression)
           LSDigitalHubSiteCoreGitReference: $(QA_BranchToDeployFrom)
-          LSDigitalHubAutoTestsGitReference: $( QA_BranchToTestFrom)
+          LSDigitalHubAutoTestsGitReference: $(QA_BranchToTestFrom)
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
