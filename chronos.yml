@@ -16,21 +16,45 @@ schedules:
     include:
       - main
 
+variables:
+ - group: Nightly
+
 stages:
+#  - stage: ParseNightlyConfiguration
+#    displayName: Parse Configuration for all nightly runs
+#
+#    jobs:
+#      - job: ParseConfiguration
+#ile czekac?
+#jezeli nie ma regression to 2h
+#jezeli nie ma deployment to 5h
+#
+#jezeli inactive to wogole odpusc
+#
   - stage: QA
     displayName: Run cycle for QA
+    condition: eq(${{variables.QA_IsActive}},'true')
     dependsOn: []
     jobs:
+      - job: Wait
+        displayName: Wait before starting a cycle 
+        pool: server
+        steps:
+          - task: Delay@1
+            inputs:
+              delayForMinutes: 1
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA"
-  - stage: QA2
-    displayName: Run cycle for QA2
-    dependsOn: []
-    jobs:
-      - template: templates/Hermes.yml
-        parameters:
-          Environment: "DigitalHub-QA2"
+          NightlyDeployment: "${{variables.QA_NightlyDeployment}}"
+          NightlyRegression: ${{variables.QA_NightlyRegression}}
+#  - stage: QA2
+#    displayName: Run cycle for QA2
+#    dependsOn: []
+#    jobs:
+#      - template: templates/Hermes.yml
+#        parameters:
+#          Environment: "DigitalHub-QA2"
 #  - stage: QA3
 #    displayName: Run cycle for QA3
 #    dependsOn: []
