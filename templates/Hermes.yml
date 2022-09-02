@@ -37,7 +37,7 @@ jobs:
             delayForMinutes: 1
       - task: Delay@1
         displayName: Wait out Regression
-        condition: eq( ${{parameters.NightlyRegression}}, 'False')
+        condition: eq( ${{parameters.NightlyRegression}}, 'False' )
         inputs:
             delayForMinutes: 1
       - task: InvokeRESTAPI@1
