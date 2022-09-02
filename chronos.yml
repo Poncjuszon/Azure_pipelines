@@ -33,7 +33,7 @@ stages:
 #
   - stage: QA
     displayName: Run cycle for QA
-    condition: eq(${{variables.QA_IsActive}},'true')
+    condition: eq(${{variables.QAIsActive}},'true')
     dependsOn: []
     jobs:
       - job: Wait
