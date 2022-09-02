@@ -31,13 +31,13 @@ jobs:
     pool: Server
     steps:
       - task: Delay@1
-        displayName: Wait out Regression
-        condition: eq( parameters['NightlyRegression'], 'False')
+        displayName: Wait out Deployment
+        condition: eq( parameters['NightlyDeployment'], 'False')
         inputs:
             delayForMinutes: 1
       - task: Delay@1
-        displayName: Wait out Deployment
-        condition: eq( parameters['NightlyDeployment'], 'False')
+        displayName: Wait out Regression
+        condition: eq( parameters['NightlyRegression'], 'False')
         inputs:
             delayForMinutes: 1
       - task: InvokeRESTAPI@1
@@ -77,6 +77,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Deployment
+        condition: eq( parameters['NightlyDeployment'], 'True')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
@@ -112,6 +113,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Regression
+        condition: eq( parameters['NightlyRegression'], 'True')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
