@@ -33,7 +33,7 @@ stages:
 #
   - stage: QA
     displayName: Run cycle for QA
-    condition: eq(${{variables.QA-IsActive}},'true')
+    condition: eq(${{variables.QA_IsActive}},'true')
     dependsOn: []
     jobs:
       - job: Wait
@@ -46,8 +46,8 @@ stages:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA"
-          NightlyDeployment: "${{variables.QA-NightlyDeployment}}"
-          NightlyRegression: ${{variables.QA-NightlyRegression}}
+          NightlyDeployment: "${{variables.QA_NightlyDeployment}}"
+          NightlyRegression: ${{variables.QA_NightlyRegression}}
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
