@@ -32,8 +32,7 @@ jobs:
     steps:
       - task: Delay@1
         displayName: Wait out Deployment  ${{ variables.QA_NightlyDeployment }}
-        #condition: eq( "${{parameters.NightlyDeployment}}", 'False')
-        condition: eq( "${{ variables.QA_NightlyDeployment }}", 'False')
+        condition: eq( "${{parameters.NightlyDeployment}}", 'False')
         inputs:
             delayForMinutes: 1
       - task: Delay@1
