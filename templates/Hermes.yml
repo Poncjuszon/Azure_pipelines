@@ -9,11 +9,11 @@ parameters:
     default: DigitalHub-QAXX
   - name: NightlyDeployment
     displayName: Run Deployment
-    type: boolean
+    type: string
     default: false
   - name: NightlyRegression
     displayName: Run Regression
-    type: boolean
+    type: string
     default: false
   - name: LSDigitalHubSiteCoreGitReference
     displayName: Name of the repository that should be used for deployment
