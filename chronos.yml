@@ -33,21 +33,16 @@ stages:
 #
   - stage: QA
     displayName: Run cycle for QA
-    condition: eq(${{variables.QA_IsActive}},'true')
+    condition:  eq( variables['QA_IsActive'], 'True')
     dependsOn: []
     jobs:
-      - job: Wait
-        displayName: Wait before starting a cycle 
-        pool: server
-        steps:
-          - task: Delay@1
-            inputs:
-              delayForMinutes: 1
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA"
-          NightlyDeployment: "${{variables.QA_NightlyDeployment}}"
-          NightlyRegression: ${{variables.QA_NightlyRegression}}
+          NightlyDeployment: "${{variables['QA_NightlyDeployment']}}"
+          NightlyRegression: ${{variables['QA_NightlyRegression']}}
+          LSDigitalHubSiteCoreGitReference: ${{variables['QA_BranchToDeployFrom']}}
+          LSDigitalHubAutoTestsGitReference: ${{variables['QA_BranchToTestFrom']}}
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
