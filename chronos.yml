@@ -18,6 +18,8 @@ schedules:
 
 variables:
  - group: Nightly
+ - name: dupa
+   value: dupaval
 
 stages:
 #  - stage: ParseNightlyConfiguration
@@ -43,7 +45,7 @@ stages:
           #NightlyDeployment: $(variables['QANightlyDeployment'])
           #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
           #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
-          NightlyRegression: ${{variables.QANightlyRegression}}
+          NightlyRegression: ${{variables.dupa}}
           NightlyDeployment: ${{variables.QANightlyDeployment}}
           LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
           LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
