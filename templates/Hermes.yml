@@ -30,6 +30,7 @@ jobs:
     displayName: Nightly process for ${{parameters.Environment}}
     pool: Server
     steps:
+      - script: echo "${{parameters.NightlyRegression}}"
       - task: Delay@1
         displayName: Wait out Regression
         condition: eq('${{parameters.NightlyRegression}}', 'False' )
