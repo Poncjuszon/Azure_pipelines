@@ -39,10 +39,10 @@ stages:
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA"
-          NightlyRegression: $(QA_NightlyRegression)
-          NightlyDeployment: $(QA_NightlyDeployment)
-          LSDigitalHubSiteCoreGitReference: $(QA_BranchToDeployFrom)
-          LSDigitalHubAutoTestsGitReference: $(QA_BranchToTestFrom)
+          NightlyRegression: ${{variables.QANightlyRegression}}
+          NightlyDeployment: ${{variables.QANightlyDeployment}}
+          LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
+          LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
