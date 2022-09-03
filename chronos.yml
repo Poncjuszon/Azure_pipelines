@@ -33,7 +33,7 @@ stages:
 #
   - stage: QA
     displayName: Run cycle for QA
-    condition:  eq( variables['QA_IsActive'], 'True')
+    condition:  eq( variables['QAIsActive'], 'True')
     dependsOn: []
     jobs:
       - template: templates/Hermes.yml
