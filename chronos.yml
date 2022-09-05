@@ -34,29 +34,16 @@ stages:
 #
   - stage: QA
     displayName: Run cycle for QA
-#    condition:  eq( variables['QAIsActive'], 'True')
+    condition:  eq( variables['QAIsActive'], 'True')
     dependsOn: []
     jobs:
-#      - job: printer
-#        variables:
-#          parsedQANightlyDeployment:  $[variables.QANightlyDeployment]
-#          parsedTemplateQANightlyDeployment:  ${{variables.QANightlyDeployment}} #can not pass it like this!!
-#        steps:
-#          - checkout: none
-#          - script: |
-#              echo "template expression parsed"
-#              echo $(parsedTemplateQANightlyDeployment)
-#              echo "macro expression"
-#              echo $(QANightlyDeployment)
-#              echo "runtime expression to macro"
-#              echo $(parsedQANightlyDeployment)
       - template: templates/Hermes.yml
         parameters:
           Environment: "DigitalHub-QA"
           NightlyRegression: $[variables.QANightlyRegression]
           NightlyDeployment: $[variables.QANightlyDeployment]
-          LSDigitalHubSiteCoreGitReference: $[variables.LSDigitalHubSiteCoreGitReference]
-          LSDigitalHubAutoTestsGitReference: $[variables.LSDigitalHubAutoTestsGitReference]
+          LSDigitalHubSiteCoreGitReference: $[variables.QABranchToDeployFrom]
+          LSDigitalHubAutoTestsGitReference: $[variables.QABranchToTestFrom]
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
