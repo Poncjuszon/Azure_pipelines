@@ -31,6 +31,7 @@ jobs:
       vmImage: windows-latest 
     steps:
       - script: echo "${{parameters.NightlyRegression}}"
+      - script: echo "${{parameters.NightlyDeployment}}"
       - script: echo "${{variables.QANightlyRegression}}"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
