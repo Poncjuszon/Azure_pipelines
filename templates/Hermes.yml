@@ -41,7 +41,7 @@ jobs:
 #          echo "$(NightlyRegressionParsed)"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
-    variables: #need to do such transformation to use variables form variable group
+    variables: #need to do such crapy transformation to use variables form variable group
       NightlyDeployment: ${{ parameters.NightlyDeployment }}
       NightlyRegression: ${{ parameters.NightlyRegression }}
       LSDigitalHubSiteCoreGitReference: ${{ parameters.LSDigitalHubSiteCoreGitReference }}
