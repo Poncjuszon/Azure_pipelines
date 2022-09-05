@@ -42,20 +42,20 @@ jobs:
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
     variables: #need to do such crapy transformation to use variables form variable group
-      NightlyDeployment: ${{ parameters.NightlyDeployment }}
-      NightlyRegression: ${{ parameters.NightlyRegression }}
-      LSDigitalHubSiteCoreGitReference: ${{ parameters.LSDigitalHubSiteCoreGitReference }}
-      LSDigitalHubAutoTestsGitReference: ${{ parameters.LSDigitalHubAutoTestsGitReference }}
+      NightlyDeploymentParsed: ${{ parameters.NightlyDeployment }}
+      NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
+      LSDigitalHubSiteCoreGitReferenceParsed: ${{ parameters.LSDigitalHubSiteCoreGitReference }}
+      LSDigitalHubAutoTestsGitReferenceParsed: ${{ parameters.LSDigitalHubAutoTestsGitReference }}
     pool: Server
     steps:
       - task: Delay@1
         displayName: Wait out Regression
-        condition: eq(variables.NightlyRegression,'False')
+        condition: eq(variables.NightlyRegressionParsed,'False')
         inputs:
             delayForMinutes: 1
       - task: Delay@1
         displayName: Wait out Deployment
-        condition: eq(variables.NightlyDeployment,'False')
+        condition: eq(variables.NightlyDeploymentParsed,'False')
         inputs:
             delayForMinutes: 1
       - task: InvokeRESTAPI@1
@@ -95,7 +95,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Deployment
-        condition: eq(variables.NightlyDeployment,'True')
+        condition: eq(variables.NightlyDeploymentParsed,'True')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
@@ -131,7 +131,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Regression
-        condition: eq(variables.NightlyRegression,'False')
+        condition: eq(variables.NightlyRegressionParsed,'False')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
