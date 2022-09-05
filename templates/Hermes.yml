@@ -41,12 +41,13 @@ jobs:
           echo "$(NightlyRegressionParsed)"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
-    #NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
+    variables:
+      NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
     pool: Server
     steps:
       - task: Delay@1
         displayName: Wait out Regression
-        condition: eq('${{ parameters.NightlyRegression}} ', 'False' )
+        condition: eq(variables.NightlyRegressionParsed,'False' )
         inputs:
             delayForMinutes: 1
       - task: Delay@1
