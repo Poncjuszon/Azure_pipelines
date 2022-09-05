@@ -37,6 +37,7 @@ jobs:
       - powershell: |
           echo "macro epresion"
           echo "$(parameters.NightlyRegression)"
+          echo "$(NightlyRegression)"
           echo "macro expression from runtime expression"
           echo "$(NightlyRegressionParsed)"
   - job: Nightly
