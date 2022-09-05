@@ -9,7 +9,7 @@ pool:
   vmImage: windows-2019
 
 schedules:
-- cron: "15 22 * * *" # cron syntax defining a schedule
+- cron: "00 21 * * *" # cron syntax defining a schedule
   displayName: NightlyRun # friendly name given to a specific schedule
   always: true 
   branches:
