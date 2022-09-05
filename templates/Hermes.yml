@@ -35,8 +35,8 @@ jobs:
     steps:
       - checkout: none
       - powershell: |
-          echo "macro epresion"
-          echo "$(NightlyRegression)"
+          #echo "macro epresion"
+          #echo "$(NightlyRegression)"
           echo "macro expression from runtime expression"
           echo "$(NightlyRegressionParsed)"
   - job: Nightly
@@ -55,10 +55,10 @@ jobs:
             delayForMinutes: 1
       - task: InvokeRESTAPI@1
         displayName: Enable Environment
+        condition: eq('${{parameters.NightlyDeployment}}', 'Falssdsdsde') #removeMe
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
-          condition: eq('${{parameters.NightlyDeployment}}', 'Falssdsdsde') #removeMe
           method: 'POST'
           headers: |
             {
