@@ -31,14 +31,14 @@ jobs:
       vmImage: windows-latest 
     variables:
       #NightlyRegression: ${{ parameters.NightlyRegression }}
-      NightlyDeploymentParsed: ${{ parameters.NightlyDeployment }}
+      NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
     steps:
       - checkout: none
       - powershell: |
           echo "macro epresion"
           echo "$(parameters.NightlyRegression)"
           echo "macro expression from runtime expression"
-          echo "$[variables.NightlyDeploymentParsed]"
+          echo "$(NightlyRegressionParsed)"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
     pool: Server
