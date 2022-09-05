@@ -34,7 +34,7 @@ jobs:
       NightlyDeploymentParsed: ${{ parameters.NightlyDeployment }}
     steps:
       - checkout: none
-      - powershell |
+      - script |
           echo "macro epresion"
           echo "$(parameters.NightlyRegression)"
           echo "macro expression from runtime expression"
