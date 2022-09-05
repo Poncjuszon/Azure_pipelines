@@ -36,15 +36,19 @@ stages:
     displayName: Run cycle for QA
     condition:  eq( variables['QAIsActive'], 'True')
     dependsOn: []
-    variables:
-      - group: Nightly
+#    variables:
+#      - group: Nightly
     jobs:
       - job: printer
         steps:
           - checkout: none
           - script: |
+              echo "template expression"
               echo ${{variables.QANightlyRegression}}
+              echo " macro expression"
               echo $(QANightlyDeployment)
+              echo "runtime expression"
+              echo $[variables.QANightlyDeployment]
 #      - template: templates/Hermes.yml
 #        parameters:
 #          Environment: "DigitalHub-QA"
