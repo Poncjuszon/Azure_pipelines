@@ -37,6 +37,8 @@ stages:
     displayName: Run cycle for QA
     condition:  eq( variables['QAIsActive'], 'True')
     dependsOn: []
+    variables:
+      - group: Nightly
     jobs:
       - template: templates/Hermes.yml
         parameters:
@@ -45,7 +47,7 @@ stages:
           #NightlyDeployment: $(variables['QANightlyDeployment'])
           #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
           #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
-          NightlyRegression: ${{variables.dupa}}
+          NightlyRegression: ${{variables.QANightlyRegression}}
           NightlyDeployment: ${{variables.QANightlyDeployment}}
           LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
           LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
