@@ -47,9 +47,8 @@ stages:
           #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
           #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
           #NightlyRegression: ${{variables.QANightlyRegression}}
-          NightlyRegression: ${{variables.variablegroups.Nightly.QANightlyRegression}}
+          NightlyRegression: ${{variables.QANightlyRegression}}
           NightlyDeployment: $(variables.QANightlyDeployment)
-          
           LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
           LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
 #  - stage: QA2
