@@ -11,7 +11,7 @@ pool:
 schedules:
 - cron: "15 22 * * *" # cron syntax defining a schedule
   displayName: NightlyRun # friendly name given to a specific schedule
-  always: true # whether to alway
+  always: true 
   branches:
     include:
       - main
