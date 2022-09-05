@@ -43,20 +43,20 @@ stages:
         steps:
           - checkout: none
           - script: |
-              echo ${{  variables.QANightlyRegression  }}
-              echo $(  QANightlyDeployment  )
-      - template: templates/Hermes.yml
-        parameters:
-          Environment: "DigitalHub-QA"
-          #NightlyRegression: $(variables['QANightlyRegression'])
-          #NightlyDeployment: $(variables['QANightlyDeployment'])
-          #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
-          #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
-          #NightlyRegression: ${{variables.QANightlyRegression}}
-          NightlyRegression: ${{  variables.QANightlyRegression  }}
-          NightlyDeployment: $(  QANightlyDeployment  )
-          LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
-          LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
+              echo ${{variables.QANightlyRegression}}
+              echo $(QANightlyDeployment)
+#      - template: templates/Hermes.yml
+#        parameters:
+#          Environment: "DigitalHub-QA"
+#          #NightlyRegression: $(variables['QANightlyRegression'])
+#          #NightlyDeployment: $(variables['QANightlyDeployment'])
+#          #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
+#          #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
+#          #NightlyRegression: ${{variables.QANightlyRegression}}
+#          NightlyRegression: ${{  variables.QANightlyRegression  }}
+#          NightlyDeployment: $(  QANightlyDeployment  )
+#          LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
+#          LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
