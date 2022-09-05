@@ -34,10 +34,8 @@ stages:
 #
   - stage: QA
     displayName: Run cycle for QA
-    condition:  eq( variables['QAIsActive'], 'True')
+#    condition:  eq( variables['QAIsActive'], 'True')
     dependsOn: []
-#    variables:
-#      - group: Nightly
     jobs:
       - job: printer
         steps:
@@ -49,6 +47,7 @@ stages:
               echo $(QANightlyDeployment)
               echo "runtime expression"
               echo $[variables.QANightlyDeployment]
+
 #      - template: templates/Hermes.yml
 #        parameters:
 #          Environment: "DigitalHub-QA"
