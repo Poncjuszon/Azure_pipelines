@@ -58,10 +58,10 @@ stages:
           #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
           #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
           #NightlyRegression: ${{variables.QANightlyRegression}}
-          NightlyRegression: $[variables.QANightlyDeployment]
-          NightlyDeployment: $(  QANightlyDeployment  )
-          LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
-          LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
+          NightlyRegression: $[variables.NightlyRegression]
+          NightlyDeployment: $[variables.QANightlyDeployment]
+          LSDigitalHubSiteCoreGitReference: $[variables.LSDigitalHubSiteCoreGitReference]
+          LSDigitalHubAutoTestsGitReference: $[variables.LSDigitalHubAutoTestsGitReference]
 #  - stage: QA2
 #    displayName: Run cycle for QA2
 #    dependsOn: []
