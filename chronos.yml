@@ -49,7 +49,6 @@ stages:
               echo $(QANightlyDeployment)
               echo "runtime expression to macro"
               echo $(parsedQANightlyDeployment)
-
 #      - template: templates/Hermes.yml
 #        parameters:
 #          Environment: "DigitalHub-QA"
@@ -58,7 +57,7 @@ stages:
 #          #LSDigitalHubSiteCoreGitReference: $(variables['QABranchToDeployFrom'])
 #          #LSDigitalHubAutoTestsGitReference: $(variables['QABranchToTestFrom'])
 #          #NightlyRegression: ${{variables.QANightlyRegression}}
-#          NightlyRegression: ${{  variables.QANightlyRegression  }}
+#          NightlyRegression: ${{ variables.QANightlyRegression }}
 #          NightlyDeployment: $(  QANightlyDeployment  )
 #          LSDigitalHubSiteCoreGitReference: ${{variables.QABranchToDeployFrom}}
 #          LSDigitalHubAutoTestsGitReference: ${{variables.QABranchToTestFrom}}
