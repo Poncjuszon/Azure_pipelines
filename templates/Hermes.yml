@@ -26,20 +26,9 @@ parameters:
 
 
 jobs:
-  - job: script
-    pool:
-      vmImage: windows-latest 
-    variables:
-      #NightlyRegression: ${{ parameters.NightlyRegression }}
-      NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
-    steps:
-      - checkout: none
-      - powershell: |
-          echo "macro expression from runtime expression"
-          echo "$(QANightlyRegression)"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
-    variables: #need to do such crapy transformation to use variables form variable group
+    variables: #need to do such crapy transformation to use variables form variable group as template parameters (other option is to use varibles assuming the templates expects them - no declaration in template)
       NightlyDeploymentParsed: ${{ parameters.NightlyDeployment }}
       NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
       LSDigitalHubSiteCoreGitReferenceParsed: ${{ parameters.LSDigitalHubSiteCoreGitReference }}
