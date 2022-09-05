@@ -40,11 +40,12 @@ stages:
       - job: printer
         variables:
           parsedQANightlyDeployment:  $[variables.QANightlyDeployment]
+          parsedTemplateQANightlyDeployment:  ${{variables.QANightlyDeployment}}
         steps:
           - checkout: none
           - script: |
-              echo "template expression"
-              echo ${{variables.QANightlyRegression}}
+              echo "template expression parsed"
+              echo $(parsedTemplateQANightlyDeployment)
               echo "macro expression"
               echo $(QANightlyDeployment)
               echo "runtime expression to macro"
