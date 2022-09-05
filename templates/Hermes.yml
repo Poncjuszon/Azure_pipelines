@@ -33,10 +33,10 @@ jobs:
       NightlyRegression: ${{ parameters.NightlyRegression }}
       NightlyDeployment: ${{ parameters.NightlyDeployment }}
     steps:
-      - checkout: none
-      - script: |
-          echo "${{ variables.NightlyRegression }}"
-          echo "${{ variables.NightlyDeployment }}"
+#      - checkout: none
+#      - powershell |
+#          echo "${{ variables.NightlyRegression }}"
+#          echo "${{ variables.NightlyDeployment }}"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
     pool: Server
