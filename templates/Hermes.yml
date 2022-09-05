@@ -33,6 +33,7 @@ jobs:
       NightlyRegression: ${{ parameters.NightlyRegression }}
       NightlyDeployment: ${{ parameters.NightlyDeployment }}
     steps:
+      - checkout: none
       - script: |
           echo "${{ variables.NightlyRegression }}"
           echo "${{ variables.NightlyDeployment }}"
