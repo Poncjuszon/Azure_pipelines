@@ -30,12 +30,12 @@ jobs:
     pool:
       vmImage: windows-latest 
     variables:
-      NightlyRegression: ${{parameters.NightlyRegression}}
-      NightlyDeployment: ${{parameters.NightlyDeployment}}
+      NightlyRegression: ${{ parameters.NightlyRegression }}
+      NightlyDeployment: ${{ parameters.NightlyDeployment }}
     steps:
       - script: |
-          echo "$(NightlyRegression)"
-          echo "$(NightlyDeployment)"
+          echo "${{ variables.NightlyRegression }}"
+          echo "${{ variables.NightlyDeployment }}"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
     pool: Server
