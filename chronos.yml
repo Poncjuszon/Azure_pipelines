@@ -38,15 +38,17 @@ stages:
     dependsOn: []
     jobs:
       - job: printer
+        variables:
+          parsedQANightlyDeployment:  $[variables.QANightlyDeployment]
         steps:
           - checkout: none
           - script: |
               echo "template expression"
               echo ${{variables.QANightlyRegression}}
-              echo " macro expression"
+              echo "macro expression"
               echo $(QANightlyDeployment)
-              echo "runtime expression"
-              echo $[variables.QANightlyDeployment]
+              echo "runtime expression to macro"
+              echo $(parsedQANightlyDeployment)
 
 #      - template: templates/Hermes.yml
 #        parameters:
