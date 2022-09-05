@@ -44,13 +44,18 @@ stages:
           NightlyDeployment: $[variables.QANightlyDeployment]
           LSDigitalHubSiteCoreGitReference: $[variables.QABranchToDeployFrom]
           LSDigitalHubAutoTestsGitReference: $[variables.QABranchToTestFrom]
-#  - stage: QA2
-#    displayName: Run cycle for QA2
-#    dependsOn: []
-#    jobs:
-#      - template: templates/Hermes.yml
-#        parameters:
-#          Environment: "DigitalHub-QA2"
+  - stage: QA2
+    displayName: Run cycle for QA2
+    condition:  eq( variables['QA2-IsActive'], 'True')
+    dependsOn: []
+    jobs:
+      - template: templates/Hermes.yml
+        parameters:
+          Environment: "DigitalHub-QA2"
+          NightlyRegression: $[variables.QA2-NightlyRegression]
+          NightlyDeployment: $[variables.QA2-NightlyDeployment]
+          LSDigitalHubSiteCoreGitReference: $[variables.QA2-BranchToDeployFrom]
+          LSDigitalHubAutoTestsGitReference: $[variables.QA2-BranchToTestFrom]
 #  - stage: QA3
 #    displayName: Run cycle for QA3
 #    dependsOn: []
