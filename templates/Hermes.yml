@@ -131,7 +131,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Regression
-        condition: eq(variables.NightlyRegressionParsed,'False')
+        condition: eq(variables.NightlyRegressionParsed,'True')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
