@@ -21,19 +21,8 @@ variables:
 
 
 stages:
-#  - stage: ParseNightlyConfiguration
-#    displayName: Parse Configuration for all nightly runs
-#
-#    jobs:
-#      - job: ParseConfiguration
-#ile czekac?
-#jezeli nie ma regression to 2h
-#jezeli nie ma deployment to 5h
-#
-#jezeli inactive to wogole odpusc
-#
   - stage: QA
-    displayName: Run cycle for QA
+    displayName: Run Nightly for QA
     condition:  eq( variables['QA-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -45,7 +34,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA-BranchToTestFrom']]
   - stage: QA2
-    displayName: Run cycle for QA2
+    displayName: Run Nightly for QA2
     condition:  eq( variables['QA2-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -57,7 +46,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA2-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA2-BranchToTestFrom']]
   - stage: QA3
-    displayName: Run cycle for QA3
+    displayName: Run Nightly for QA3
     condition:  eq( variables['QA3-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -69,7 +58,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA3-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA3-BranchToTestFrom']]
   - stage: QA4
-    displayName: Run cycle for QA4
+    displayName: Run Nightly for QA4
     condition:  eq( variables['QA4-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -81,7 +70,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA4-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA4-BranchToTestFrom']]
   - stage: QA5
-    displayName: Run cycle for QA5
+    displayName: Run Nightly for QA5
     condition:  eq( variables['QA5-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -93,7 +82,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA5-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA5-BranchToTestFrom']]
   - stage: QA6
-    displayName: Run cycle for QA6
+    displayName: Run Nightly for QA6
     condition:  eq( variables['QA6-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -105,7 +94,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA6-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA6-BranchToTestFrom']]
   - stage: QA7
-    displayName: Run cycle for QA7
+    displayName: Run Nightly for QA7
     condition:  eq( variables['QA7-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -117,7 +106,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA7-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA7-BranchToTestFrom']]
   - stage: QA8
-    displayName: Run cycle for QA8
+    displayName: Run Nightly for QA8
     condition:  eq( variables['QA8-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -129,7 +118,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA8-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA8-BranchToTestFrom']]
   - stage: QA9
-    displayName: Run cycle for QA9
+    displayName: Run Nightly for QA9
     condition:  eq( variables['QA9-IsActive'], 'True')
     dependsOn: []
     jobs:
@@ -141,7 +130,7 @@ stages:
           LSDigitalHubSiteCoreGitReference: $[variables['QA9-BranchToDeployFrom']]
           LSDigitalHubAutoTestsGitReference: $[variables['QA9-BranchToTestFrom']]
   - stage: QA10
-    displayName: Run cycle for QA10
+    displayName: Run Nightly for QA10
     condition:  eq( variables['QA10-IsActive'], 'True')
     dependsOn: []
     jobs:
