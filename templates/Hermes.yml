@@ -41,23 +41,25 @@ jobs:
           echo "$(NightlyRegressionParsed)"
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
-    variables:
-      NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
+    variables: #need to do such transformation to use variables form variable group
+      NightlyDeployment: ${{ parameters.NightlyDeployment }}
+      NightlyRegression: ${{ parameters.NightlyRegression }}
+      LSDigitalHubSiteCoreGitReference: ${{ parameters.LSDigitalHubSiteCoreGitReference }}
+      LSDigitalHubAutoTestsGitReference: ${{ parameters.LSDigitalHubAutoTestsGitReference }}
     pool: Server
     steps:
       - task: Delay@1
         displayName: Wait out Regression
-        condition: eq(variables.NightlyRegressionParsed,'False' )
+        condition: eq(variables.NightlyRegression,'False')
         inputs:
             delayForMinutes: 1
       - task: Delay@1
         displayName: Wait out Deployment
-        condition: eq('${{parameters.NightlyDeployment}}', 'False')
+        condition: eq(variables.NightlyDeployment,'False')
         inputs:
             delayForMinutes: 1
       - task: InvokeRESTAPI@1
         displayName: Enable Environment
-        condition: eq('${{parameters.NightlyDeployment}}', 'Falssdsdsde') #removeMe
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
@@ -93,7 +95,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Deployment
-        condition: eq( '${{parameters.NightlyDeployment}}', 'True')
+        condition: eq(variables.NightlyDeployment,'True')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
@@ -129,7 +131,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Regression
-        condition: eq( '${{parameters.NightlyRegression}}', 'True')
+        condition: eq(variables.NightlyRegression,'False')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
