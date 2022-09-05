@@ -10,11 +10,15 @@ parameters:
   - name: NightlyDeployment
     displayName: Run Deployment
     type: string
-    default: false
+    default: False
+  - name: SkipFunctionApps
+    displayName: Temporary solution untill we have function apps for all envs
+    type: string
+    default: True
   - name: NightlyRegression
     displayName: Run Regression
     type: string
-    default: false
+    default: False
   - name: LSDigitalHubSiteCoreGitReference
     displayName: Name of the repository that should be used for deployment
     type: string
@@ -32,6 +36,7 @@ jobs:
     variables: #need to do such crapy transformation to use variables form variable group as template parameters (other option is to use varibles assuming the templates expects them - no declaration in template)
       NightlyDeploymentParsed: ${{ parameters.NightlyDeployment }}
       NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
+      SkipFunctionAppsParsed: ${{ parameters.SkipFunctionApps }}
       LSDigitalHubSiteCoreGitReferenceParsed: ${{ parameters.LSDigitalHubSiteCoreGitReference }}
       LSDigitalHubAutoTestsGitReferenceParsed: ${{ parameters.LSDigitalHubAutoTestsGitReference }}
     pool: Server
@@ -40,12 +45,12 @@ jobs:
         displayName: Wait out Regression
         condition: eq(variables.NightlyRegressionParsed,'False')
         inputs:
-            delayForMinutes: 1
+            delayForMinutes: 1 #should be 120
       - task: Delay@1
         displayName: Wait out Deployment
         condition: eq(variables.NightlyDeploymentParsed,'False')
         inputs:
-            delayForMinutes: 1
+            delayForMinutes: 1 #should be 240
       - task: InvokeRESTAPI@1
         displayName: Enable Environment
         inputs:
@@ -83,7 +88,43 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Deployment
-        condition: eq(variables.NightlyDeploymentParsed,'True')
+        condition: and( eq(variables.NightlyDeploymentParsed,'True'), eq(variables.SkipFunctionAppsParsed,'False') )
+        inputs:
+          connectionType: 'connectedServiceName'
+          serviceConnection: 'Pipelines_caller'
+          method: 'POST'
+          headers: |
+            {
+            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
+            "Content-Type":"application/json"
+            }
+          body: |
+            {
+                'resources': {
+                    'repositories': {
+                        'self': {
+                            'refName': 'refs/heads/main'
+                        }
+                    }
+                },
+                'templateParameters': {
+                    'environment': '${{parameters.Environment}}'
+                },
+                "variables": {
+                  "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
+                  "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
+                  "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
+                  "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
+                  "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
+                  "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
+                  "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
+                }
+            }
+          urlSuffix: '/24/runs?api-version=6.0-preview.1'
+          waitForCompletion: 'true'
+      - task: InvokeRESTAPI@1
+        displayName: Run Deployment without Function Apps #modify body of the request
+        condition: and( eq(variables.NightlyDeploymentParsed,'True'), eq(variables.SkipFunctionAppsParsed,'True') )
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
