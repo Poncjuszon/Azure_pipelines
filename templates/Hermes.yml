@@ -32,7 +32,7 @@ parameters:
 jobs:
   - job: Nightly
     displayName: Nightly process for ${{parameters.Environment}}
-    timeoutInMinutes: 420
+    timeoutInMinutes: 10
     variables: #need to do such crapy transformation to use variables form variable group as template parameters (other option is to use varibles assuming the templates expects them - no declaration in template)
       NightlyDeploymentParsed: ${{ parameters.NightlyDeployment }}
       NightlyRegressionParsed: ${{ parameters.NightlyRegression }}
