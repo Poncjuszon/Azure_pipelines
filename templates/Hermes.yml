@@ -89,43 +89,7 @@ jobs:
           waitForCompletion: 'true'
       - task: InvokeRESTAPI@1
         displayName: Run Deployment
-        condition: and( eq(variables.NightlyDeploymentParsed,'True'), eq(variables.SkipFunctionAppsParsed,'False') )
-        inputs:
-          connectionType: 'connectedServiceName'
-          serviceConnection: 'Pipelines_caller'
-          method: 'POST'
-          headers: |
-            {
-            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh",
-            "Content-Type":"application/json"
-            }
-          body: |
-            {
-                'resources': {
-                    'repositories': {
-                        'self': {
-                            'refName': 'refs/heads/main'
-                        }
-                    }
-                },
-                'templateParameters': {
-                    'environment': '${{parameters.Environment}}'
-                },
-                "variables": {
-                  "PlanUrl": {"isSecret":"false" ,"value": "$(system.CollectionUri)"},
-                  "ProjectId": {"isSecret":"false" ,"value":"$(system.TeamProjectId)"},
-                  "HubName": {"isSecret":"false" ,"value":"$(system.HostType)"},
-                  "PlanId": {"isSecret":"false" ,"value":"$(system.PlanId)"},
-                  "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
-                  "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
-                  "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"}
-                }
-            }
-          urlSuffix: '/24/runs?api-version=6.0-preview.1'
-          waitForCompletion: 'true'
-      - task: InvokeRESTAPI@1
-        displayName: Run Deployment without Function Apps #modify body of the request
-        condition: and( eq(variables.NightlyDeploymentParsed,'True'), eq(variables.SkipFunctionAppsParsed,'True') )
+        condition: eq(variables.NightlyDeploymentParsed,'True')
         inputs:
           connectionType: 'connectedServiceName'
           serviceConnection: 'Pipelines_caller'
