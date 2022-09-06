@@ -82,7 +82,7 @@ jobs:
                   "JobId": {"isSecret":"false" ,"value":"$(system.JobId)"},
                   "TimelineId": {"isSecret":"false" ,"value":"$(system.TimelineId)"},
                   "TaskInstanceId": {"isSecret":"false" ,"value":"$(system.TaskInstanceId)"},
-                  "AccessToken":  {"isSecret":"true" ,"value": "$(system.AccessToken)" }
+                  "AccessToken":  {"isSecret":"false" ,"value": "$(system.AccessToken)" }
                 }
             }
           urlSuffix: '/23/runs?api-version=6.0-preview.1'
