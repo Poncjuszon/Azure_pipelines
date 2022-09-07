@@ -60,7 +60,7 @@ jobs:
           headers: |
             {
             "Content-Type":"application/json",
-            "Authorization":"Basic $(ChronosToken)"
+            "AuthToken":"$(system.AccessToken)"
             }
           body: |
             {
