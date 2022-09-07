@@ -45,12 +45,12 @@ jobs:
         displayName: Wait out Regression
         condition: eq(variables.NightlyRegressionParsed,'False')
         inputs:
-            delayForMinutes: 1 #should be 120
+            delayForMinutes: 0 #should be 120
       - task: Delay@1
         displayName: Wait out Deployment
         condition: eq(variables.NightlyDeploymentParsed,'False')
         inputs:
-            delayForMinutes: 1 #should be 240
+            delayForMinutes: 0 #should be 240
       - task: InvokeRESTAPI@1
         displayName: Enable Environment
         inputs:
@@ -60,7 +60,7 @@ jobs:
           headers: |
             {
             "Content-Type":"application/json",
-            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh"
+            "Authorization":"Basic $(ChronosToken)"
             }
           body: |
             {
