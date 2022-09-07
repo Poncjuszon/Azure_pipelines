@@ -60,7 +60,7 @@ jobs:
           headers: |
             {
             "Content-Type":"application/json",
-            "AuthToken":"$(system.AccessToken)"
+            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh"
             }
           body: |
             {
