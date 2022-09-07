@@ -59,7 +59,6 @@ jobs:
           method: 'POST'
           headers: |
             {
-            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh2",
             "Content-Type":"application/json"
             }
           body: |
@@ -96,7 +95,6 @@ jobs:
           method: 'POST'
           headers: |
             {
-            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh2",
             "Content-Type":"application/json"
             }
           body: |
@@ -133,7 +131,6 @@ jobs:
           method: 'POST'
           headers: |
             {
-            "Authorization":"Basic ZW1hdHBpbDo0d200d3R3aGVnYTU1bWN6NG1tbW03cXcyY2VzeWVhZWduY2VkcHlhYnhvZXJod3ZnbGRh2",
             "Content-Type":"application/json"
             }
           body: |
