@@ -36,11 +36,14 @@ stages:
             timeoutInMinutes: 15
             steps:
               - checkout: none
-              - script: |
-                  echo Hello, world!
-                  #Write-Host "##vso[task.complete result=Failed;]"
-                  # i tu mamy trigerowanie octopusa 2 warianty (sucess lub failure)
+              - task: PowerShell@2
                 displayName: 'This is the deployment pipeline for ${{parameters.environment}}'
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    echo Hello, world!
+                    #Write-Host "##vso[task.complete result=Failed;]"
+                    # i tu mamy trigerowanie octopusa 2 warianty (sucess lub failure)
           - job: WaitForOctopus
             dependsOn: DeployDHQA
             timeoutInMinutes: 300
