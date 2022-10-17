@@ -56,6 +56,7 @@ stages:
                   delayForMinutes: 1
           - job: CheckStatus
             dependsOn: [ WaitForOctopus, DeployDHQA ]
+            condition: always()
             timeoutInMinutes: 25
             variables:
                 DeploymentTaskId: $[ dependencies.DeployDHQA.outputs['TriggerDeploymentTask.DeploymentTaskId'] ]
