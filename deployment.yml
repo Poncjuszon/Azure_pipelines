@@ -26,13 +26,48 @@ parameters:
       - DigitalHub-QA9
       - DigitalHub-QA10
 
-steps:
-- script: echo Hello, world!
-  displayName: 'This is the deployment pipeline for ${{parameters.environment}}'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    #echo "##vso[task.complete result=Failed;]"
-    sleep 10
-  displayName: 'Run a multi-line script'
-- template: templates/callback.yml
+stages:
+  - stage: DeployQAEnvironment
+    displayName: "Deploy QA Environment"
+    jobs:
+          - job: DeployDHQA
+            displayName: "Deploy DH"
+            timeoutInMinutes: 15
+            steps:
+              - script: |
+                  echo Hello, world!
+                  #Write-Host "##vso[task.complete result=Failed;]"
+                  # i tu mamy trigerowanie octopusa 2 warianty (sucess lub failure)
+                displayName: 'This is the deployment pipeline for ${{parameters.environment}}'
+          - job: WaitForOctopus
+            dependsOn: DeployDHQA
+            timeoutInMinutes: 300
+            variables:
+                WaitTime: $[ dependencies.DeployDHQA.outputs['TriggerDeploymentTask.WaitTime'] ]
+            pool: Server
+            steps:
+              - task: Delay@1
+                inputs:
+                  delayForMinutes: 1
+          - job: CheckStatus
+            dependsOn: [ WaitForOctopus, DeployDHQA ]
+            timeoutInMinutes: 25
+            variables:
+                DeploymentTaskId: $[ dependencies.DeployDHQA.outputs['TriggerDeploymentTask.DeploymentTaskId'] ]
+                DeployDHQAStatus: $[ dependencies.DeployDHQA.result ]
+            steps:
+              - task: PowerShell@2
+                displayName: "check deployment status in Octopus"
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    $ErrorActionPreference = "Stop"
+                    Write-Host "the result of DeployDHQA job WAS $(DeployDHQAStatus)"
+              - template: templates/callback.yml
+
+#- script: |
+#    echo Add other tasks to build, test, and deploy your project.
+#    #echo "##vso[task.complete result=Failed;]"
+#    sleep 10
+#  displayName: 'Run a multi-line script'
