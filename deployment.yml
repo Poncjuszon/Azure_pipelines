@@ -42,7 +42,7 @@ stages:
                   targetType: 'inline'
                   script: |
                     echo Hello, world!
-                    #Write-Host "##vso[task.complete result=Failed;]"
+                    Write-Host "##vso[task.complete result=Failed;]"
                     # i tu mamy trigerowanie octopusa 2 warianty (sucess lub failure)
           - job: WaitForOctopus
             dependsOn: DeployDHQA
