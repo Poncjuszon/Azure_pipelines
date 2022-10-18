@@ -42,7 +42,13 @@ stages:
                   targetType: 'inline'
                   script: |
                     echo Hello, world!
-                    Write-Host "##vso[task.complete result=Failed;]"
+                    write-host ${{parameters.environment}}
+                    write-host "<<<<<<<<<<<<<<<<<"
+                    if ( "${{parameters.environment}}" -eq "DigitalHub-QA") {
+                       Write-Host "##vso[task.complete result=Failed;]" 
+                       Write-host "mamy error!"
+                       write-host  ""
+                    }
                     # i tu mamy trigerowanie octopusa 2 warianty (sucess lub failure)
           - job: WaitForOctopus
             dependsOn: DeployDHQA
