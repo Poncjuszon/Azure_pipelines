@@ -76,6 +76,7 @@ stages:
                   script: |
                     $ErrorActionPreference = "Stop"
                     Write-Host "the result of DeployDHQA job WAS $(DeployDHQAStatus)"
+                    Write-Host "##vso[task.complete result=$(DeployDHQAStatus);]"
               - template: templates/callback.yml
 
 #- script: |
