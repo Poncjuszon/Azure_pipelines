@@ -18,7 +18,7 @@ steps:
       write-host "============ error action control==================================="
       #$ErrorActionPreference = "Stop"
       write-host "===================pull for latests changes first time============================"
-      git pull
+      git pull origin develop
       write-host "=========list branches ======================================"
       git branch -r
       write-host "=================checkout develop=============================="
