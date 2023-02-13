@@ -17,11 +17,13 @@ steps:
     script: |
       write-host "============ error action control==================================="
       #$ErrorActionPreference = "Stop"
+      write-host "===================pull for latests changes first time============================"
+      git pull
       write-host "=========list branches ======================================"
       git branch -r
       write-host "=================checkout develop=============================="
       git checkout develop
-      write-host "===================pull for latests changes============================"
+      write-host "===================pull for latests changes secondtime============================"
       git pull
       write-host "====================show status==========================="
       git status
