@@ -15,19 +15,19 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      write-host "==============================================="
+      write-host "============ error action control==================================="
       #$ErrorActionPreference = "Stop"
-      write-host "==============================================="
+      write-host "=========list branches ======================================"
       git branch -r
-      write-host "==============================================="
+      write-host "=================checkout develop=============================="
       git checkout develop
-      write-host "==============================================="
+      write-host "===================pull for latests changes============================"
       git pull
-      write-host "==============================================="
+      write-host "====================show status==========================="
       git status
-      write-host "==============================================="
+      write-host "================try to merge==============================="
       git merge origin/release/v2023.1.0
-      write-host "==============================================="
+      write-host "=================show git log=============================="
       git log | Select-Object -first 20
       write-host "==============================================="
 
