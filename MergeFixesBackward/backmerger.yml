@@ -13,14 +13,17 @@ steps:
 - script: echo Hello, world!
   displayName: 'Running after merge to release only to back merge to develop and all other releases created afterwards'
 
+- script: |
+    #$ErrorActionPreference = "Stop"
+    write-host "==============================================="
+    git branch -r
+    write-host "==============================================="
+    git checkout develop
+    write-host "==============================================="
+    git merge origin/release/v2023.1.0
+    write-host "==============================================="
+    git log | Select-Object -first 20
+    write-host "==============================================="
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $ErrorActionPreference = "Stop"
-      git checkout develop
-      git merge origin/release/v2023.1.0
-      git log | Select-Object -first 10
   displayName: 'backmerge to develop'
 
