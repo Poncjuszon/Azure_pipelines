@@ -21,7 +21,9 @@ steps:
     script: |
       write-host "============ error action control==================================="
       #$ErrorActionPreference = "Stop"
-      
+      Write-host "======================set git credentials=============================================="
+      git config --global user.email "gitMerger@cytiva.com"
+      git config --global user.name "Auto Merger Jr"
       write-host "===================pull for latests changes first time============================"
       git fetch origin develop
       git pull
