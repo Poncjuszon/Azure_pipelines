@@ -21,13 +21,13 @@ steps:
       write-host "============ error action control==================================="
       #$ErrorActionPreference = "Stop"
       write-host "===================pull for latests changes first time============================"
-      git pull origin develop
+      git fetch origin develop
       write-host "=========list branches ======================================"
       git branch -r
       write-host "=================checkout develop=============================="
       git checkout develop
       write-host "===================pull for latests changes secondtime============================"
-      git pull
+      #git pull
       write-host "====================show status==========================="
       git status
       write-host "================try to merge==============================="
