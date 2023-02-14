@@ -20,7 +20,7 @@ steps:
     targetType: 'inline'
     script: |
       write-host "============ error action control==================================="
-      #$ErrorActionPreference = "Stop"
+      $ErrorActionPreference = "Stop"
       Write-host "======================set git credentials=============================================="
       git config --global user.email "gitMerger@cytiva.com"
       git config --global user.name "Auto Merger Jr"
