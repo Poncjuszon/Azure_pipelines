@@ -26,7 +26,7 @@ steps:
       git config --global user.name "Auto Merger Jr"
       write-host "===================pull for latests changes first time============================"
       #git fetch origin develop
-      git pull
+      #git pull 
       write-host "=========list branches ======================================"
       git branch -r
       write-host "=================checkout develop=============================="
