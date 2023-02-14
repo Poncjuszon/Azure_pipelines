@@ -21,7 +21,6 @@ steps:
     script: |
       write-host "============ error action control==================================="
       $ErrorActionPreference = "Stop"
-      dsadasdsada removemew
       Write-host "======================set git credentials=============================================="
       git config --global user.email "gitMerger@cytiva.com"
       git config --global user.name "Auto Merger Jr"
@@ -40,5 +39,6 @@ steps:
       git merge origin/release/v2023.1.0
       write-host "=================show git log=============================="
       git log | Select-Object -first 20
-      write-host "==============================================="
+      write-host "====================DONE==========================="
+      Exit 0 
 
