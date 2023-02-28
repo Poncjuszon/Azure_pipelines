@@ -37,6 +37,11 @@ steps:
       $nextRelease = $releases[$nextReleaseIndex]
       $nextRelease
       Write-Host "I will merge release/v$currentRelease  in to release/v$nextRelease"
+      git checkout release/v$nextRelease
+      git branch
+      git merge release/v$currentRelease
+      git log | Select-Object -first 20
+      
       #Write-host "======================set git credentials=============================================="
       #git config --global user.email "gitMerger@cytiva.com"
       #git config --global user.name "Auto Merger Jr"
