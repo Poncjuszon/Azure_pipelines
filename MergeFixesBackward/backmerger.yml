@@ -39,7 +39,7 @@ steps:
       --reviewer $(AutoMergeReviewers)
 
       If ($? -ne $true) { 
-          write-host "">>>>>>"
+          write-host ">>>>>>"
           $Error[1]
           write-host "<<<<<<<"
           if ($Error[1] -match ".* already exists") {
