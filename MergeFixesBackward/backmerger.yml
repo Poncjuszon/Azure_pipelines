@@ -21,28 +21,28 @@ steps:
   clean: true
   fetchDepth: 0
 - task: PowerShell@2
-  displayName: 'backmerge to develop'
+  displayName: 'ReleaseAutoMerge'
   inputs:
     targetType: 'inline'
     script: |
       $ErrorActionPreference = "Stop"
+      $env:GH_TOKEN = "$(GH_TOKEN)"
+
       $currentRelease = "$(Build.SourceBranchName)".replace("v","")
-      Write-Host "Porting changes from release $currentRelease >>>>>>>>>>>>>>>"
       git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
       $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
-      #$currentReleaseIndex = $releases.IndexOf($currentRelease)
-      #$nextReleaseIndex = $currentReleaseIndex +1
       $nextRelease = $releases[$releases.IndexOf($currentRelease) + 1]
-      if ($nextRelease -eq $null) {
-        $nextRelease = "develop"
-      } else {
-        Write-Host "Merge to $nextRelease"
-      }
+      if ($nextRelease -eq $null) { $nextRelease = "develop" }
+
+      Write-Host "Porting changes from release $currentRelease >>>>>>>>>>>>>>>"
       Write-Host "Porting changes to $currentRelease <<<<<<<<<<<<<<<"
-      $env:GH_TOKEN = "$(GH_TOKEN)"
       gh pr create --base release/v$nextRelease --title "Automerge from release/v$currentRelease to release/v$nextRelease" --body "Porting fixes to all newer releases"
-      write-host "last command result $?"
-      Write-Host "PR Opened"
+      
+      If ($? -ne $true) { 
+          Write-Host "Propper PR is already opened. Please review it" }
+      } else {
+          Write-Host "PR has been opened/"
+      }
       sleep 10
       gh pr list 
 
