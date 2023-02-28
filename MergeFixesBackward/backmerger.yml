@@ -27,21 +27,22 @@ steps:
     script: |
       $ErrorActionPreference = "Stop"
       $env:GH_TOKEN = "$(GH_TOKEN)"
-      
+
+
       $currentReleaseSemVer = "$(Build.SourceBranchName)".replace("v","")
-      git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
+      git checkout release/v$currentReleaseSemVer
       $releasesSemVer = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
       $nextReleaseSemVer = $releasesSemVer[$releasesSemVer.IndexOf($currentReleaseSemVer) + 1]
       if ($nextReleaseSemVer -eq $null) { $nextRelease = "develop" } else { $nextRelease = "release/v" + $nextReleaseSemVer }
 
-      Write-Host "Porting changes from release $currentReleaseSemVer >>>>>>>>>>>>>>>"
-      Write-Host "Porting changes to $nextRelease <<<<<<<<<<<<<<<"
-      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release or develop"
-      
+      Write-Host "Porting changes from release $currentReleaseSemVer to $nextRelease"
+      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release/develop" `
+      --reviewer $(AutoMergeReviewers)
+
       If ($? -ne $true) { 
           Write-Host "Propper PR is already opened. Please review it"
       } else {
-          Write-Host "PR has been opened/"
+          Write-Host "PR has been opened"
       }
       sleep 10
       gh pr list 
