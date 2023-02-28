@@ -36,15 +36,13 @@ steps:
       if ($nextReleaseSemVer -eq $null) { $nextRelease = "develop" } else { $nextRelease = "release/v" + $nextReleaseSemVer }
 
       Write-Host "Porting changes from release $currentReleaseSemVer to $nextRelease"
-      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release or develop" `
-      --reviewer mateuszpilaO2
+      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release/develop" `
+      --reviewer $(AutoMergeReviewers)
 
       If ($? -ne $true) { 
           Write-Host "Propper PR is already opened. Please review it"
       } else {
           Write-Host "PR has been opened"
-          gh pr edit --add-reviewer
-          gh pr edit 23 --add-reviewer monalisa,hubot  --remove-reviewer myorg/team-name
       }
       sleep 10
       gh pr list 
