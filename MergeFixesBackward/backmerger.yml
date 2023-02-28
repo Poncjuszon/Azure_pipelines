@@ -40,16 +40,19 @@ steps:
       $nextRelease = $releases[$nextReleaseIndex]
       $nextRelease
       Write-Host "I will merge release/v$currentRelease  in to release/v$nextRelease"
-      git checkout release/v$nextRelease
-      git branch
-      git config --global user.email "gitMerger@cytiva.com"
-      git config --global user.name "Auto Merger Jr"
-      git merge release/v$currentRelease
-      git log | Select-Object -first 200
-      Write-host "Push Merge to origin"
+      #git checkout release/v$nextRelease
+      #git branch
+      #git config --global user.email "gitMerger@cytiva.com"
+      #git config --global user.name "Auto Merger Jr"
+      #git merge release/v$currentRelease
+      #git log | Select-Object -first 200
+      Write-host "Open PR to next release"
       $env:GH_TOKEN = "$(GH_TOKEN)"
       gh pr list 
-      git push origin release/v$nextRelease
+      gh pr --base release/v$nextRelease
+      sleep 10
+      gh pr list 
+      #git push origin release/v$nextRelease
 
       #Write-host "======================set git credentials=============================================="
       #git config --global user.email "gitMerger@cytiva.com"
