@@ -28,6 +28,7 @@ steps:
       $ErrorActionPreference = "Stop"
       $env:GH_TOKEN = "$(GH_TOKEN)"
 
+
       $currentRelease = "$(Build.SourceBranchName)".replace("v","")
       git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
       $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
@@ -45,5 +46,3 @@ steps:
       }
       sleep 10
       gh pr list 
-
-
