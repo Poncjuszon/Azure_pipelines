@@ -21,27 +21,28 @@ steps:
   clean: true
   fetchDepth: 0
 - task: PowerShell@2
-  displayName: 'backmerge to develop'
+  displayName: 'ReleaseAutoMerge'
   inputs:
     targetType: 'inline'
     script: |
       $ErrorActionPreference = "Stop"
-      $currentRelease = "$(Build.SourceBranchName)".replace("v","")
-      write-host "Current Release >>$currentRelease<<"
-      write-host "========== checkout $(Build.SourceBranch) ======================="
-      git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
-      git branch
-      $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
-      $releases
-      $currentReleaseIndex = $releases.IndexOf($currentRelease)
-      $nextReleaseIndex = $currentReleaseIndex +1
-      $nextRelease = $releases[$nextReleaseIndex]
-      $nextRelease
-      Write-Host "I will merge release/v$currentRelease  in to release/v$nextRelease"
-      Write-host "Open PR to next release"
       $env:GH_TOKEN = "$(GH_TOKEN)"
-      gh pr list 
+
+      $currentRelease = "$(Build.SourceBranchName)".replace("v","")
+      git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
+      $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
+      $nextRelease = $releases[$releases.IndexOf($currentRelease) + 1]
+      if ($nextRelease -eq $null) { $nextRelease = "develop" }
+
+      Write-Host "Porting changes from release $currentRelease >>>>>>>>>>>>>>>"
+      Write-Host "Porting changes to $currentRelease <<<<<<<<<<<<<<<"
       gh pr create --base release/v$nextRelease --title "Automerge from release/v$currentRelease to release/v$nextRelease" --body "Porting fixes to all newer releases"
+      
+      If ($? -ne $true) { 
+          Write-Host "Propper PR is already opened. Please review it"
+      } else {
+          Write-Host "PR has been opened/"
+      }
       sleep 10
       gh pr list 
 
