@@ -1,0 +1,48 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- release/*
+
+pr:
+- none
+
+pool:
+  vmImage: windows-latest
+
+variables:
+ - group: hermes
+
+steps:
+- checkout: self
+  persistCredentials: true
+  clean: true
+  fetchDepth: 0
+- task: PowerShell@2
+  displayName: 'backmerge to develop'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $ErrorActionPreference = "Stop"
+      $currentRelease = "$(Build.SourceBranchName)".replace("v","")
+      write-host "Current Release >>$currentRelease<<"
+      write-host "========== checkout $(Build.SourceBranch) ======================="
+      git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
+      git branch
+      $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
+      $releases
+      $currentReleaseIndex = $releases.IndexOf($currentRelease)
+      $nextReleaseIndex = $currentReleaseIndex +1
+      $nextRelease = $releases[$nextReleaseIndex]
+      $nextRelease
+      Write-Host "I will merge release/v$currentRelease  in to release/v$nextRelease"
+      Write-host "Open PR to next release"
+      $env:GH_TOKEN = "$(GH_TOKEN)"
+      gh pr list 
+      gh pr create --base release/v$nextRelease --title "Automerge from release/v$currentRelease to release/v$nextRelease" --body "Porting fixes to all newer releases"
+      sleep 10
+      gh pr list 
+
+
