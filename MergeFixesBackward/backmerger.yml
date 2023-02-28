@@ -39,7 +39,7 @@ steps:
       gh pr create --base release/v$nextRelease --title "Automerge from release/v$currentRelease to release/v$nextRelease" --body "Porting fixes to all newer releases"
       
       If ($? -ne $true) { 
-          Write-Host "Propper PR is already opened. Please review it" }
+          Write-Host "Propper PR is already opened. Please review it"
       } else {
           Write-Host "PR has been opened/"
       }
