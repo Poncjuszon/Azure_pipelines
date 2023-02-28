@@ -23,8 +23,8 @@ steps:
     targetType: 'inline'
     script: |
       write-host "============ error action control==================================="
-      write-host "branchname >>$(Build.SourceBranchName)<<"
-      write-host "branchname >>$(Build.SourceBranch)<<"
+      $currentRelease = "$(Build.SourceBranchName)".replace("v","")
+      write-host "branchname >>$currentRelease<<"
       #$ErrorActionPreference = "Stop"
       #Write-host "======================set git credentials=============================================="
       #git config --global user.email "gitMerger@cytiva.com"
