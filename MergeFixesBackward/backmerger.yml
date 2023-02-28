@@ -42,7 +42,7 @@ steps:
       git config --global user.email "gitMerger@cytiva.com"
       git config --global user.name "Auto Merger Jr"
       git merge release/v$currentRelease
-      git log | Select-Object -first 20
+      git log | Select-Object -first 200
 
       #Write-host "======================set git credentials=============================================="
       #git config --global user.email "gitMerger@cytiva.com"
