@@ -22,13 +22,21 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      write-host "============ error action control==================================="
       $ErrorActionPreference = "Stop"
       $currentRelease = "$(Build.SourceBranchName)".replace("v","")
-      write-host "branchname >>$currentRelease<<"
+      write-host "Current Release >>$currentRelease<<"
       write-host "========== checkout $(Build.SourceBranch) ======================="
       git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
       git branch
+      
+      $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
+      $releases
+      
+      $currentReleaseIndex = $releases.IndexOf($currentRelease)
+      $nextReleaseIndex = $currentReleaseIndex +1
+      $nextRelease = $releases[$nextReleaseIndex]
+      $nextRelease
+      Write-Host "I will merge release/v$currentRelease  in to release/v$nextRelease"
       #Write-host "======================set git credentials=============================================="
       #git config --global user.email "gitMerger@cytiva.com"
       #git config --global user.name "Auto Merger Jr"
