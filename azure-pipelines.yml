@@ -9,7 +9,6 @@ trigger:
 #TODO not sure if generic agents will suffice
 pool: 'ematpil'
 
-
 parameters:
   - name: environment
     displayName: Environment
@@ -21,7 +20,15 @@ parameters:
   - name: branch
     displayName: LSSitecoreBranch
     type: string
-    default: develop
+    default: master
+
+resources:
+ repositories:
+   - repository: dupa2
+     type: github
+     endpoint: Poncjuszon
+     name: Poncjuszon/Azure_pipelines
+     ref: dupa
 
 variables:
   - name: dupa
@@ -47,6 +54,29 @@ stages:
           - script: echo ${{parameters.branch}}
           - script: echo ${{variables.environmentShort}}
           - script: echo ${{variables.azureConnection}}
+            displayName: "asdadsad"
+
           - script: echo ${{variables.dupa}}
           - powershell: pwd
+          - task: AzurePowerShell@5
+            inputs:
+              azureSubscription: 'Private subscription(0b6d9a4b-556d-4dab-bd4a-e5f78006033d)'
+              ScriptType: 'InlineScript'
+              Inline: |
+                $vm = get-azvm -Name INT
+                $resourceG = $vm.ResourceGroupName
+                echo "##vso[task.setvariable variable=resourceGroupName]$resourceG"
+              azurePowerShellVersion: 'LatestVersion'
+          - script: |
+              echo $(resourceGroupName)
+              echo "end of script generated variable"
+#          - checkout: dupa2
+#            path: .\LS-Sitecore\
+#            fetchDepth: 1
+#            clean: true
+  - template: inerpipe.yml
+    parameters: 
+      inerparam: "externalinterparam"
+            
+            
           

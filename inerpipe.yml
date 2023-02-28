@@ -1,0 +1,38 @@
+
+parameters:
+  - name: inerparam
+    displayName: inerparam
+    type: string
+    default: inerparam-default
+
+
+stages:
+  - stage: InerStage
+    jobs:
+      - job: InerJob
+        variables:
+          - name: inervar
+            value: 'inervarvalue'
+        steps:
+          - checkout: dupa2
+          - script: echo Running Inerpipe
+          - script: |
+              echo Start parameter
+              echo ${{parameters.inerparam}}
+              echo End parameter
+          - script: echo ${{variables.inervar}}
+
+  - stage: InerStage2
+    jobs:
+      - job: InerJob2
+        variables:
+          - name: inervar
+            value: 'inervarvalue'
+        steps:
+          - checkout: dupa2
+          - script: echo Running Inerpipe
+          - script: |
+              echo Start parameter
+              echo ${{parameters.inerparam}}
+              echo End parameter
+          - script: echo ${{variables.inervar}}
