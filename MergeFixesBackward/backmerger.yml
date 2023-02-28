@@ -41,6 +41,7 @@ steps:
       If ($? -ne $true) { 
           write-host ">>>>>>"
           $Error[1]
+          $Error[0]
           write-host "<<<<<<<"
           if ($Error[1] -match ".* already exists") {
               Write-Host "PR already opened"}
