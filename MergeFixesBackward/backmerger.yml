@@ -35,9 +35,11 @@ steps:
       if ($nextReleaseSemVer -eq $null) { $nextRelease = "develop" } else { $nextRelease = "release/v" + $nextReleaseSemVer }
 
       Write-Host "Porting changes from release $currentReleaseSemVer to $nextRelease"
-      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release/develop" `
-      --reviewer $(AutoMergeReviewers)
-
+      $PrTitle = "Automerge from release/v$currentReleaseSemVer to $nextRelease"
+      $PrCommand = "gh pr create --base $nextRelease --title $PrTitle --body `'Porting fixes to newer release/develop`' --reviewer $(AutoMergeReviewers)"
+      $PrCommand
+      Invoke-Expression $PrCommand -ErrorVariable PrCreateError
+      $PrCreateError
       If ($? -ne $true) { 
           write-host ">>>>>>"
           $Error[1]
