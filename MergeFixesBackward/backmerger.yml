@@ -29,20 +29,22 @@ steps:
       $env:GH_TOKEN = "$(GH_TOKEN)"
 
 
-      $currentRelease = "$(Build.SourceBranchName)".replace("v","")
-      git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
-      $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
-      $nextRelease = $releases[$releases.IndexOf($currentRelease) + 1]
-      if ($nextRelease -eq $null) { $nextRelease = "develop" }
+      $currentReleaseSemVer = "$(Build.SourceBranchName)".replace("v","")
+      git checkout release/v$currentReleaseSemVer
+      $releasesSemVer = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
+      $nextReleaseSemVer = $releasesSemVer[$releasesSemVer.IndexOf($currentReleaseSemVer) + 1]
+      if ($nextReleaseSemVer -eq $null) { $nextRelease = "develop" } else { $nextRelease = "release/v" + $nextReleaseSemVer }
 
-      Write-Host "Porting changes from release $currentRelease >>>>>>>>>>>>>>>"
-      Write-Host "Porting changes to $currentRelease <<<<<<<<<<<<<<<"
-      gh pr create --base release/v$nextRelease --title "Automerge from release/v$currentRelease to release/v$nextRelease" --body "Porting fixes to all newer releases"
-      
+      Write-Host "Porting changes from release $currentReleaseSemVer to $nextRelease"
+      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release or develop" `
+      --reviewer mateuszpilaO2
+
       If ($? -ne $true) { 
           Write-Host "Propper PR is already opened. Please review it"
       } else {
-          Write-Host "PR has been opened/"
+          Write-Host "PR has been opened"
+          gh pr edit --add-reviewer
+          gh pr edit 23 --add-reviewer monalisa,hubot  --remove-reviewer myorg/team-name
       }
       sleep 10
       gh pr list 
