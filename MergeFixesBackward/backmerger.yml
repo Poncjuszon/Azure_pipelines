@@ -27,7 +27,7 @@ steps:
       $currentRelease = "$(Build.SourceBranchName)".replace("v","")
       write-host "branchname >>$currentRelease<<"
       write-host "========== checkout $(Build.SourceBranch) ======================="
-      git checkout $(Build.SourceBranch)
+      git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
       git branch
       #Write-host "======================set git credentials=============================================="
       #git config --global user.email "gitMerger@cytiva.com"
