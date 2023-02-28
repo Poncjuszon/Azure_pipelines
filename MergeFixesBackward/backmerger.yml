@@ -47,7 +47,7 @@ steps:
       git merge release/v$currentRelease
       git log | Select-Object -first 200
       Write-host "Push Merge to origin"
-      $env:GH_TOKEN = $(GH_TOKEN)
+      $env:GH_TOKEN = "$(GH_TOKEN)"
       gh pr list 
       git push origin release/v$nextRelease
 
