@@ -31,47 +31,18 @@ steps:
       write-host "========== checkout $(Build.SourceBranch) ======================="
       git checkout "$(Build.SourceBranch)".replace("refs/heads/","")
       git branch
-      
       $releases = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
       $releases
-      
       $currentReleaseIndex = $releases.IndexOf($currentRelease)
       $nextReleaseIndex = $currentReleaseIndex +1
       $nextRelease = $releases[$nextReleaseIndex]
       $nextRelease
       Write-Host "I will merge release/v$currentRelease  in to release/v$nextRelease"
-      #git checkout release/v$nextRelease
-      #git branch
-      #git config --global user.email "gitMerger@cytiva.com"
-      #git config --global user.name "Auto Merger Jr"
-      #git merge release/v$currentRelease
-      #git log | Select-Object -first 200
       Write-host "Open PR to next release"
       $env:GH_TOKEN = "$(GH_TOKEN)"
       gh pr list 
       gh pr create --base release/v$nextRelease --title "Automerge from release/v$currentRelease to release/v$nextRelease" --body "Porting fixes to all newer releases"
       sleep 10
       gh pr list 
-      #git push origin release/v$nextRelease
 
-      #Write-host "======================set git credentials=============================================="
-      #git config --global user.email "gitMerger@cytiva.com"
-      #git config --global user.name "Auto Merger Jr"
-      #write-host "===================pull for latests changes first time============================"
-      ##git fetch origin develop
-      ##git pull 
-      #write-host "=========list branches ======================================"
-      #git branch -r
-      #write-host "=================checkout develop=============================="
-      #git checkout develop
-      #write-host "===================pull for latests changes secondtime============================"
-      #git pull
-      #write-host "====================show status==========================="
-      #git status
-      #write-host "================try to merge==============================="
-      #git merge origin/release/v2023.1.0
-      #write-host "=================show git log=============================="
-      #git log | Select-Object -first 20
-      #write-host "====================DONE==========================="
-      Exit 0 
 
