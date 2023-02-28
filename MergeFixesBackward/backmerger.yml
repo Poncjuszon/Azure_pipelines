@@ -44,6 +44,7 @@ steps:
       git merge release/v$currentRelease
       git log | Select-Object -first 200
       Write-host "Push Merge to origin"
+      gh pr list 
       git push origin release/v$nextRelease
 
       #Write-host "======================set git credentials=============================================="
