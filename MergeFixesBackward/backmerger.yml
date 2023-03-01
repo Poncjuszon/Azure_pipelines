@@ -38,16 +38,9 @@ steps:
       $PrTitle = "Automerge from release/v$currentReleaseSemVer to $nextRelease"
       gh pr create --base $nextRelease --title "$PrTitle" --body "Porting fixes to newer release/develop" --reviewer $(AutoMergeReviewers)
       If ($? -ne $true) {
-          write-host ">>>>>>"
-          Get-Variable
-          write-host "<<<<<<<"
-          if ($Error[1] -match ".* already exists") {
-              Write-Host "PR already opened"}
-          else {
-              Write-Host "##vso[task.logissue type=warning;] Failed to create PR, see details above" 
-              Write-Host "##vso[task.complete result=SucceededWithIssues;]"
-              Exit 0
-          }
+          Write-Host "##vso[task.logissue type=warning;] Failed to create PR, see details above" 
+          Write-Host "##vso[task.complete result=SucceededWithIssues;]"
+          Exit 0
       } else {
           Write-Host "PR has been opened"
       }
