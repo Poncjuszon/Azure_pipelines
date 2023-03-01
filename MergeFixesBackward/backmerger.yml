@@ -47,6 +47,7 @@ steps:
           else {
               Write-Host "##vso[task.logissue type=warning;] Failed to create PR, see details above" 
               Write-Host "##vso[task.complete result=SucceededWithIssues;]"
+              Exit 0
           }
       } else {
           Write-Host "PR has been opened"
