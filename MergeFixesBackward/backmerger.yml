@@ -39,8 +39,7 @@ steps:
       gh pr create --base $nextRelease --title "$PrTitle" --body "Porting fixes to newer release/develop" --reviewer $(AutoMergeReviewers)
       If ($? -ne $true) {
           write-host ">>>>>>"
-          $Error.gettype()
-          $Error.count
+          Get-Variable
           write-host "<<<<<<<"
           if ($Error[1] -match ".* already exists") {
               Write-Host "PR already opened"}
