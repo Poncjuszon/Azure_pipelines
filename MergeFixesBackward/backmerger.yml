@@ -28,7 +28,6 @@ steps:
       $ErrorActionPreference = "Stop"
       $env:GH_TOKEN = "$(GH_TOKEN)"
 
-
       $currentReleaseSemVer = "$(Build.SourceBranchName)".replace("v","")
       git checkout release/v$currentReleaseSemVer
       $releasesSemVer = git branch  --list --remote origin/release/v* | % { $_.replace("origin/release/v","").trim() } | Sort-Object {[System.Version]$_}
@@ -36,13 +35,12 @@ steps:
       if ($nextReleaseSemVer -eq $null) { $nextRelease = "develop" } else { $nextRelease = "release/v" + $nextReleaseSemVer }
 
       Write-Host "Porting changes from release $currentReleaseSemVer to $nextRelease"
-      gh pr create --base $nextRelease --title "Automerge from release/v$currentReleaseSemVer to $nextRelease" --body "Porting fixes to newer release/develop" `
-      --reviewer $(AutoMergeReviewers)
-
-      If ($? -ne $true) { 
-          Write-Host "Propper PR is already opened. Please review it"
+      $PrTitle = "Automerge from release/v$currentReleaseSemVer to $nextRelease"
+      gh pr create --base $nextRelease --title "$PrTitle" --body "Porting fixes to newer release/develop" --reviewer $(AutoMergeReviewers)
+      If ($? -ne $true) {
+          Write-Host "##vso[task.logissue type=warning;] Failed to create PR, see details above" 
+          Write-Host "##vso[task.complete result=SucceededWithIssues;]"
+          Exit 0
       } else {
           Write-Host "PR has been opened"
       }
-      sleep 10
-      gh pr list 
