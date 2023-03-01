@@ -40,7 +40,7 @@ steps:
       If ($? -ne $true) {
           write-host ">>>>>>"
           $Error.gettype()
-          $Error
+          $Error.count
           write-host "<<<<<<<"
           if ($Error[1] -match ".* already exists") {
               Write-Host "PR already opened"}
