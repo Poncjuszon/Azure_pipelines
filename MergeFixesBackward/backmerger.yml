@@ -37,8 +37,8 @@ steps:
       Write-Host "Porting changes from release $currentReleaseSemVer to $nextRelease"
       $PrTitle = "Automerge from release/v$currentReleaseSemVer to $nextRelease"
       $PrCommand = "gh pr create --base $nextRelease --title `'$PrTitle`' --body `'Porting fixes to newer release/develop`' --reviewer $(AutoMergeReviewers)"
-      Invoke-Expression $PrCommand -ErrorVariable PrCreateError
-      $PrCreateError
+      Invoke-Expression $PrCommand -ErrorVariable PrCommandInvokeError
+      $PrCommandInvokeError.count
       If ($? -ne $true) {
           write-host ">>>>>>"
           $Error[1]
